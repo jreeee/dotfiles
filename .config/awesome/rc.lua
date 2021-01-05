@@ -1,0 +1,1 @@
+/home/jre/.config/awesome/rc.lua
