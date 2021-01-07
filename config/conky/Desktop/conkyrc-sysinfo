@@ -1,0 +1,90 @@
+conky.config = {
+    background = false,
+    font = 'FuraCode Nerd Font:pixelsize=9',
+    use_xft = true,
+    xftalpha = 1.0,
+    update_interval = 4,
+    total_run_times = 0,
+    own_window = true,
+    own_window_transparent = true,
+    own_window_type = 'dock',
+    own_window_class = 'Conky',
+    own_window_argb_visual = true,
+    own_window_argb_value = 255,
+    own_window_colour = '#000',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    double_buffer = true,
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = true,
+    stippled_borders = 0,
+    border_width = 0,
+    default_color = '#BEC8CB',
+    default_shade_color = '#BEC8CB',
+    default_outline_color = '#BEC8CB',
+    alignment = 'top_right',
+    gap_x = 230,
+    gap_y = 130,
+    no_buffers = true,
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+    use_spacer = 'none',
+    maximum_width = 1920,
+    minimum_height = 1080,
+    uppercase = true,
+};
+
+conky.text = [[
+#leet chars: ┤┤└└┴┴┐┐││┘┘┌┌├├┬┬┼┼┴┴── ││ ▽▼△▲▵▴▾▿
+${alignr}${offset 250}--------------------------------
+${alignr}${offset 0}┌──────── ${nodename}${font} ─────────────
+${alignr}${offset -110}${uid_name 1000}${font} ──────┐
+${alignr}${offset -110}< ${exec lsb_release -ds | sed 's/"//g'} > Distro ─┤
+${alignr}${offset -110}< ${kernel} > Kernel ─┤
+${alignr}${offset -110}< ${uptime_short} > Uptime ─┘
+${voffset 0}
+${alignr}${offset -30}┌──────────
+${alignr}${offset -80}│
+${alignr}${offset -80}< ${exec lspci | grep VGA | sed 's/00:02.0 VGA compatible controller: //g' | sed 's/ Corporation//g' | sed 's/ Integrated Graphics Controller (primary) (rev 0c)//g'} > GPU ────────────┘
+${alignr}${offset -150}< ${exec xdpyinfo | awk '/dimensions/{print $2}'} > Res
+${voffset 10}
+${alignr}${offset -45}< ${exec env | grep 'LC_NAME' | cut -c 9-19 } > Locale ────────────────┐
+${alignr}${offset -125}< ${exec amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'} > volume ${offset 80}│
+${alignr}${offset -45}│
+${voffset -10}
+${alignr}${offset -75}< -110.35 mv / 0.7 V> vcore  ──────────┐
+${alignr}${offset -75}│
+${alignr}${offset -75}│
+${alignr}${offset -75}┌────── Temperatures ───────────────┤
+${alignr}${offset -100}├─ Core 0,1 < ${execi 5 sensors|grep 'Core 0'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C > < ${execi 5 sensors|grep 'Core 1'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C >${alignr}${offset -75}│
+${alignr}${offset -100}└─ Core 1,2 < ${execi 5 sensors|grep 'Core 2'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C > < ${execi 5 sensors|grep 'Core 3'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C >${alignr}${offset -75}│
+${alignr}${offset -75}│
+${alignr}${offset -75}│
+${alignr}${offset -75}┌───── < ${execi 1000 cat /proc/cpuinfo|grep 'model name'|sed -e 's/model name.*: //'|uniq|cut -c 1-36|sed 's/(R)//g'|sed 's/(TM)//g'|sed 's/CPU     //g'} > ──────────┤
+${alignr}${offset -325}│${offset 250}│
+${alignr}${offset -260}└─── Processes${offset 185}│
+${alignr}${offset -175}< ${top name 1}  ${top cpu 1} >${offset 100}│
+${alignr}${offset -175}< ${top name 2}  ${top cpu 2} >${offset 100}│
+${alignr}${offset -175}< ${top name 3}  ${top cpu 2} >${offset 100}│
+${alignr}${offset -175}< ${top name 4}  ${top cpu 2} >${offset 100}│
+${alignr}${offset -75}│
+${voffset 15}
+${alignr}${offset -75}< $memperc% | $mem/$memmax ${color #BEC8CB}${membar 5,50}${color} > RAM ──────────┐
+${alignr}${offset -75}│
+${voffset 0}
+${alignr}${offset -75}< ${addr wlo1} : ${wireless_essid wlo1} > SSID ────────────┐
+${alignr}${offset -75}< ${addr vpn0} > VPN              |${voffset -2}
+${alignr}${offset -115}UP < ${color #BEC8CB}${upspeedgraph wlo1 15,130 BCC3C3 BCC3C3}${color} >${voffset -15}${offset 40}│
+${alignr}${offset -110}${voffset 10}DOWN < ${color #BEC8CB}${downspeedgraph wlo1 15,130 BCC3C3 BCC3C3}${color} >${voffset -25}${offset 40}└─
+${voffset 20}
+${alignr}${offset -75}${exec awk '{print $1*10^-5 " Wh"}' /sys/class/power_supply/BAT1/charge_full} : Battery ───────────────────┐
+${alignr}${offset -95}< ${exec acpi | grep "Battery 0" | awk '{print $4}'} | 100% > BAT 1 < ${color #BEC8CB}${battery_bar 5,110 BAT1}${color} >
+${alignr}${offset -195}< ${exec echo $(echo "`cat /sys/class/power_supply/BAT1/current_now`*`cat /sys/class/power_supply/BAT1/voltage_now`*10^-12" | bc -l) | cut -c 1-4} W > power draw
+${voffset 10}
+${alignr}${offset -60}NVMe SSD ─────────────────┐
+${alignr}${offset -70}< ${fs_used_perc}% > Root < ${color #BEC8CB}${fs_bar 5,120 /}${color} >${offset 10}│
+${alignr}${offset -70}< ${fs_used_perc /home}% > Home < ${color #BEC8CB}${fs_bar 5,120 /home}${color} >${offset 10}│
+${alignr}${offset -10}<  ${swapperc}% > Swap < ${color #BEC8CB}${swapbar 5,120}${color} >${offset 10}└────────────
+]];
+

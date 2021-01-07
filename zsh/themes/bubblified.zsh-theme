@@ -3,6 +3,7 @@
 # Bubble Theme
 # Inspired by bubblewritten and agnoster
 # written by hohmannr
+# https://github.com/hohmannr/bubblified
 
 # SYMBOL CONSTANTS
 blub_left=''

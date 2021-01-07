@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://github.com/sayan01/scripts/blob/master/yt
 # dependencies: mpv youtube-dl fzf rofi/dmenu
 # search videos and playlists on youtube and play them in mpv, without an API 
 # usage:
