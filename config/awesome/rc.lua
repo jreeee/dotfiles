@@ -762,7 +762,9 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
 
---Autostart Applications
+--Autostart Applications todo merge with the autostart at the top
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("setxkbmap -layout de")
 awful.spawn.with_shell("xrdb ~/.Xresources")
+--dumb hack to start pulseaudio idk if you should do that
+awful.spawn.with_shell("start-pulseaudio-x11")
