@@ -26,7 +26,8 @@ roundness = 1.0
 browser = firefox
 [colors]
 #foreground = #497BF7
-background = #1c1c1c
+#background = #1c1c1c
+background = rgba(25, 25, 25, 0.6)
 #color0 = #2E1F1F
 #color8 = #422D2D
 #color1 = #497BF7

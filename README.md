@@ -1,2 +1,2 @@
-basic collection of some dotfiles
+basic collection of some dotfiles,
 almost working..

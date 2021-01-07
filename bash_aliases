@@ -14,6 +14,7 @@ alias mv="mv -iv"
 alias rm="rm -v"
 alias mkd="mkdir -pv"
 alias mtusb="sudo mount -o uid=1000,gid=1000 /dev/sda1 ~/usb"
+alias rlterm="killall -USR1 termite"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
