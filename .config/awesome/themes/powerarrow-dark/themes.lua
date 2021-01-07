@@ -1,1 +1,0 @@
-/home/jre/.config/awesome/themes/powerarrow-dark/theme.lua

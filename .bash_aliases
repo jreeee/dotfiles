@@ -1,1 +1,0 @@
-/home/jre/.bash_aliases

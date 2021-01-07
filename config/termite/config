@@ -1,0 +1,71 @@
+[options]
+resize_grip = false
+geometry = 1920x1040
+scroll_on_output = true
+scroll_on_keystroke = true
+audible_bell = true
+visible_bell = true
+mouse_autohide = true
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+# ~ ! [{(
+font = Hack Nerd Font Mono 10
+#font = lime.se 9px
+scrollback_lines = 1024
+icon_name = terminal
+transparency = 1.7
+pseudo_transparency = true
+cursor_blink = on
+cursor_shape = underline
+padding = 2
+#border = FF50CF
+border_width = 1.5
+roundness = 1.0
+# $BROWSER is used by default
+browser = firefox
+[colors]
+#foreground = #497BF7
+background = #1c1c1c
+#color0 = #2E1F1F
+#color8 = #422D2D
+#color1 = #497BF7
+#color9 = #BE0E50
+#color2 = #1DCC9F
+#color10 = #1FD9A9
+#color3 = #27C282
+#color11 = #2CDB93
+#color4 = #7182A8
+#color12 = #8194BF
+#color5 = #A673A6
+#color13 = #7F5AA1
+#color6 = #6DA3A1
+#color14 = #669997
+#color7 = #B7BBBD
+#color15 = #D9D9D9
+
+color0 = #F2BDDD
+color8 = #6c6d6e
+
+color1 = #ffd596
+color9 = #ef6d7d
+
+color2 = #1DCC9F
+color10 = #cadc79
+
+color3 = #f9a3e8
+color12 = #FF6C5F
+
+color4 = #7182A8
+color11 = #95b9de
+
+color5 = #cd5291
+color13 = #cd8faf
+
+color6 = #81c9c9
+color14 = #adc9c9
+
+color7 = #CCFF99
+color15 = #BF3F34
+
+foreground = #f9a3e8
