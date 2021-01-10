@@ -35,23 +35,23 @@ ssh_symbol='ssh'
 bubble_color='236'
 
 prompt_symbol_color='005'
-prompt_symbol_error_color='red'
+prompt_symbol_error_color='198'
 
 user_color='005'
 user_machine_symbol_color='210'
 machine_color='006'
 
-filepath_color='blue'
+filepath_color='111'
 
-git_clean_color='green'
-git_unstaged_color='yellow'
-git_staged_color='magenta' 
-git_stashed_color='blue'
-git_unmerged_color='red'
-git_symbols_color='black'
+git_clean_color='010'
+git_unstaged_color='210'
+git_staged_color='177' 
+git_stashed_color='159'
+git_unmerged_color='198'
+git_symbols_color='255'
 
-ssh_symbol_color='black'
-ssh_bubble_color='green'
+ssh_symbol_color='255'
+ssh_bubble_color='138'
 
 # HELPER FUNCTIONS
 bubblify () {

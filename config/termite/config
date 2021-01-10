@@ -10,7 +10,7 @@ dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
 # ~ ! [{(
-font = Hack Nerd Font Mono 10
+font = Hack Nerd Font Mono 12
 #font = lime.se 9px
 scrollback_lines = 1024
 icon_name = terminal
@@ -70,3 +70,6 @@ color7 = #CCFF99
 color15 = #BF3F34
 
 foreground = #f9a3e8
+
+cursor_foreground = #77ffdd
+cursor = #5fccb0
