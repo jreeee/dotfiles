@@ -22,6 +22,7 @@ alias s20="cd ~/Study/SS2020/"
 alias w20="cd ~/Study/WS2020/"
 
 # scripts 'n programs
-alias yt=". ~/.scripts/yt.sh"
+alias yt="~/.scripts/yt.sh"
 alias setvpncookie="sudo ~/.scripts/uni-vpn.sh"
 alias lck="~/.scripts/lock.sh"
+alias discord="discord-canary"
