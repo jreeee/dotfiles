@@ -21,14 +21,14 @@ theme.font                                      = "Terminus 9"
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
 theme.fg_urgent                                 = "#CC9393"
-theme.bg_normal                                 = "#1A1A1A"
-theme.bg_focus                                  = "#313131"
-theme.bg_urgent                                 = "#1A1A1A"
+theme.bg_normal                                 = "#1A1A1A5A"
+theme.bg_focus                                  = "#3131315A"
+theme.bg_urgent                                 = "#1A1A1A5A"
 theme.border_width                              = dpi(1)
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#7F7F7F"
 theme.border_marked                             = "#CC9393"
-theme.tasklist_bg_focus                         = "#1A1A1A"
+theme.tasklist_bg_focus                         = "#1A1A1A5A"
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
@@ -267,8 +267,11 @@ local net = lain.widget.net({
 
 -- Separators
 local spr     = wibox.widget.textbox(' ')
-local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
-local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
+--local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
+--local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
+
+local arrl_dl = separators.arrow_left("alpha", "alpha")
+local arrl_ld = separators.arrow_left("alpha", "alpha")
 
 function theme.at_screen_connect(s)
     -- Quake application
@@ -319,39 +322,44 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             keyboardlayout,
-            spr,
-            arrl_ld,
-            wibox.container.background(mpdicon, theme.bg_focus),
-            wibox.container.background(theme.mpd.widget, theme.bg_focus),
-            arrl_dl,
+            --spr,
+            --arrl_ld,
+            --wibox.container.background(mpdicon),
+            --wibox.container.background(theme.mpd.widget, theme.bg_focus),
+            --arrl_dl,
             --volicon,
             --theme.volume.widget,
             --arrl_ld,
             --wibox.container.background(mailicon, theme.bg_focus),
             --wibox.container.background(theme.mail.widget, theme.bg_focus),
-            arrl_ld,
-            wibox.container.background(memicon, theme.bg_focus),
-            wibox.container.background(mem.widget, theme.bg_focus),
-            arrl_dl,
+            --arrl_ld,
+	    spr,
+            memicon,
+            mem.widget,
+            --arrl_dl,
+	    spr,
             cpuicon,
             cpu.widget,
-            arrl_ld,
-            wibox.container.background(tempicon, theme.bg_focus),
-            wibox.container.background(temp.widget, theme.bg_focus),
+            --arrl_ld,
+	    spr,
+            tempicon,
+            temp.widget,
             --arrl_ld,
             --wibox.container.background(fsicon, theme.bg_focus),
             --wibox.container.background(theme.fs.widget, theme.bg_focus),
-            arrl_dl,
+            --arrl_dl,
+	    spr,
             baticon,
             bat.widget,
-            arrl_ld,
-            wibox.container.background(neticon, theme.bg_focus),
-            wibox.container.background(net.widget, theme.bg_focus),
-            arrl_dl,
+            --arrl_ld,
+	    spr,
+            neticon,
+            net.widget,
+            --arrl_dl,
             clock,
             spr,
-            arrl_ld,
-            wibox.container.background(s.mylayoutbox, theme.bg_focus),
+            --arrl_ld,
+            s.mylayoutbox,
         },
     }
 end

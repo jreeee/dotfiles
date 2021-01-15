@@ -494,7 +494,7 @@ globalkeys = my_table.join(
             end
             naughty.notify(common)
         end,
-        {description = "mpc on/off", group = "widgets"}),
+        {description = "mpc on/off", group = "widgets"}),	
 
     -- Copy primary to clipboard (terminals to gtk)
     awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,
