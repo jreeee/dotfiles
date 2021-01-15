@@ -1,0 +1,26 @@
+[colors]
+
+# not yet finished, thus ugly af
+
+background = rgba(25, 25, 25, 0.6)
+foreground = #f9a3e8
+
+cursor_foreground = #77ffdd
+cursor = #5fccb0
+
+color0 = #F2BDDD
+color8 = #6c6d6e
+color1 = #ffd596
+color9 = #ef6d7d
+color2 = #1DCC9F
+color10 = #cadc79
+color3 = #f9a3e8
+color12 = #FF6C5F
+color4 = #7182A8
+color11 = #95b9de
+color5 = #cd5291
+color13 = #cd8faf
+color6 = #81c9c9
+color14 = #adc9c9
+color7 = #CCFF99
+color15 = #BF3F34

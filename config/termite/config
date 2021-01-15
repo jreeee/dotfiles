@@ -1,5 +1,6 @@
+
 [options]
-resize_grip = false
+size_grip = false
 geometry = 1920x1040
 scroll_on_output = true
 scroll_on_keystroke = true
@@ -26,51 +27,25 @@ roundness = 1.0
 browser = firefox
 
 [colors]
+
 background = rgba(25, 25, 25, 0.6)
-#foreground = #497BF7
-#background = #1c1c1c
-color0 = #36382e
+
+cursor = #B9372B
+cursor_foreground = #F35849
+
+color0 = #36382E
 color8 = #484944
-color3 = #b9372b
-color11 = #f35849
-color4 = #a67287
-color12 = #c594a8
-color9 = #72775c
-color1 = #74b8d3
-color2 = #2a323d
-color10 = #35455a
-color5 = #d7b243
-color13 = #e3d198
+color1 = #74B8D3
+color9 = #7277C
+color2 = #2A323D
+color10 = #35455A
+color3 = #B9372B
+color11 = #F35849
+color4 = #A67287
+color12 = #C594A8
+color5 = #D7B243
+color13 = #E3D198
 color6 = #C7953C
 color14 = #EDC376
-color7 = #b7bd99
-color15 = #e9ecd8
-
-#color0 = #F2BDDD
-#color8 = #6c6d6e
-
-#color1 = #ffd596
-#color9 = #ef6d7d
-
-#color2 = #1DCC9F
-#color10 = #cadc79
-
-#color3 = #f9a3e8
-#color12 = #FF6C5F
-
-#color4 = #7182A8
-#color11 = #95b9de
-
-#color5 = #cd5291
-#color13 = #cd8faf
-
-#color6 = #81c9c9
-#color14 = #adc9c9
-
-#color7 = #CCFF99
-#color15 = #BF3F34
-
-#foreground = #f9a3e8
-
-#cursor_foreground = #77ffdd
-#cursor = #5fccb0
+color7 = #B7BD99
+color15 = #E9ECD8
