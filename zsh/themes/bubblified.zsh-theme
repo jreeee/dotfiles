@@ -48,7 +48,7 @@ filepath_color='green'
 
 git_clean_color='010'
 git_unstaged_color='210'
-git_staged_color='177' 
+git_staged_color='104' 
 git_stashed_color='159'
 git_unmerged_color='198'
 git_symbols_color='255'
