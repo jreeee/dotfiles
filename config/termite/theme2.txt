@@ -1,26 +1,24 @@
 [colors]
 
-# not yet finished, thus ugly af
-
 background = rgba(25, 25, 25, 0.6)
 foreground = #f9a3e8
 
 cursor_foreground = #77ffdd
 cursor = #5fccb0
 
-color0 = #F2BDDD
-color8 = #6c6d6e
+color0 = #401736
+color8 = #642254
 color1 = #ffd596
-color9 = #ef6d7d
-color2 = #1DCC9F
-color10 = #cadc79
-color3 = #f9a3e8
-color12 = #FF6C5F
-color4 = #7182A8
-color11 = #95b9de
+color9 = #fc77b9
+color4 = #3a2c8e
+color12 = #594da3
+color3 = #ee9249
+color11 = #f5b480
+color2 = #7182A8
+color10 = #8c99b7
 color5 = #cd5291
 color13 = #cd8faf
-color6 = #81c9c9
-color14 = #adc9c9
-color7 = #CCFF99
-color15 = #BF3F34
+color6 = #84b6b6
+color14 = #c2d7d7
+color7 = #2f1a54
+color15 = #452f6d
