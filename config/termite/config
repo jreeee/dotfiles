@@ -24,52 +24,53 @@ border_width = 1.5
 roundness = 1.0
 # $BROWSER is used by default
 browser = firefox
+
 [colors]
+background = rgba(25, 25, 25, 0.6)
 #foreground = #497BF7
 #background = #1c1c1c
-background = rgba(25, 25, 25, 0.6)
-#color0 = #2E1F1F
-#color8 = #422D2D
-#color1 = #497BF7
-#color9 = #BE0E50
+color0 = #36382e
+color8 = #484944
+color3 = #b9372b
+color11 = #f35849
+color4 = #a67287
+color12 = #c594a8
+color9 = #72775c
+color1 = #74b8d3
+color2 = #2a323d
+color10 = #35455a
+color5 = #d7b243
+color13 = #e3d198
+color6 = #C7953C
+color14 = #EDC376
+color7 = #b7bd99
+color15 = #e9ecd8
+
+#color0 = #F2BDDD
+#color8 = #6c6d6e
+
+#color1 = #ffd596
+#color9 = #ef6d7d
+
 #color2 = #1DCC9F
-#color10 = #1FD9A9
-#color3 = #27C282
-#color11 = #2CDB93
+#color10 = #cadc79
+
+#color3 = #f9a3e8
+#color12 = #FF6C5F
+
 #color4 = #7182A8
-#color12 = #8194BF
-#color5 = #A673A6
-#color13 = #7F5AA1
-#color6 = #6DA3A1
-#color14 = #669997
-#color7 = #B7BBBD
-#color15 = #D9D9D9
+#color11 = #95b9de
 
-color0 = #F2BDDD
-color8 = #6c6d6e
+#color5 = #cd5291
+#color13 = #cd8faf
 
-color1 = #ffd596
-color9 = #ef6d7d
+#color6 = #81c9c9
+#color14 = #adc9c9
 
-color2 = #1DCC9F
-color10 = #cadc79
+#color7 = #CCFF99
+#color15 = #BF3F34
 
-color3 = #f9a3e8
-color12 = #FF6C5F
+#foreground = #f9a3e8
 
-color4 = #7182A8
-color11 = #95b9de
-
-color5 = #cd5291
-color13 = #cd8faf
-
-color6 = #81c9c9
-color14 = #adc9c9
-
-color7 = #CCFF99
-color15 = #BF3F34
-
-foreground = #f9a3e8
-
-cursor_foreground = #77ffdd
-cursor = #5fccb0
+#cursor_foreground = #77ffdd
+#cursor = #5fccb0

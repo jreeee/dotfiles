@@ -32,16 +32,17 @@ ssh_symbol='ssh'
 
 # COLOR CONSTANTS
 # NOTE: Possible values include zsh-color-strings like 'red', 'black', 'magenta' etc. Aswell as zsh-color-codes which you can list with the command 'spectrum_ls', e.g. '078' for the 78th color code.
-bubble_color='236'
+bubble_color_main='black'
+bubble_color_path='white'
 
-prompt_symbol_color='005'
-prompt_symbol_error_color='198'
+prompt_symbol_color='magenta'
+prompt_symbol_error_color='red'
 
-user_color='005'
-user_machine_symbol_color='210'
-machine_color='006'
+user_color='magenta'
+user_machine_symbol_color='yellow'
+machine_color='cyan'
 
-filepath_color='111'
+filepath_color='green'
 
 git_clean_color='010'
 git_unstaged_color='210'
@@ -162,7 +163,7 @@ git_bubble () {
             git_symbols="$git_symbols$git_copied_symbol"
         fi
 
-        echo -n "$(bubblify 0 "$git_info " $git_color $bubble_color)$(bubblify 2 " $git_symbols" $git_symbols_color $git_color) "
+        echo -n "$(bubblify 0 "$git_info " $git_color $bubble_color_main)$(bubblify 2 " $git_symbols" $git_symbols_color $git_color) "
     fi
 }
 
@@ -175,18 +176,23 @@ ssh_bubble () {
 
 
 # DEFAULT PROMPT BUILDING BLOCKS
-bubble_left="$(foreground $bubble_color)$blub_left%{$reset_color%}$(background $bubble_color)"
-bubble_right="%{$reset_color%}$(foreground $bubble_color)$blub_right%{$reset_color%} "
+# slightly modified the code to have two bubble colors, main and path 
 
-end_of_prompt_bubble="$bubble_left%(?,$(foreground $prompt_symbol_color)$prompt_symbol,$(foreground $prompt_symbol_error_color)$prompt_symbol)$bubble_right"
+bubble_left_main="$(foreground $bubble_color_main)$blub_left%{$reset_color%}$(background $bubble_color_main)"
+bubble_right_main="%{$reset_color%}$(foreground $bubble_color_main)$blub_right%{$reset_color%} "
+
+bubble_left_path="$(foreground $bubble_color_path)$blub_left%{$reset_color%}$(background $bubble_color_path)"
+bubble_right_path="%{$reset_color%}$(foreground $bubble_color_path)$blub_right%{$reset_color%} "
+
+end_of_prompt_bubble="$bubble_left_main%(?,$(foreground $prompt_symbol_color)$prompt_symbol,$(foreground $prompt_symbol_error_color)$prompt_symbol)$bubble_right_main"
 
 end_of_prompt=" %(?,$(foreground $prompt_symbol_color)$prompt_symbol,$(foreground $prompt_symbol_error_color)$prompt_symbol%{$reset_color%}) "
 
-user_machine_bubble="$bubble_left$(foreground $user_color)$user_symbol$(foreground $user_machine_symbol_color)$user_machine_symbol$(foreground $machine_color)$machine_symbol$bubble_right"
+user_machine_bubble="$bubble_left_main$(foreground $user_color)$user_symbol$(foreground $user_machine_symbol_color)$user_machine_symbol$(foreground $machine_color)$machine_symbol$bubble_right_main"
 
-filepath_bubble="$bubble_left$(foreground $filepath_color)$filepath_symbol$bubble_right"
+filepath_bubble="$bubble_left_path$(foreground $filepath_color)$filepath_symbol$bubble_right_path"
 
-error_code_bubble="%(?,,$bubble_left$(foreground $prompt_symbol_error_color)%?$bubble_right)"
+error_code_bubble="%(?,,$bubble_left_main$(foreground $prompt_symbol_error_color)%?$bubble_right_main)"
 
 # PROMPTS
 # different prompts to try out, just uncomment/comment
