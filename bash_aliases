@@ -27,4 +27,6 @@ alias vpnconn="sudo ~/.scripts/priv-uni-vpn.sh"
 alias lck="~/.scripts/lock.sh"
 alias discord="discord-canary"
 alias playbg="~/.scripts/an-bg.sh"
-alias setthm="~/.scripts/termtheme.sh"
+alias setthm="~/.scripts/termtheme.sh &>/dev/null"
+# the errors above are suppressed bc it will fail a dbus-send
+# if you encounter problems with it just remove &>/dev/null for debug info
