@@ -7,11 +7,10 @@ login interface
 logoff interface  
 suspend  
 conky &  picom & awesome  
-conky bg-render  
-dicord & transparency / link to wallpaper  
-firefox & transparency? (tab tree)  
+conky bg-render   
+firefox & transparency? (tab tree) / qute?  
 adjust theme (rc lua & powerarrow-dark)  
 adjust picom settings  
-work on termite theme (colours)  
+new theme folder? read with awesome and apply  
   
 window decoration  

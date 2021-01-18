@@ -13,7 +13,7 @@ killall -USR1 termite
 # wallpaper
 
 pic=$HOME'/dotfiles/wallpapers/wall'$1'.png'
-sympic=$HOME'/dotfiles/wallpapers/wall.png'
+sympic=$HOME'/.config/awesome/themes/powerarrow-dark/wall.png'
 
 if [ -e $sympic ]
 then
