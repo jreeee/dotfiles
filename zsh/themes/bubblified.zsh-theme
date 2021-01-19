@@ -1,4 +1,4 @@
-# vim:ft=sh
+# vim:ft=shge
 
 # Bubble Theme
 # Inspired by bubblewritten and agnoster
@@ -42,7 +42,7 @@ prompt_symbol_error_color='red'
 
 user_color='magenta'
 user_machine_symbol_color='yellow'
-machine_color='cyan'
+machine_color='white'
 
 filepath_color='green'
 
@@ -174,7 +174,7 @@ git_bubble () {
             git_symbols="$git_symbols$git_copied_symbol"
         fi
 
-        echo -n "$(bubblify 3 "$git_branch_symbol" $bubble_color_main $bubble_color_path)$(bubblify 3 "$git_branch" $git_color $bubble_color_main)$(gitcolor $git_color)$git_symbols "
+        echo -n "$(bubblify 3 "$git_symbols" $bubble_color_main $git_color) $(bubblify 3 "$git_branch_symbol" $bubble_color_main $bubble_color_path) $(bubblify 3 "$git_branch" $bubble_color_path $bubble_color_main)"
     fi
 }
 
