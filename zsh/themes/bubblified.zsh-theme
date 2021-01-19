@@ -104,6 +104,15 @@ background () {
     fi
 }
 
+gitcolor () {
+    # Helper function for 256 color support beyond basic color terms such as 'black', 'red' ...
+    if [[ $1 =~ '[0-9]{3}' && $1 -le 255 && $1 -ge 0 ]]; then
+        echo -n "%{$FG[$1]%}"
+    else
+        echo -n "%{$fg[$1]%}"
+    fi
+}
+
 # PROMPT FUNCTIONS
 git_bubble () {
     # This parses 'git status -s' to retrieve all necessary information...I am new to this zsh scripting...mercy!
@@ -165,7 +174,7 @@ git_bubble () {
             git_symbols="$git_symbols$git_copied_symbol"
         fi
 
-        echo -n "$(bubblify 3 "$git_branch_symbol" $bubble_color_main $bubble_color_path)$(bubblify 3 "$git_branch" $git_color $bubble_color_main)$(bubblify 3 "$git_symbols" $git_color $bubble_color_path ) "
+        echo -n "$(bubblify 3 "$git_branch_symbol" $bubble_color_main $bubble_color_path)$(bubblify 3 "$git_branch" $git_color $bubble_color_main)$(gitcolor $git_color)$git_symbols "
     fi
 }
 
