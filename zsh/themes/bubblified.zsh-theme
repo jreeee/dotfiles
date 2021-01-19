@@ -165,7 +165,7 @@ git_bubble () {
             git_symbols="$git_symbols$git_copied_symbol"
         fi
 
-        echo -n "$(bubblify 0 "$git_info " $git_color $bubble_color_main)$(bubblify 2 " $git_symbols" $git_symbols_color $git_color) "
+        echo -n "$(bubblify 3 "$git_branch_symbol" $bubble_color_main $bubble_color_path)$(bubblify 3 "$git_branch" $git_color $bubble_color_main)$(bubblify 3 "$git_symbols" $git_color $bubble_color_path ) "
     fi
 }
 
