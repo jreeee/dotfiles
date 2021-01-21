@@ -69,6 +69,7 @@ cvcol () {
         echo -n "%{$BG[$2]%}"
     elif [[ $1 == 'b' ]]; then
         echo -n "%{$bg[$2]%}"
+        
     else
         echo -n 'bblfy_fail'
     fi
