@@ -133,7 +133,7 @@ theme.mail = lain.widget.imap({
 })
 --]]
 
--- MPD
+--[[ MPD
 local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
 local mpdicon = wibox.widget.imagebox(theme.widget_music)
 mpdicon:buttons(my_table.join(
@@ -168,6 +168,8 @@ theme.mpd = lain.widget.mpd({
         widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
     end
 })
+
+]]--
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)

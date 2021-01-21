@@ -40,8 +40,8 @@ bubble_color_path='white'
 prompt_symbol_color='magenta'
 prompt_symbol_error_color='red'
 
-user_color='magenta'
-user_machine_symbol_color='yellow'
+user_color='white'
+user_machine_symbol_color='magenta'
 machine_color='white'
 
 filepath_color='green'
@@ -55,6 +55,24 @@ git_symbols_color='255'
 
 ssh_symbol_color='255'
 ssh_bubble_color='138'
+
+# Helper function for 256 color support beyond basic color terms such as 'black', 'red' ...
+# slightly changed it: foreground -> cvcol f name/num, background -> cvcol b name/num
+cvcol () {
+    
+    if [[ $1 == 'f' && $2 =~ '[0-9]{3}' && $2 -le 255 && $2 -ge 0 ]]; then
+        echo -n "%{$FG[$2]%}"
+    elif [[ $1 == 'f' ]]; then
+        echo -n "%{$fg[$2]%}"
+
+    elif [[ $1 == 'b' && $2 =~ '[0-9]{3}' && $2 -le 255 && $2 -ge 0 ]]; then
+        echo -n "%{$BG[$2]%}"
+    elif [[ $1 == 'b' ]]; then
+        echo -n "%{$bg[$2]%}"
+    else
+        echo -n 'bblfy_fail'
+    fi
+}
 
 # HELPER FUNCTIONS
 bubblify () {
@@ -74,42 +92,15 @@ bubblify () {
     # 4.        {'red', '073' ...}  background color (bubble segment color) as zsh-color-string or zsh-color-code
 
     if [[ $1 -eq 0 ]]; then
-        echo -n "$(foreground $4)$blub_left$(foreground $3)$(background $4)$2%{$reset_color%}"
+        echo -n "$(cvcol f $4)$blub_left$(cvcol f $3)$(cvcol b $4)$2%{$reset_color%}"
     elif [[ $1 -eq 1 ]]; then
-        echo -n "$(foreground $3)$(background $4)$2%{$reset_color%}"
+        echo -n "$(cvcol f $3)$(cvcol b $4)$2%{$reset_color%}"
     elif [[ $1 -eq 2 ]]; then
-        echo -n "$(foreground $3)$(background $4)$2%{$reset_color%}$(foreground $4)$blub_right%{$reset_color%}"
+        echo -n "$(cvcol f $3)$(cvcol b $4)$2%{$reset_color%}$(cvcol f $4)$blub_right%{$reset_color%}"
     elif [[ $1 -eq 3 ]]; then
-        echo -n "$(foreground $4)$blub_left$(foreground $3)$(background $4)$2%{$reset_color%}$(foreground $4)$blub_right%{$reset_color%}"
+        echo -n "$(cvcol f $4)$blub_left$(cvcol f $3)$(cvcol b $4)$2%{$reset_color%}$(cvcol f $4)$blub_right%{$reset_color%}"
     else
         echo -n 'bblfy_fail'
-    fi
-}
-
-foreground () {
-    # Helper function for 256 color support beyond basic color terms such as 'black', 'red' ...
-    if [[ $1 =~ '[0-9]{3}' && $1 -le 255 && $1 -ge 0 ]]; then
-        echo -n "%{$FG[$1]%}"
-    else
-        echo -n "%{$fg[$1]%}"
-    fi
-}
-
-background () {
-    # Helper function for 256 color support beyond basic color terms such as 'black', 'red' ...
-    if [[ $1 =~ '[0-9]{3}' && $1 -le 255 && $1 -ge 0 ]]; then
-        echo "%{$BG[$1]%}"
-    else
-        echo "%{$bg[$1]%}"
-    fi
-}
-
-gitcolor () {
-    # Helper function for 256 color support beyond basic color terms such as 'black', 'red' ...
-    if [[ $1 =~ '[0-9]{3}' && $1 -le 255 && $1 -ge 0 ]]; then
-        echo -n "%{$FG[$1]%}"
-    else
-        echo -n "%{$fg[$1]%}"
     fi
 }
 
@@ -174,7 +165,7 @@ git_bubble () {
             git_symbols="$git_symbols$git_copied_symbol"
         fi
 
-        echo -n "$(bubblify 3 "$git_symbols" $bubble_color_main $git_color) $(bubblify 3 "$git_branch_symbol" $bubble_color_main $bubble_color_path) $(bubblify 3 "$git_branch" $bubble_color_path $bubble_color_main)"
+        echo -n "$(bubblify 3 "$git_symbols" $bubble_color_main $git_color) $(bubblify 3 "$git_branch" $filepath_color $bubble_color_path) $(bubblify 3 "$git_branch_symbol" $bubble_color_path $bubble_color_main)"
     fi
 }
 
@@ -189,21 +180,21 @@ ssh_bubble () {
 # DEFAULT PROMPT BUILDING BLOCKS
 # slightly modified the code to have two bubble colors, main and path 
 
-bubble_left_main="$(foreground $bubble_color_main)$blub_left%{$reset_color%}$(background $bubble_color_main)"
-bubble_right_main="%{$reset_color%}$(foreground $bubble_color_main)$blub_right%{$reset_color%} "
+bubble_left_main="$(cvcol f $bubble_color_main)$blub_left%{$reset_color%}$(cvcol b $bubble_color_main)"
+bubble_right_main="%{$reset_color%}$(cvcol f $bubble_color_main)$blub_right%{$reset_color%} "
 
-bubble_left_path="$(foreground $bubble_color_path)$blub_left%{$reset_color%}$(background $bubble_color_path)"
-bubble_right_path="%{$reset_color%}$(foreground $bubble_color_path)$blub_right%{$reset_color%} "
+bubble_left_path="$(cvcol f $bubble_color_path)$blub_left%{$reset_color%}$(cvcol b $bubble_color_path)"
+bubble_right_path="%{$reset_color%}$(cvcol f $bubble_color_path)$blub_right%{$reset_color%} "
 
-end_of_prompt_bubble="$bubble_left_main%(?,$(foreground $prompt_symbol_color)$prompt_symbol,$(foreground $prompt_symbol_error_color)$prompt_symbol)$bubble_right_main"
+end_of_prompt_bubble="$bubble_left_main%(?,$(cvcol f $prompt_symbol_color)$prompt_symbol,$(cvcol f $prompt_symbol_error_color)$prompt_symbol)$bubble_right_main"
 
-end_of_prompt=" %(?,$(foreground $prompt_symbol_color)$prompt_symbol,$(foreground $prompt_symbol_error_color)$prompt_symbol%{$reset_color%}) "
+end_of_prompt=" %(?,$(cvcol f $prompt_symbol_color)$prompt_symbol,$(cvcol f $prompt_symbol_error_color)$prompt_symbol%{$reset_color%}) "
 
-user_machine_bubble="$bubble_left_main$(foreground $user_color)$user_symbol$(foreground $user_machine_symbol_color)$user_machine_symbol$(foreground $machine_color)$machine_symbol$bubble_right_main"
+user_machine_bubble="$bubble_left_main$(cvcol f $user_color)$user_symbol$(cvcol f $user_machine_symbol_color)$user_machine_symbol$(cvcol f $machine_color)$machine_symbol$bubble_right_main"
 
-filepath_bubble="$bubble_left_path$(foreground $filepath_color)$filepath_symbol$bubble_right_path"
+filepath_bubble="$bubble_left_path$(cvcol f $filepath_color)$filepath_symbol$bubble_right_path"
 
-error_code_bubble="%(?,,$bubble_left_main$(foreground $prompt_symbol_error_color)%?$bubble_right_main)"
+error_code_bubble="%(?,,$bubble_left_main$(cvcol f $prompt_symbol_error_color)%?$bubble_right_main)"
 
 # PROMPTS
 # different prompts to try out, just uncomment/comment
