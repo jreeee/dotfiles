@@ -28,7 +28,7 @@ browser = firefox
 
 [colors]
 
-background = rgba(25, 25, 25, 0.6)
+background = rgba(10, 10, 10, 0.7)
 
 cursor = #B9372B
 cursor_foreground = #F35849
