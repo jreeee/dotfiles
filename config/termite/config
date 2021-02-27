@@ -29,27 +29,23 @@ browser = firefox
 [colors]
 
 background = rgba(25, 25, 25, 0.6)
-foreground = #f9a3e8
 
-cursor_foreground = #77ffdd
-cursor = #5fccb0
+cursor = #B9372B
+cursor_foreground = #F35849
 
-color0 = #401736
-color8 = #642254
-color1 = #ffd596
-color9 = #fc77b9
-color4 = #3a2c8e
-color12 = #594da3
-color3 = #ee9249
-color11 = #f5b480
-color2 = #2f1a54
-color10 = #452f6d
-color5 = #cd5291
-color13 = #cd8faf
-color6 = #84b6b6
-color14 = #c2d7d7
-#color7 = #1a1a1a
-#color7 = #2f1a54
-#color15 = #452f6d
-color7 = #7182A8
-color15 = #8c99b7
+color0 = #36382E
+color8 = #484944
+color1 = #74B8D3
+color9 = #7277C
+color2 = #2A323D
+color10 = #35455A
+color3 = #B9372B
+color11 = #F35849
+color4 = #A67287
+color12 = #C594A8
+color5 = #D7B243
+color13 = #E3D198
+color6 = #C7953C
+color14 = #EDC376
+color7 = #B7BD99
+color15 = #E9ECD8

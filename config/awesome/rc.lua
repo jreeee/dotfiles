@@ -95,7 +95,7 @@ local cycle_prev   = true -- cycle trough all previous client or just the first 
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
 local browser      = os.getenv("BROWSER") or "firefox"
-local scrlocker    = "slock"
+local scrlocker    = "xsecurelock"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
@@ -764,7 +764,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 --Autostart Applications todo merge with the autostart at the top
 awful.spawn.with_shell("picom -CG")
-awful.spawn.with_shell("setxkbmap -layout de")
-awful.spawn.with_shell("xrdb ~/.Xresources")
 --dumb hack to start pulseaudio idk if you should do that
 awful.spawn.with_shell("start-pulseaudio-x11")
+awful.spawn.with_shell("xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock")
