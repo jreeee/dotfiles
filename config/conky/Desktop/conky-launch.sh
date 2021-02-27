@@ -11,9 +11,9 @@ sleep 1
 conky -c $HOME/.config/conky/Desktop/conkyrc-table &
 sleep 1
 conky -c $HOME/.config/conky/Desktop/conkyrc-weather &
-sleep 1
-conky -c $HOME/.config/conky/Desktop/conkyrc-covid &
+#sleep 1
+#conky -c $HOME/.config/conky/Desktop/conkyrc-covid &
 sleep 1
 #conky -c $HOME/.config/conky/Desktop/conkyrc-anim &
 #sleep 1
-conky -c $HOME/.config/conky/Desktop/conkyrc-portal &
+#conky -c $HOME/.config/conky/Desktop/conkyrc-portal &

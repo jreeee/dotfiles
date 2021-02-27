@@ -7,7 +7,7 @@ conky.config = {
     total_run_times = 0,
     own_window = true,
     own_window_transparent = true,
-    own_window_type = 'dock',
+    own_window_type = 'override',
     own_window_class = 'Conky',
     own_window_argb_visual = true,
     own_window_argb_value = 255,
@@ -49,8 +49,8 @@ ${alignr}${offset -80}│
 ${alignr}${offset -80}< ${exec lspci | grep VGA | sed 's/00:02.0 VGA compatible controller: //g' | sed 's/ Corporation//g' | sed 's/ Integrated Graphics Controller (primary) (rev 0c)//g'} > GPU ────────────┘
 ${alignr}${offset -150}< ${exec xdpyinfo | awk '/dimensions/{print $2}'} > Res
 ${voffset 10}
-${alignr}${offset -45}< ${exec env | grep 'LC_NAME' | cut -c 9-19 } > Locale ────────────────┐
-${alignr}${offset -125}< ${exec amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'} > volume ${offset 80}│
+${alignr}${offset -45}< ${exec locale | grep 'LANG' | cut -c 6-16 } > Locale ────────────────┐
+${alignr}${offset -125}< ${exec echo | pulsemixer --get-volume } > volume ${offset 80}│
 ${alignr}${offset -45}│
 ${voffset -10}
 ${alignr}${offset -75}< -110.35 mv / 0.7 V> vcore  ──────────┐
@@ -73,10 +73,10 @@ ${voffset 15}
 ${alignr}${offset -75}< $memperc% | $mem/$memmax ${color #BEC8CB}${membar 5,50}${color} > RAM ──────────┐
 ${alignr}${offset -75}│
 ${voffset 0}
-${alignr}${offset -75}< ${addr wlo1} : ${wireless_essid wlo1} > SSID ────────────┐
+${alignr}${offset -75}< ${addr wlan0} : ${wireless_essid wlo1} > SSID ────────────┐
 ${alignr}${offset -75}< ${addr vpn0} > VPN              |${voffset -2}
-${alignr}${offset -115}UP < ${color #BEC8CB}${upspeedgraph wlo1 15,130 BCC3C3 BCC3C3}${color} >${voffset -15}${offset 40}│
-${alignr}${offset -110}${voffset 10}DOWN < ${color #BEC8CB}${downspeedgraph wlo1 15,130 BCC3C3 BCC3C3}${color} >${voffset -25}${offset 40}└─
+${alignr}${offset -115}UP < ${color #BEC8CB}${upspeedgraph wlan0 15,130 BCC3C3 BCC3C3}${color} >${voffset -15}${offset 40}│
+${alignr}${offset -110}${voffset 10}DOWN < ${color #BEC8CB}${downspeedgraph wlan0 15,130 BCC3C3 BCC3C3}${color} >${voffset -25}${offset 40}└─
 ${voffset 20}
 ${alignr}${offset -75}${exec awk '{print $1*10^-5 " Wh"}' /sys/class/power_supply/BAT1/charge_full} : Battery ───────────────────┐
 ${alignr}${offset -95}< ${exec acpi | grep "Battery 0" | awk '{print $4}'} | 100% > BAT 1 < ${color #BEC8CB}${battery_bar 5,110 BAT1}${color} >
