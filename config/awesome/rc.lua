@@ -57,7 +57,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -74,19 +74,11 @@ awful.spawn.with_shell(
 -- {{{ Variable definitions
 
 local themes = {
-    "blackburn",       -- 1
-    "copland",         -- 2
-    "dremora",         -- 3
-    "holo",            -- 4
-    "multicolor",      -- 5
-    "powerarrow",      -- 6
-    "powerarrow-dark", -- 7
-    "rainbow",         -- 8
-    "steamburn",       -- 9
-    "vertex",          -- 10
+    "wip-eva", --1
+    "powerarrow-dark", -- 2
 }
 
-local chosen_theme = themes[7]
+local chosen_theme = themes[2]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "termite"
@@ -96,9 +88,11 @@ local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
 local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "xsecurelock"
+local filemanager  = "pcmanfm"
+local mediaplayer  = "mpv"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7" }
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.floating,
@@ -257,7 +251,7 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end,
+    awful.key({ altkey }, "p", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
@@ -275,7 +269,7 @@ globalkeys = my_table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
-    --[[ Non-empty tag browsing breaks firefox nav, disabled 4 now
+    --[[ Non-empty tag browsing breaks firefox tab nav, disabled 4 now
     awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
               {description = "view  previous nonempty", group = "tag"}),
     awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
@@ -457,7 +451,8 @@ globalkeys = my_table.join(
     awful.key({}, "XF86AudioMute", function () os.execute("pulsemixer --toggle-mute") end,
             {description = "toggle mute", group = "hotkeys"}),
     
-    -- MPD control
+    -- MPD control i dont like mdp
+    --[[
     awful.key({ altkey, "Control" }, "Up",
         function ()
             os.execute("mpc toggle")
@@ -494,7 +489,8 @@ globalkeys = my_table.join(
             end
             naughty.notify(common)
         end,
-        {description = "mpc on/off", group = "widgets"}),	
+        {description = "mpc on/off", group = "widgets"}),
+    ]] --	
 
     -- Copy primary to clipboard (terminals to gtk)
     awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,
@@ -678,9 +674,15 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = false } },
 
-    -- Set Firefox to always map on the first tag on screen 1.
-    { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = awful.util.tagnames[1] } },
+    -- Set Firefox to always map on the first tag on screen 3.
+    { rule = { class = "firefox" },
+      properties = { screen = 1, tag = awful.util.tagnames[3] } },
+
+    { rule = { class = "discord" },
+    properties = { screen = 1, tag = awful.util.tagnames[2] } },
+
+    { rule = { class = "Thunderbird" },
+      properties = { screen = 1, tag = awful.util.tagnames[5] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
@@ -761,9 +763,3 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
-
---Autostart Applications todo merge with the autostart at the top
-awful.spawn.with_shell("picom -CG")
---dumb hack to start pulseaudio idk if you should do that
-awful.spawn.with_shell("start-pulseaudio-x11")
-awful.spawn.with_shell("xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock")
