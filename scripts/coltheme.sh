@@ -10,20 +10,20 @@ awth=$awesome'theme.lua'
 pic=$HOME'/dotfiles/wallpapers/wall'$1'.png'
 
 # termite
-
-sed --follow-symlinks -i '/\[colors\]/,$d' $config
-cat $theme >> $config
+if [ -z $1 ]; then
+	exit 0
+else
+	sed --follow-symlinks -i '/\[colors\]/,$d' $config
+	cat $theme >> $config
+fi
 
 killall -USR1 termite
 
 # wallpaper
 
-if [ -e $awwp ]
-then
-    rm $awwp
-fi
+ln -sf $pic $awwp
 
-ln -s $pic $awwp
+echo $pic ; echo $awwp
 
 # awesomewm theme colors
 # note: this is very dirty but *should* work

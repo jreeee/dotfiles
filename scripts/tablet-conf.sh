@@ -19,7 +19,7 @@ case $1 in
 		option='left-of'
 		;;
 
-	3)	
+	3)
 		option='below'
 		;;
 
@@ -27,7 +27,7 @@ case $1 in
 		option='above'
 		;;
 
-	-1)	
+	-1)
 		echo 'args: 1 - right, 2 - left, 3 - below, 4 - above, else - clone'
 		;;
 esac
@@ -36,7 +36,7 @@ esac
 
 if [ -z $1 ] || [ $1 -ge '0' ]; then
 	xrandr --output $secondary --mode 1920x1080 --$option $primary
-	xsetwacom set $id_stylus MapToOutput HDMI1
+	xsetwacom set $id_stylus MapToOutput $secondary
 fi
 
 #setting up the buttons
