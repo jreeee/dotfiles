@@ -28,6 +28,6 @@ alias lck="~/.scripts/lock.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
 #alias discord="discord-canary"
 alias playbg="~/.scripts/an-bg.sh"
-alias setthm="~/.scripts/termtheme.sh &>/dev/null"
+alias setthm="~/.scripts/coltheme.sh &>/dev/null"
 # the errors above are suppressed bc it will fail a dbus-send
 # if you encounter problems with it just remove &>/dev/null for debug info
