@@ -74,8 +74,8 @@ awful.spawn.with_shell(
 -- {{{ Variable definitions
 
 local themes = {
-    "wip-eva", --1
-    "powerarrow-dark", -- 2
+    "wip-eva",          -- 1
+    "powerarrow-dark",  -- 2
 }
 
 local chosen_theme = themes[2]

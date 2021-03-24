@@ -18,8 +18,9 @@ can, unsuprisingly, be found in `scripts/`
 
 - `an-bg.sh` tries to open the arg you give it and set it as your background. to stop it you can either kill mpv or run the script again with no arg. original script by **[CalinLeafshade](https://github.com/CalinLeafshade)** can be found **[here](https://github.com/CalinLeafshade/dots/blob/master/bin/bin/bg.sh)**. **requires** `xwinwrap`, `mpv`
 
-- `coltheme.sh` is a very setup-specific script; it replaces the color palette of `termite`, the wallpaper and the `awesome` config i currently run. 
-palettes can be customized and placed in `config/termite/` with the name theme*name_here*.txt and an accompanying wallpaper called wall*name_here*.png (this might change in the future tho). 
+- `setthm.sh` is a very setup-specific script; it replaces the color palette of `termite`, the wallpaper and the `awesome` config i currently run. 
+palettes can be customized and placed in `config/termite/` with the name theme*name_here*.txt and an accompanying wallpaper called wall*name_here*.png (this might change in the future tho).
+it can be run via the alias setthm or qst for supressed error messages. can be run with no args, two ([p/t/w] [value]) or three ([pval] [tval] [qval]). 
 
 - `tablet-conf.sh` is a simple little script i run to configure my huion kamvas 13 but any other drawing tablet *should* also work with it. to configure what the buttons of your tablet do go to where the `xsetwacom set $id_tab Button` lines start. args are -1 (info) to 4, letting you set the orientation. **requires** the wacom drivers
 
@@ -44,7 +45,7 @@ i use [artix linux](https://artixlinux.org/) with [awesome](https://awesomewm.or
 
 **misc**
 
-right now it's rather empty, and rhe folders are self explanatory
+right now it's rather empty, and the folders are self explanatory
 
 - `plymouth/` includes a boot theme called `nerv10` which is based on **[this](https://aur.archlinux.org/packages/plymouth-theme-arch10/)** made by  **[Mauro A. Meloni](https://maurom.com/)** (i basically just slapped a downscaled logo on there).
 

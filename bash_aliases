@@ -29,6 +29,7 @@ alias yt="~/.scripts/yt.sh"
 alias vpnconn="sudo ~/.scripts/priv-uni-vpn.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
 alias playbg="~/.scripts/an-bg.sh"
-alias setthm="~/.scripts/coltheme.sh &>/dev/null"
+alias setthm="~/.scripts/setthm.sh"
+alias qst="~/.scripts/setthm.sh &>/dev/null"
 # the errors above are suppressed bc it will fail a dbus-send
 # if you encounter problems with it just remove &>/dev/null for debug info
