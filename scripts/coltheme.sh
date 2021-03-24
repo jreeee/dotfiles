@@ -7,7 +7,7 @@ config=$HOME'/.config/termite/config'
 awesome=$HOME'/.config/awesome/themes/powerarrow-dark/'
 awwp=$awesome'wall.png'
 awth=$awesome'theme.lua'
-pic=$HOME'/dotfiles/wallpapers/wall'$1'.png'
+pic=$HOME'/dotfiles/misc/wallpapers/wall'$1'.png'
 
 # termite
 if [ -z $1 ]; then

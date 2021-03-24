@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=nerv10
+Description=NERV a la Windows 10 boot splash theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/nerv10
+ScriptFile=/usr/share/plymouth/themes/nerv10/nerv10.script
