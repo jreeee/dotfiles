@@ -17,6 +17,7 @@ alias mtusb="sudo mount -o uid=1000,gid=1000 /dev/sda1 ~/usb"
 alias rlterm="killall -USR1 termite"
 alias poweroff="sudo poweroff"
 alias reboot="sudo reboot"
+alias lck="sleep 1 && xtrlock"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
@@ -26,9 +27,7 @@ alias w20="cd ~/Study/WS2020/"
 # scripts 'n programs
 alias yt="~/.scripts/yt.sh"
 alias vpnconn="sudo ~/.scripts/priv-uni-vpn.sh"
-alias lck="~/.scripts/lock.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
-#alias discord="discord-canary"
 alias playbg="~/.scripts/an-bg.sh"
 alias setthm="~/.scripts/coltheme.sh &>/dev/null"
 # the errors above are suppressed bc it will fail a dbus-send
