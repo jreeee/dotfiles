@@ -20,7 +20,7 @@ can, unsuprisingly, be found in `scripts/`
 
 - `setthm.sh` is a very setup-specific script; it replaces the color palette of `termite`, the wallpaper and the `awesome` config i currently run. 
 palettes can be customized and placed in `config/termite/` with the name theme*name_here*.txt and an accompanying wallpaper called wall*name_here*.png (this might change in the future tho).
-it can be run via the alias setthm or qst for supressed error messages. can be run with no args, two ([p/t/w] [value]) or three ([pval] [tval] [qval]). 
+it can be run via the alias `setthm` or `qst` for supressed output. can be run with no args, two ([p/t/w] [value]) or three ([pval] [tval] [qval]). 
 
 - `tablet-conf.sh` is a simple little script i run to configure my huion kamvas 13 but any other drawing tablet *should* also work with it. to configure what the buttons of your tablet do go to where the `xsetwacom set $id_tab Button` lines start. args are -1 (info) to 4, letting you set the orientation. **requires** the wacom drivers
 
@@ -38,6 +38,8 @@ they are nothing special but make life easier and all of scripts listed above ha
 **the configs**
 
 can be found in `config/` and are mostly pretty basic (for now)
+
+- `zsh` is my main shell. the theme i use `bubblified.zsh-theme` is based on [this](https://github.com/hohmannr/bubblified) by [hohmannr](https://github.com/hohmannr). I changed changed the code a bit to make it more compact and realize the the design i had in mind.
 
 **the setup**
 

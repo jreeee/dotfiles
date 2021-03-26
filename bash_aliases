@@ -3,7 +3,7 @@
 # shortend
 alias rf="rm -rf"
 alias mk="makepkg -scfi PKGBUILD"
-alias update="sudo pacman -Syu"
+alias update="sudo pacman -Syu && yay -Ys && yay -Sua"
 alias get="sudo pacman -S"
 alias remove="sudo pacman -Rsnc"
 alias untar="tar -zxvf"
