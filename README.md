@@ -39,11 +39,11 @@ they are nothing special but make life easier and all of scripts listed above ha
 
 can be found in `config/` and are mostly pretty basic (for now)
 
-- `zsh` is my main shell. the theme i use `bubblified.zsh-theme` is based on [this](https://github.com/hohmannr/bubblified) by [hohmannr](https://github.com/hohmannr). I changed changed the code a bit to make it more compact and realize the the design i had in mind.
+- `zsh` is my main shell. the theme i use `bubblified.zsh-theme` is based on **[this](https://github.com/hohmannr/bubblified)** by **[hohmannr](https://github.com/hohmannr)**. I changed the code a bit to make it more compact and realize the the design i had in mind.
 
 **the setup**
 
-i use [artix linux](https://artixlinux.org/) with [awesome](https://awesomewm.org/) as my wm and a theme based on **[lcpz](https://github.com/lcpz/)** **[awesome-copycats](https://github.com/lcpz/awesome-copycats)**, more specific **[powerarrow-dark](https://github.com/lcpz/awesome-copycats/tree/master/themes/powerarrow-dark)**.
+i use **[artix linux](https://artixlinux.org/)** with **[awesome](https://awesomewm.org/)** as my wm and a theme based on **[lcpz](https://github.com/lcpz/)** **[awesome-copycats](https://github.com/lcpz/awesome-copycats)**, more specific **[powerarrow-dark](https://github.com/lcpz/awesome-copycats/tree/master/themes/powerarrow-dark)**.
 
 **misc**
 
