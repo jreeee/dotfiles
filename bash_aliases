@@ -25,6 +25,7 @@ alias s20="cd ~/Study/SS2020/"
 alias w20="cd ~/Study/WS2020/"
 
 # scripts 'n programs
+alias rgb2hex='printf "#%02x%02x%02x\n"'
 alias yt="~/.scripts/yt.sh"
 alias vpnconn="sudo ~/.scripts/priv-uni-vpn.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"

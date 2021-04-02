@@ -35,7 +35,7 @@ setcol () {
 
 	theme=$HOME'/.config/termite/theme'$1'.txt'
 
-	if [ -e $pic ]; then
+	if [ -e $theme ]; then
 		
 		#termite colors
 
@@ -46,14 +46,23 @@ setcol () {
 		# awesomewm theme colors
 		# note: this is very dirty but *should* work
 		# getting the colors from the theme that termite utilizes
-
-		color1=`cat $terconf | grep 'color1 ' | awk '{ print $3 }'`
-		color3=`cat $terconf | grep color3 | awk '{ print $3 }'`
-		color6=`cat $terconf | grep color6 | awk '{ print $3 }'`
-		color10=`cat $terconf | grep color10 | awk '{ print $3 }'`
-		color13=`cat $terconf | grep color13 | awk '{ print $3 }'`
-		color14=`cat $terconf | grep color14 | awk '{ print $3 }'`
-
+		color1=`echo | awk '/color1 / { print $3 }' $terconf`
+		color10=`echo | awk '/color10/ { print $3 }' $terconf`
+		color13=`echo | awk '/color13/ { print $3 }' $terconf`
+		color14=`echo | awk '/color14/ { print $3 }' $terconf`
+		color3=`echo | awk '/color3/ { print $3 }' $terconf`
+		color6=`echo | awk '/color6/ { print $3 }' $terconf`
+		bg_all=`echo | awk '/^background/' $terconf | sed 's/[a-zA-Z=(),]//g'`
+		bg_alpha=`echo $bg_all | cut -d " " -f 4` 
+		bg_rest=`echo $bg_all | cut -d " " -f -3`
+		bg_alpha=`echo $bg_alpha' * 255' | bc -l`
+		hex_rest=`echo | printf '0%x\n' $bg_rest`
+		#echo $bg_rest
+		#echo $hex_rest
+		#hex_alpha=`echo 'obase=16;'$bg_alpha | bc`
+		#hex_full='#'$hex_rest$hex_alpha
+		#echo $hex_full
+		#fuck this dumb shit aaaaaaaaaaaaaaaaah
 		# setting the colors in the theme.lua
 
 		sed -i --follow-symlinks 's/^theme.fg_normal .*/theme.fg_normal \t\t\t\t\t\t\t\t= "'$color13'" -- color13/' $awth

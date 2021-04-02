@@ -1,10 +1,17 @@
 #! /bin/bash
 
+primary=`echo | xrandr | awk '/primary/ { print $1 }'`
+secondary=HDMI1 #needs to be set manually
+
+connected=`xrandr | grep $secondary' disconnected'`
+
+if [ -n "$connected" ]; then
+	echo 'tablet not connected'
+	exit 0
+fi
 
 id_tab=`xsetwacom list | grep 'Tablet Monitor Pad pad' | awk '{print $6}'`
 id_stylus=`xsetwacom list | grep 'Tablet Monitor stylus' | awk '{print $5}'`
-primary=eDP1
-secondary=HDMI1
 option='same-as'
 
 #setting up where the monitor is
