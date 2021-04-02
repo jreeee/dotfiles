@@ -7,6 +7,29 @@ awwp=$awesome'themes/powerarrow-dark/wall.png'
 awth=$awesome'themes/powerarrow-dark/theme.lua'
 wall=$HOME'/dotfiles/misc/wallpapers/'
 
+#padding for hexadecimal values
+
+hexpad () {
+	len=${#1}
+	if [ $len -le "1" ]; then
+		echo '0'$1
+	else
+		echo $1
+	fi
+}
+
+# takes in a string like "123 12 0 0.4" 
+
+rgbatohex() {
+	bg_alpha=`echo $4' * 255 + 0.5' | bc -l` # normalized
+	bg_alpha=${bg_alpha%.*} # to int
+	hex_all=`echo | printf '%x\n' $1 $2 $3 $bg_alpha`
+	hex_r=$(hexpad `echo $hex_all | cut -d " " -f 1`)
+	hex_g=$(hexpad `echo $hex_all | cut -d " " -f 2`)
+	hex_b=$(hexpad `echo $hex_all | cut -d " " -f 3`)
+	hex_a=$(hexpad `echo $hex_all | cut -d " " -f 4`)
+	echo '#'$hex_r$hex_g$hex_b$hex_a
+}
 
 # wallpaper
 
@@ -37,7 +60,7 @@ setcol () {
 
 	if [ -e $theme ]; then
 		
-		#termite colors
+		# termite colors
 
 		sed --follow-symlinks -i '/\[colors\]/,$d' $terconf
 		cat $theme >> $terconf
@@ -52,25 +75,23 @@ setcol () {
 		color14=`echo | awk '/color14/ { print $3 }' $terconf`
 		color3=`echo | awk '/color3/ { print $3 }' $terconf`
 		color6=`echo | awk '/color6/ { print $3 }' $terconf`
-		bg_all=`echo | awk '/^background/' $terconf | sed 's/[a-zA-Z=(),]//g'`
-		bg_alpha=`echo $bg_all | cut -d " " -f 4` 
-		bg_rest=`echo $bg_all | cut -d " " -f -3`
-		bg_alpha=`echo $bg_alpha' * 255' | bc -l`
-		hex_rest=`echo | printf '0%x\n' $bg_rest`
-		#echo $bg_rest
-		#echo $hex_rest
-		#hex_alpha=`echo 'obase=16;'$bg_alpha | bc`
-		#hex_full='#'$hex_rest$hex_alpha
-		#echo $hex_full
-		#fuck this dumb shit aaaaaaaaaaaaaaaaah
+		hex_bg=$(rgbatohex `echo | awk '/^background/' $terconf | sed 's/[a-zA-Z=(),]//g'`)
+		hex_a=${hex_bg:7:2}
+		
+		# if only th fint changing color is too subtle for you, cou can replace the second $hex_bg with $color3$hex_a
+
 		# setting the colors in the theme.lua
 
 		sed -i --follow-symlinks 's/^theme.fg_normal .*/theme.fg_normal \t\t\t\t\t\t\t\t= "'$color13'" -- color13/' $awth
 		sed -i --follow-symlinks 's/^theme.fg_focus .*/theme.fg_focus \t\t\t\t\t\t\t\t\t= "'$color6'" -- color6/' $awth
 		sed -i --follow-symlinks 's/^theme.fg_urgent .*/theme.fg_urgent \t\t\t\t\t\t\t\t= "'$color3'" -- color3/' $awth
+		sed -i --follow-symlinks 's/^theme.bg_normal .*/theme.bg_normal \t\t\t\t\t\t\t\t= "'$hex_bg'" -- termite background when in rgba/' $awth
+		sed -i --follow-symlinks 's/^theme.bg_focus .*/theme.bg_focus \t\t\t\t\t\t\t\t\t= "'$hex_bg'" -- color6 with transparency/' $awth
+		sed -i --follow-symlinks 's/^theme.bg_urgent .*/theme.bg_urgent \t\t\t\t\t\t\t\t= "'$color3$hex_a'" -- color3 with transparency/' $awth
 		sed -i --follow-symlinks 's/^theme.border_normal .*/theme.border_normal \t\t\t\t\t\t\t= "'$color10'" -- color10/' $awth
 		sed -i --follow-symlinks 's/^theme.border_focus .*/theme.border_focus \t\t\t\t\t\t\t\t= "'$color14'" -- color14/' $awth
 		sed -i --follow-symlinks 's/^theme.border_marked .*/theme.border_marked \t\t\t\t\t\t\t= "'$color1'" -- color1/' $awth
+
 	else
 		echo 'ERROR: '$theme' does not exist'
 		exit 0
