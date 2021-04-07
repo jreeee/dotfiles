@@ -135,8 +135,8 @@ elif [ $# -eq "2" ]; then
 			setthm $2
 			;;
 		*)
-			echo 'usage: arg1=[p/t/w] arg2=integer' 
-			exit 0	
+			echo 'usage: arg1=[p/t/w] arg2=integer'
+			exit 0
 	esac
 elif [ $# -eq "3" ]; then
 	if [ $1 != "0" ]; then
@@ -150,7 +150,6 @@ elif [ $# -eq "3" ]; then
 	fi
 else
 	echo 'usage:'; echo '0 args - you can select what to change'
-	echo '1 arg: has to be a number, changes all at once'
 	echo '3 args - select everything individually, if you want to leave sth as is'
 	echo 'use 0, order: palette theme wallpaper'
 	exit 0
