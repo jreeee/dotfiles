@@ -18,6 +18,8 @@ alias rlterm="killall -USR1 termite"
 alias poweroff="sudo poweroff"
 alias reboot="sudo reboot"
 alias lck="sleep 1 && xtrlock"
+alias vcam="sudo modprobe v4l2loopback video_nr=2 card_label=vcam"
+alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
