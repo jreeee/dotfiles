@@ -7,7 +7,8 @@ awesome=$HOME'/.config/awesome/'
 awconf=$awesome'rc.lua'
 awwp=$awesome'themes/powerarrow-dark/wall.png'
 awth=$awesome'themes/powerarrow-dark/theme.lua'
-wall=$HOME'/dotfiles/misc/wallpapers/'
+wall=$HOME'/dotfiles/config/themes/wallpapers/'
+plte=$HOME'/dotfiles/config/themes/palettes/'
 
 #padding for hexadecimal values
 
@@ -20,7 +21,7 @@ hexpad () {
 	fi
 }
 
-# takes in a string like "123 12 0 0.4" 
+# takes in a string like "123 12 0 0.4"
 
 rgbatohex() {
 	bg_alpha=`echo $4' * 255 + 0.5' | bc -l` # normalized
@@ -58,11 +59,11 @@ setthm () {
 
 setcol () {
 
-	theme=$HOME'/dotfiles/config/themes/theme'$1'.txt'
+	theme=$plte'theme'$1'.txt'
 
 	if [ -e $theme ]; then
 
-		# note: this is very dirty ans setup-specific
+		# note: this is very dirty and setup-specific
 
 		# termite colors
 
@@ -70,32 +71,40 @@ setcol () {
 		# cat $theme >> $terconf
 		# killall -USR1 termite
 
-		# note: this is very dirty ans setup-specific
 		# getting the colors from the selected theme
 
 		# get only the hex values
 
 		declare -A cols
 
-		for (( i=0; i<14; i++ ));
+		for (( i=0; i<16; i++ ));
 		do
-			cols[$i]=`awk '/color'$i' / { print $3 }' $theme`
+			cols[$i]=`awk '/color'$i' =/ { print $3 }' $theme`
 		done
 
 		hex_bg=$(rgbatohex `echo | awk '/^background/' $theme | sed 's/[a-zA-Z=(),]//g'`)
 		hex_a=${hex_bg:7:2}
-
-		# if only the fint(??) changing color is too subtle for you, cou can replace the second $hex_bg with $color3$hex_a
+		bg_o=`df -h | awk '/^background / { print $6 }' $theme | sed 's/.$//'`
+		cols[16]=`awk '/^cursor / { print $3 }' $theme`
+		cols[17]=`awk '/^cursor_foreground / { print $3 }' $theme`
+		
+		# if hex_a is to subte/faint for your liking, just replace $hex_bg with ${cols[3]}$hex_a
 
 		# alacritty colors
 
 		names=("black" "red" "green" "yellow" "blue" "magenta" "cyan" "white")
 
-		for (( i=0; i<7; i++ ));
+		for (( i=0; i<8; i++ ));
 		do
 			sed -i --follow-symlinks '0,/'${names[$i]}': .*/s//'${names[$i]}': '\'${cols[$i]}\''/' $terconf
-			sed -i --follow-symlinks '0,/'${names[$i]}': .*/! {0,/'${names[$i]}': .*/ s/'${names[$i]}': .*/'${names[$i]}': '\'${cols[$((i+7))]}\''/}' $terconf
+			sed -i --follow-symlinks '0,/'${names[$i]}': .*/! {0,/'${names[$i]}': .*/ s/'${names[$i]}': .*/'${names[$i]}': '\'${cols[$((i+8))]}\''/}' $terconf
 		done
+
+		sed -i --follow-symlinks '0,/cursor:/! {0,/cursor: .*/ s/cursor: .*/cursor: '\'${cols[16]}\''/}' $terconf
+		sed -i --follow-symlinks '0,/cursor:/! {0,/text: .*/ s/text: .*/text: '\'${cols[17]}\''/}' $terconf
+		sed -i --follow-symlinks 's/^background_opacity: .*/background_opacity: '$bg_o'/' $terconf
+		sed -i --follow-symlinks '0,/primary:/! {0,/background: .*/ s/background: .*/background: '\'${hex_bg:0:7}\''/}' $terconf
+		sed -i --follow-symlinks '0,/primary:/! {0,/foreground: .*/ s/foreground: .*/foreground: '\'${cols[7]}\''/}' $terconf
 
 		# awesomewm theme colors
 
@@ -103,7 +112,7 @@ setcol () {
 
 		sed -i --follow-symlinks 's/^theme.fg_normal .*/theme.fg_normal \t\t\t\t\t\t\t\t= "'${cols[13]}'" -- color13/' $awth
 		sed -i --follow-symlinks 's/^theme.fg_focus .*/theme.fg_focus \t\t\t\t\t\t\t\t\t= "'${cols[6]}'" -- color6/' $awth
-		sed -i --follow-symlinks 's/^theme.fg_urgent .*/theme.fg_urgent \t\t\t\t\t\t\t\t= "'{$cols[3]}'" -- color3/' $awth
+		sed -i --follow-symlinks 's/^theme.fg_urgent .*/theme.fg_urgent \t\t\t\t\t\t\t\t= "'${cols[3]}'" -- color3/' $awth
 		sed -i --follow-symlinks 's/^theme.bg_normal .*/theme.bg_normal \t\t\t\t\t\t\t\t= "'$hex_bg'" -- termite background when in rgba/' $awth
 		sed -i --follow-symlinks 's/^theme.bg_focus .*/theme.bg_focus \t\t\t\t\t\t\t\t\t= "'$hex_bg'" -- color6 with transparency/' $awth
 		sed -i --follow-symlinks 's/^theme.bg_urgent .*/theme.bg_urgent \t\t\t\t\t\t\t\t= "'${cols[3]}$hex_a'" -- color3 with transparency/' $awth
@@ -159,7 +168,7 @@ elif [ $# -eq "2" ]; then
 	esac
 elif [ $# -eq "3" ]; then
 	if [ $1 != "0" ]; then
-		setcol $3
+		setcol $1
 	fi
 	if [ $2 != "0" ]; then
 		setthm $2

@@ -151,7 +151,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 9.0
+  size: 8.4
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -174,14 +174,14 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 # Colors (Tomorrow Night)
 colors:
   # Default colors
   primary:
-    background: '#1d1f21'
-    foreground: '#c5c8c6'
+    background: '#0a0a0a'
+    foreground: '#B7BD99'
 
     # Bright and dim foreground colors
     #
@@ -189,8 +189,8 @@ colors:
     # present. If the bright foreground color is not set, or
     # `draw_bold_text_with_bright_colors` is `false`, the normal foreground
     # color will be used.
-    dim_foreground: '#828482'
-    bright_foreground: '#eaeaea'
+    #dim_foreground: '#828482'
+    #bright_foreground: '#B7BD99'
 
   # Cursor colors
   #
@@ -198,9 +198,9 @@ colors:
   #
   # Allowed values are CellForeground and CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  #cursor:
-  #  text: CellBackground
-  #  cursor: CellForeground
+  cursor:
+    text: '#F35849'
+    cursor: '#B9372B'
 
   # Vi mode cursor colors
   #
@@ -219,8 +219,8 @@ colors:
   # Allowed values are CellForeground and CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
   #selection:
-  #  text: CellBackground
-  #  background: CellForeground
+  #  text: '#F35849'
+  #  background: '#E9ECD8'
 
   # Search colors
   #
@@ -248,18 +248,18 @@ colors:
     blue: '#A67287'
     magenta: '#D7B243'
     cyan: '#C7953C'
-    white:   '#c5c8c6'
+    white: '#B7BD99'
 
   # Bright colors
   bright:
-    black: '#B7BD99'
-    red: '#484944'
-    green: '#7277C0'
-    yellow: '#455e7e'
-    blue: '#F35849'
-    magenta: '#C594A8'
-    cyan: '#E3D198'
-    white:   '#eaeaea'
+    black: '#484944'
+    red: '#7277C0'
+    green: '#455e7e'
+    yellow: '#F35849'
+    blue: '#C594A8'
+    magenta: '#E3D198'
+    cyan: '#EDC376'
+    white: '#E9ECD8'
 
   # Dim colors
   #
@@ -340,16 +340,16 @@ background_opacity: 0.7
   # When set to `true`, selected text will be copied to the primary clipboard.
   #save_to_clipboard: false
 
-#cursor:
+cursor:
   # Cursor style
-  #style:
+  style:
     # Cursor shape
     #
     # Values for `shape`:
     #   - ▇ Block
     #   - _ Underline
     #   - | Beam
-    #shape: Block
+    shape: Underline
 
     # Cursor blinking state
     #
