@@ -20,6 +20,7 @@ alias reboot="sudo reboot"
 alias lck="sleep 1 && xtrlock"
 alias vcam="sudo modprobe v4l2loopback video_nr=2 card_label=vcam"
 alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg"
+alias pdf2jpg="pdftoppm -jpeg -r 300"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
@@ -30,6 +31,7 @@ alias w20="cd ~/Study/WS2020/"
 alias rgb2hex='printf "#%02x%02x%02x\n"'
 alias yt="~/.scripts/yt.sh"
 alias vpnconn="sudo ~/.scripts/priv-uni-vpn.sh"
+alias webs="~/.scripts/webspeicher.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
 alias playbg="~/.scripts/an-bg.sh"
 alias setthm="~/.scripts/setthm.sh"

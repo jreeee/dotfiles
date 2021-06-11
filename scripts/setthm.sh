@@ -1,6 +1,8 @@
 #!/bin/bash
 
-terconf=$HOME'/.config/termite/config'
+# deprecated as termite is not maintained anymore
+#terconf=$HOME'/.config/termite/config'
+terconf=$HOME'/.config/alacritty/alacritty.yml'
 awesome=$HOME'/.config/awesome/'
 awconf=$awesome'rc.lua'
 awwp=$awesome'themes/powerarrow-dark/wall.png'
@@ -56,41 +58,58 @@ setthm () {
 
 setcol () {
 
-	theme=$HOME'/.config/termite/theme'$1'.txt'
+	theme=$HOME'/dotfiles/config/themes/theme'$1'.txt'
 
 	if [ -e $theme ]; then
-		
+
+		# note: this is very dirty ans setup-specific
+
 		# termite colors
 
-		sed --follow-symlinks -i '/\[colors\]/,$d' $terconf
-		cat $theme >> $terconf
-		killall -USR1 termite
+		# sed --follow-symlinks -i '/\[colors\]/,$d' $terconf
+		# cat $theme >> $terconf
+		# killall -USR1 termite
+
+		# note: this is very dirty ans setup-specific
+		# getting the colors from the selected theme
+
+		# get only the hex values
+
+		declare -A cols
+
+		for (( i=0; i<14; i++ ));
+		do
+			cols[$i]=`awk '/color'$i' / { print $3 }' $theme`
+		done
+
+		hex_bg=$(rgbatohex `echo | awk '/^background/' $theme | sed 's/[a-zA-Z=(),]//g'`)
+		hex_a=${hex_bg:7:2}
+
+		# if only the fint(??) changing color is too subtle for you, cou can replace the second $hex_bg with $color3$hex_a
+
+		# alacritty colors
+
+		names=("black" "red" "green" "yellow" "blue" "magenta" "cyan" "white")
+
+		for (( i=0; i<7; i++ ));
+		do
+			sed -i --follow-symlinks '0,/'${names[$i]}': .*/s//'${names[$i]}': '\'${cols[$i]}\''/' $terconf
+			sed -i --follow-symlinks '0,/'${names[$i]}': .*/! {0,/'${names[$i]}': .*/ s/'${names[$i]}': .*/'${names[$i]}': '\'${cols[$((i+7))]}\''/}' $terconf
+		done
 
 		# awesomewm theme colors
-		# note: this is very dirty but *should* work
-		# getting the colors from the theme that termite utilizes
-		color1=`echo | awk '/color1 / { print $3 }' $terconf`
-		color10=`echo | awk '/color10/ { print $3 }' $terconf`
-		color13=`echo | awk '/color13/ { print $3 }' $terconf`
-		color14=`echo | awk '/color14/ { print $3 }' $terconf`
-		color3=`echo | awk '/color3/ { print $3 }' $terconf`
-		color6=`echo | awk '/color6/ { print $3 }' $terconf`
-		hex_bg=$(rgbatohex `echo | awk '/^background/' $terconf | sed 's/[a-zA-Z=(),]//g'`)
-		hex_a=${hex_bg:7:2}
-		
-		# if only th fint changing color is too subtle for you, cou can replace the second $hex_bg with $color3$hex_a
 
 		# setting the colors in the theme.lua
 
-		sed -i --follow-symlinks 's/^theme.fg_normal .*/theme.fg_normal \t\t\t\t\t\t\t\t= "'$color13'" -- color13/' $awth
-		sed -i --follow-symlinks 's/^theme.fg_focus .*/theme.fg_focus \t\t\t\t\t\t\t\t\t= "'$color6'" -- color6/' $awth
-		sed -i --follow-symlinks 's/^theme.fg_urgent .*/theme.fg_urgent \t\t\t\t\t\t\t\t= "'$color3'" -- color3/' $awth
+		sed -i --follow-symlinks 's/^theme.fg_normal .*/theme.fg_normal \t\t\t\t\t\t\t\t= "'${cols[13]}'" -- color13/' $awth
+		sed -i --follow-symlinks 's/^theme.fg_focus .*/theme.fg_focus \t\t\t\t\t\t\t\t\t= "'${cols[6]}'" -- color6/' $awth
+		sed -i --follow-symlinks 's/^theme.fg_urgent .*/theme.fg_urgent \t\t\t\t\t\t\t\t= "'{$cols[3]}'" -- color3/' $awth
 		sed -i --follow-symlinks 's/^theme.bg_normal .*/theme.bg_normal \t\t\t\t\t\t\t\t= "'$hex_bg'" -- termite background when in rgba/' $awth
 		sed -i --follow-symlinks 's/^theme.bg_focus .*/theme.bg_focus \t\t\t\t\t\t\t\t\t= "'$hex_bg'" -- color6 with transparency/' $awth
-		sed -i --follow-symlinks 's/^theme.bg_urgent .*/theme.bg_urgent \t\t\t\t\t\t\t\t= "'$color3$hex_a'" -- color3 with transparency/' $awth
-		sed -i --follow-symlinks 's/^theme.border_normal .*/theme.border_normal \t\t\t\t\t\t\t= "'$color10'" -- color10/' $awth
-		sed -i --follow-symlinks 's/^theme.border_focus .*/theme.border_focus \t\t\t\t\t\t\t\t= "'$color14'" -- color14/' $awth
-		sed -i --follow-symlinks 's/^theme.border_marked .*/theme.border_marked \t\t\t\t\t\t\t= "'$color1'" -- color1/' $awth
+		sed -i --follow-symlinks 's/^theme.bg_urgent .*/theme.bg_urgent \t\t\t\t\t\t\t\t= "'${cols[3]}$hex_a'" -- color3 with transparency/' $awth
+		sed -i --follow-symlinks 's/^theme.border_normal .*/theme.border_normal \t\t\t\t\t\t\t= "'${cols[10]}'" -- color10/' $awth
+		sed -i --follow-symlinks 's/^theme.border_focus .*/theme.border_focus \t\t\t\t\t\t\t\t= "'${cols[13]}'" -- color14/' $awth
+		sed -i --follow-symlinks 's/^theme.border_marked .*/theme.border_marked \t\t\t\t\t\t\t= "'${cols[1]}'" -- color1/' $awth
 
 	else
 		echo 'ERROR: '$theme' does not exist'
