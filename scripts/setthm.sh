@@ -37,19 +37,17 @@ rgbatohex() {
 
 chkbg () {
 
-	#pic=$wall'wall'$1'.png'
-
-	if [ -e $1 ]; then
-		setbg $1
-	elif [ -e $HOME'/'$1 ]; then
-		setbg $HOME'/'$1
-	elif [ -e $wall'wall'$1'.png' ];then
+	if [ -e $wall'wall'$1'.png' ];then
 		setbg $wall'wall'$1'.png'
+	elif [ -e $HOME'/'$1 ]; then
+        setbg $HOME'/'$1
+	elif [ -e $1 ]; then
+        setbg $1
 	else
 		echo 'ERROR: could not find'
-		echo $1
-		echo $HOME'/'$1
 		echo $wall'wall'$1'.png'
+		echo $HOME'/'$1
+		echo $1
 		exit 0
 	fi
 }
@@ -145,9 +143,9 @@ if [ -z $1 ]; then
 	read -p 'change palette, theme or wallpaper? [p/t/w]' input
 	case $input in
 		[wW]* )
-			echo 'available wallpapers are:'; echo `ls -1 $wall`
+			echo 'available theme wallpapers are:'; echo `ls -1 $wall`
 			read -p 'select by typing in the part between "wall" and ".png"' input
-			setbg $input
+			chkbg $input
 			;;
 		[pP]* )
 			echo 'available palettes are:'; echo `ls -1 $HOME/.config/termite/ | sed '1d'`
@@ -188,7 +186,7 @@ elif [ $# -eq "3" ]; then
 		setthm $2
 	fi
 	if [ $3 != "0" ]; then
-		setbg $3
+		chkbg $3
 	fi
 else
 	echo 'usage:'; echo '0 args - you can select what to change'
