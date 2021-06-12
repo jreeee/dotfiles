@@ -5,7 +5,6 @@
 terconf=$HOME'/.config/alacritty/alacritty.yml'
 awesome=$HOME'/.config/awesome/'
 awconf=$awesome'rc.lua'
-awwp=$awesome'themes/powerarrow-dark/wall.png'
 awth=$awesome'themes/powerarrow-dark/theme.lua'
 wall=$HOME'/dotfiles/config/themes/wallpapers/'
 plte=$HOME'/dotfiles/config/themes/palettes/'
@@ -36,16 +35,30 @@ rgbatohex() {
 
 # wallpaper
 
-setbg () {
+chkbg () {
 
-	pic=$wall'wall'$1'.png'
+	#pic=$wall'wall'$1'.png'
 
-	if [ -e $pic ]; then
-		ln -sf $pic $awwp
+	if [ -e $1 ]; then
+		setbg $1
+	elif [ -e $HOME'/'$1 ]; then
+		setbg $HOME'/'$1
+	elif [ -e $wall'wall'$1'.png' ];then
+		setbg $wall'wall'$1'.png'
 	else
-		echo 'ERROR: '$pic' does not exist'
+		echo 'ERROR: could not find'
+		echo $1
+		echo $HOME'/'$1
+		echo $wall'wall'$1'.png'
 		exit 0
 	fi
+}
+
+setbg () {
+
+	sed -i 's#^feh .*#feh --bg-fill '$1'#' $awesome'fehbg.sh'
+	. $awesome'fehbg.sh'
+	sed -i --follow-symlinks 's#^theme.wallpaper .*#theme.wallpaper \t\t\t\t\t\t\t\t= "'$1'"#' $awth
 }
 
 # awesome theme
@@ -87,7 +100,7 @@ setcol () {
 		bg_o=`df -h | awk '/^background / { print $6 }' $theme | sed 's/.$//'`
 		cols[16]=`awk '/^cursor / { print $3 }' $theme`
 		cols[17]=`awk '/^cursor_foreground / { print $3 }' $theme`
-		
+
 		# if hex_a is to subte/faint for your liking, just replace $hex_bg with ${cols[3]}$hex_a
 
 		# alacritty colors
@@ -154,7 +167,8 @@ if [ -z $1 ]; then
 elif [ $# -eq "2" ]; then
 	case $1 in
 		[wW]* )
-			setbg $2
+			chkbg $2
+			exit 0
 			;;
 		[pP]* )
 			setcol $2
