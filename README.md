@@ -2,9 +2,9 @@
 <h2 align="center">a small pile of configs and scripts i use </h2>  
 <p align="center">
 
-<img src="./misc/screenshots/screenshot-2021-03-24-00-50-38.png " width="40%">
+<img src="./misc/screenshots/sc-th-1.png " width="40%">
 
-<img src="./misc/screenshots/screenshot-2021-03-24-00-58-36.png" width="40%">
+<img src="./misc/screenshots/sc-th-3.png" width="40%">
 
 </p>
 
