@@ -63,8 +63,13 @@ setbg () {
 
 setthm () {
 
+	#get the themes from the rc.lua
+	themestr=`awk 'BEGIN{f=0} /local themes =/{f=1} /\}/{f=0} {if (f) print }' $awconf`
+	themec=`sed -i $themestr`
+	#build an array containing the theme names - NOTE: lua arrays start @ 1
+	#todo, check if exists, if:
 	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['$1'\]/' $awconf
-}
+}	#else throw an error
 
 # palette
 
