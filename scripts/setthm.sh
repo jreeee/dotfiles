@@ -61,15 +61,45 @@ setbg () {
 
 # awesome theme
 
-setthm () {
+chkthm () {
 
 	#get the themes from the rc.lua
+	#first we get all the themes mentioned in the rc.lua, next we get them sorted into an array
+
 	themestr=`awk 'BEGIN{f=0} /local themes =/{f=1} /\}/{f=0} {if (f) print }' $awconf`
-	themec=`sed -i $themestr`
-	#build an array containing the theme names - NOTE: lua arrays start @ 1
-	#todo, check if exists, if:
+	themelist="${themestr:16}"
+	mapfile -t thlist < <( echo "$themelist" | cut --delimiter='"' --fields=2 )
+	thsz="${#thlist[@]}"
+	chk=1
+
+	if ! [ "$1" -eq "$1" ] 2> /dev/null
+	then
+		for (( i=1; i<$thsz; ++i )) do
+			if [ "${thlist[i]}" == "$1" ]; then
+				chk=0
+				setthm $i
+			fi
+		done
+		if [ $chk == "1" ]; then
+			echo 'Theme '$1' could not be found. Available themes are:'
+			for (( i=1; i<$thsz; ++i )) do
+				echo $i' : '"${thlist[$i]}"
+			done
+			exit 0
+		fi
+	elif [ $1 -ge $thsz ] || [ $1 -le "0" ];then
+		echo 'Theme '$1' could not be found'
+		exit 0
+	else
+		setthm $1
+	fi
+}
+
+setthm () {
+
 	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['$1'\]/' $awconf
-}	#else throw an error
+
+}
 
 # palette
 
@@ -95,7 +125,7 @@ setcol () {
 
 		for (( i=0; i<16; i++ ));
 		do
-			cols[$i]=`awk '/color'$i' =/ { print $3 }' $theme`
++			cols[$i]=`awk '/color'$i' =/ { print $3 }' $theme`
 		done
 
 		hex_bg=$(rgbatohex `echo | awk '/^background/' $theme | sed 's/[a-zA-Z=(),]//g'`)
@@ -125,7 +155,7 @@ setcol () {
 		# awesomewm theme colors
 
 		# setting the colors in the theme.lua
-
+		#TODO write a nicer loop
 		sed -i --follow-symlinks 's/^theme.fg_normal .*/theme.fg_normal \t\t\t\t\t\t\t\t= "'${cols[13]}'" -- color13/' $awth
 		sed -i --follow-symlinks 's/^theme.fg_focus .*/theme.fg_focus \t\t\t\t\t\t\t\t\t= "'${cols[6]}'" -- color6/' $awth
 		sed -i --follow-symlinks 's/^theme.fg_urgent .*/theme.fg_urgent \t\t\t\t\t\t\t\t= "'${cols[3]}'" -- color3/' $awth
@@ -151,6 +181,7 @@ if [ -z $1 ]; then
 			echo 'available theme wallpapers are:'; echo `ls -1 $wall`
 			read -p 'select by typing in the part between "wall" and ".png"' input
 			chkbg $input
+			exit 0
 			;;
 		[pP]* )
 			echo 'available palettes are:'; echo `ls -1 $HOME/.config/termite/ | sed '1d'`
@@ -160,7 +191,7 @@ if [ -z $1 ]; then
 		[tT]* )
 			echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $awconf | sed 's/[",]//g' | sed '1d;$d'`
 			read -p 'select by typing in the part between "theme" and ".txt"' input
-			setthm $input
+			chkthm $input
 			;;
 		*)
 			echo 'the input does not match the requirement, exiting'
@@ -177,7 +208,7 @@ elif [ $# -eq "2" ]; then
 			setcol $2
 			;;
 		[tT]* )
-			setthm $2
+			chkthm $2
 			;;
 		*)
 			echo 'usage: arg1=[p/t/w] arg2=integer'
@@ -188,7 +219,7 @@ elif [ $# -eq "3" ]; then
 		setcol $1
 	fi
 	if [ $2 != "0" ]; then
-		setthm $2
+		chkthm $2
 	fi
 	if [ $3 != "0" ]; then
 		chkbg $3
