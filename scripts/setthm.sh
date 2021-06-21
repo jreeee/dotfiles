@@ -9,7 +9,9 @@ awth=$awesome'themes/powerarrow-dark/theme.lua'
 wall=$HOME'/dotfiles/config/themes/wallpapers/'
 plte=$HOME'/dotfiles/config/themes/palettes/'
 
-#padding for hexadecimal values
+# HELPER FUNCTIONS:
+
+# padding for hexadecimal values
 
 hexpad () {
 	len=${#1}
@@ -20,9 +22,9 @@ hexpad () {
 	fi
 }
 
-# takes in a string like "123 12 0 0.4"
+# takes in a string like "123 12 0 0.4" and turnns it into rgba
 
-rgbatohex() {
+rgbatohex () {
 	bg_alpha=`echo $4' * 255 + 0.5' | bc -l` # normalized
 	bg_alpha=${bg_alpha%.*} # to int
 	hex_all=`echo | printf '%x\n' $1 $2 $3 $bg_alpha`
@@ -33,7 +35,15 @@ rgbatohex() {
 	echo '#'$hex_r$hex_g$hex_b$hex_a
 }
 
-# wallpaper
+lsthm () {
+	for (( i=1; i<"${#thlist[@]}"; i++ )) do
+		echo $i': '"${thlist[$i]}"
+	done
+}
+
+# WALLPAPER
+
+# checks multiple directries if they contain the background, if so it calls setbg()
 
 chkbg () {
 
@@ -52,6 +62,8 @@ chkbg () {
 	fi
 }
 
+# updates and executes fehbg, also sets the new bg in the awesome conf
+
 setbg () {
 
 	sed -i 's#^feh .*#feh --bg-fill '$1'#' $awesome'fehbg.sh'
@@ -59,12 +71,14 @@ setbg () {
 	sed -i --follow-symlinks 's#^theme.wallpaper .*#theme.wallpaper \t\t\t\t\t\t\t\t= "'$1'"#' $awth
 }
 
-# awesome theme
+# THEME
+
+# checks if the theme exists, if so it calls setthm()
 
 chkthm () {
 
-	#get the themes from the rc.lua
-	#first we get all the themes mentioned in the rc.lua, next we get them sorted into an array
+	# first we get all the themes mentioned in the rc.lua, next we get them sorted into an array
+	# then we check if the input matches a name in that array or a index
 
 	themestr=`awk 'BEGIN{f=0} /local themes =/{f=1} /\}/{f=0} {if (f) print }' $awconf`
 	themelist="${themestr:16}"
@@ -72,28 +86,34 @@ chkthm () {
 	thsz="${#thlist[@]}"
 	chk=1
 
-	if ! [ "$1" -eq "$1" ] 2> /dev/null
+	if [ "$1" -eq $chk ] && [ "$2" -eq $chk ]; then
+		lsthm thlist
+	elif ! [ "$1" -eq "$1" ] 2> /dev/null
 	then
 		for (( i=1; i<$thsz; ++i )) do
-			if [ "${thlist[i]}" == "$1" ]; then
+			if [ "$1" == "${thlist[$i]}" ]; then
 				chk=0
 				setthm $i
 			fi
 		done
 		if [ $chk == "1" ]; then
-			echo 'Theme '$1' could not be found. Available themes are:'
-			for (( i=1; i<$thsz; ++i )) do
-				echo $i' : '"${thlist[$i]}"
-			done
+			echo 'Theme '$1' could not be found.'
+			lsthm thlist
+			#for (( i=1; i<$thsz; ++i )) do
+			#	echo $i' : '"${thlist[$i]}"
+			#done
 			exit 0
 		fi
 	elif [ $1 -ge $thsz ] || [ $1 -le "0" ];then
 		echo 'Theme '$1' could not be found'
+		lsthm thlist
 		exit 0
 	else
 		setthm $1
 	fi
 }
+
+# sets the new theme, requires awesome to restart
 
 setthm () {
 
@@ -102,6 +122,8 @@ setthm () {
 }
 
 # palette
+
+# since we also change the colors in the theme we need to restart awesome to apply these changes
 
 setcol () {
 
@@ -125,7 +147,7 @@ setcol () {
 
 		for (( i=0; i<16; i++ ));
 		do
-+			cols[$i]=`awk '/color'$i' =/ { print $3 }' $theme`
+			cols[$i]=`awk '/color'$i' =/ { print $3 }' $theme`
 		done
 
 		hex_bg=$(rgbatohex `echo | awk '/^background/' $theme | sed 's/[a-zA-Z=(),]//g'`)
@@ -172,31 +194,35 @@ setcol () {
 	fi
 }
 
-
+# with no args
 
 if [ -z $1 ]; then
 	read -p 'change palette, theme or wallpaper? [p/t/w]' input
 	case $input in
 		[wW]* )
 			echo 'available theme wallpapers are:'; echo `ls -1 $wall`
-			read -p 'select by typing in the part between "wall" and ".png"' input
+			read -p 'select by typing in the part between "wall" and ".png" or enter a path to the image' input
 			chkbg $input
 			exit 0
 			;;
 		[pP]* )
-			echo 'available palettes are:'; echo `ls -1 $HOME/.config/termite/ | sed '1d'`
+			echo 'available palettes are:'; echo `ls -1 $HOME/dotfiles/config/themes/palettes | sed '1d'`
 			read -p 'select by typing in the part between "theme" and ".txt"' input
 			setcol $input
 			;;
 		[tT]* )
-			echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $awconf | sed 's/[",]//g' | sed '1d;$d'`
-			read -p 'select by typing in the part between "theme" and ".txt"' input
+			#echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $awconf | sed 's/[",]//g' | sed '1d;$d'`
+			echo 'available themes are:'
+			chkthm 1 1
+			read -p 'select by typing in the index or the name of the theme' input
 			chkthm $input
 			;;
 		*)
 			echo 'the input does not match the requirement, exiting'
 			exit 0
 	esac
+
+# with two args
 
 elif [ $# -eq "2" ]; then
 	case $1 in
@@ -214,6 +240,8 @@ elif [ $# -eq "2" ]; then
 			echo 'usage: arg1=[p/t/w] arg2=integer'
 			exit 0
 	esac
+# with three args
+
 elif [ $# -eq "3" ]; then
 	if [ $1 != "0" ]; then
 		setcol $1
@@ -231,4 +259,4 @@ else
 	exit 0
 fi
 
-echo 'awesome.restart()' | awesome-client
+echo 'awesome.restart()' | awesome-client 2> /dev/null
