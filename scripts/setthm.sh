@@ -36,6 +36,7 @@ rgbatohex () {
 }
 
 lsthm () {
+
 	for (( i=1; i<"${#thlist[@]}"; i++ )) do
 		echo $i': '"${thlist[$i]}"
 	done
@@ -95,18 +96,14 @@ chkthm () {
 			fi
 		done
 		if [ $chk == "1" ]; then
-			echo 'Theme '$1' could not be found.'
-			lsthm thlist
-			#for (( i=1; i<$thsz; ++i )) do
-			#	echo $i' : '"${thlist[$i]}"
-			#done
+			echo 'Theme '$1' could not be found, you can ust use args "t 0" to list all themes'
 			exit 0
 		fi
 	elif [ $1 -eq "0" ]; then
 		lsthm thlist
+		exit 0
 	elif [ $1 -ge $thsz ] || [ $1 -lt "0" ]; then
-		echo 'Theme '$1' could not be found'
-		lsthm thlist
+		echo 'Theme '$1' could not be found, use args "t 0" to list all themes'
 		exit 0
 	else
 		setthm $1
@@ -213,11 +210,8 @@ if [ -z $1 ]; then
 		[tT]* )
 			#echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $awconf | sed 's/[",]//g' | sed '1d;$d'`
 			echo 'available themes are:'
-			chkthm 0
+			chkthm 0 1
 			read -p 'select by typing in the index or the name of the theme ' input
-			if [ $input == "0" ]; then
-				exit 0
-			fi
 			chkthm $input
 			;;
 		*)
@@ -240,9 +234,10 @@ elif [ $# -eq "2" ]; then
 			chkthm $2
 			;;
 		*)
-			echo 'usage: arg1=[p/t/w] arg2=integer'
+			echo 'usage: arg1=[p/t/w] arg2=integer/string'
 			exit 0
 	esac
+
 # with three args
 
 elif [ $# -eq "3" ]; then
@@ -257,8 +252,8 @@ elif [ $# -eq "3" ]; then
 	fi
 else
 	echo 'usage:'; echo '0 args - you can select what to change'
-	echo '3 args - select everything individually, if you want to leave sth as is'
-	echo 'use 0, order: palette theme wallpaper'
+	echo '2 args - select what you want to change and what it should be changed into'
+	echo '3 args - select everything, order: palette theme wallpaper'
 	exit 0
 fi
 
