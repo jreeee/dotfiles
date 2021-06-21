@@ -110,11 +110,10 @@ chkthm () {
 	fi
 }
 
-# sets the new theme, requires awesome to restart
-
 setthm () {
-
+	thpath=$awesome'themes/'"${thlist[$1]}"'/theme.lua'
 	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['$1'\]/' $awconf
+	sed -i 's#awth=.*#awth='$thpath'#' $HOME'/.scripts/setthm.sh'
 
 }
 
