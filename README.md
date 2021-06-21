@@ -18,9 +18,11 @@ can, unsuprisingly, be found in `scripts/`
 
 - `an-bg.sh` tries to open the arg you give it and set it as your background. to stop it you can either kill mpv or run the script again with no arg. original script by **[CalinLeafshade](https://github.com/CalinLeafshade)** can be found **[here](https://github.com/CalinLeafshade/dots/blob/master/bin/bin/bg.sh)**. **requires** `xwinwrap`, `mpv`
 
-- `setthm.sh` is a very setup-specific script; it replaces the color palette of `alacritty` (also works with `termite` but that part is commented out), the wallpaper and the colors of the `awesome` config i currently run. 
-palettes can be customized and placed in `config/themes/palettes/` with the name theme*name_here*.txt and an accompanying wallpaper in `config/themes/wallpapers/` called wall*name_here*.png. i rewrote this part - feh now manages the background image, meaning a bg-change doesnt require awesome to restart. also [w] can now be a path to your file.
-it can be run via the alias `setthm` or `qst` for supressed output. works with no args, two ([p/t/w] [value]) or three ([pval] [tval] [wval]).
+- `setthm.sh` is a very setup-specific script, so be warned! It takes zero, two or three arguments. with 0 args it will ask you what you want to change. there are three options available: [p]alette, [t]heme and [w]allpaper.
+palettes are stored in `config/themes/palettes/` and change the colour-scheme of the terminal, in my case alacritty (and commented out is the version for termite) and the colours used by the awesome theme in use because of that it restarts awesome after a palette-swap.
+themes are stored in `config/awesome/themes/` and can be listed by typing 0. to select a theme either write its name or use its index. also requires awesome tor restart.
+to change the wallpaper just give a path to an image or use the number of one of the wallpapers in the `config/themes/wallpapers/` to set it.
+when using args it looks like this: [p/t/w] [int/string] for two args and [pval] [tval] [wval] for three.
 
 
 - `tablet-conf.sh` is a simple little script i run to configure my huion kamvas 13 but any other drawing tablet *should* also work with it. to configure what the buttons of your tablet do go to where the `xsetwacom set $id_tab Button` lines start. args are -1 (info) to 4, letting you set the orientation. **requires** the wacom drivers
