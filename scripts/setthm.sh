@@ -86,9 +86,7 @@ chkthm () {
 	thsz="${#thlist[@]}"
 	chk=1
 
-	if [ "$1" -eq $chk ] && [ "$2" -eq $chk ]; then
-		lsthm thlist
-	elif ! [ "$1" -eq "$1" ] 2> /dev/null
+	if ! [ "$1" -eq "$1" ] 2> /dev/null
 	then
 		for (( i=1; i<$thsz; ++i )) do
 			if [ "$1" == "${thlist[$i]}" ]; then
@@ -104,7 +102,9 @@ chkthm () {
 			#done
 			exit 0
 		fi
-	elif [ $1 -ge $thsz ] || [ $1 -le "0" ];then
+	elif [ $1 -eq "0" ]; then
+		lsthm thlist
+	elif [ $1 -ge $thsz ] || [ $1 -lt "0" ]; then
 		echo 'Theme '$1' could not be found'
 		lsthm thlist
 		exit 0
@@ -201,20 +201,23 @@ if [ -z $1 ]; then
 	case $input in
 		[wW]* )
 			echo 'available theme wallpapers are:'; echo `ls -1 $wall`
-			read -p 'select by typing in the part between "wall" and ".png" or enter a path to the image' input
+			read -p 'select by typing in the part between "wall" and ".png" or enter a path to the image ' input
 			chkbg $input
 			exit 0
 			;;
 		[pP]* )
 			echo 'available palettes are:'; echo `ls -1 $HOME/dotfiles/config/themes/palettes | sed '1d'`
-			read -p 'select by typing in the part between "theme" and ".txt"' input
+			read -p 'select by typing in the part between "theme" and ".txt" ' input
 			setcol $input
 			;;
 		[tT]* )
 			#echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $awconf | sed 's/[",]//g' | sed '1d;$d'`
 			echo 'available themes are:'
-			chkthm 1 1
-			read -p 'select by typing in the index or the name of the theme' input
+			chkthm 0
+			read -p 'select by typing in the index or the name of the theme ' input
+			if [ $input == "0" ]; then
+				exit 0
+			fi
 			chkthm $input
 			;;
 		*)
