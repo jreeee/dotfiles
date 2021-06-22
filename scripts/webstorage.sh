@@ -14,29 +14,29 @@ mnt=/path/to/mount/dir/
 
 connect () {
 
-	wdfs https://link/to/the/drive $dir -o username=$user -o password=$pwd
+	wdfs https://link/to/the/drive "$mnt" -o username=$user -o password=$pwd
 
 }
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 	connect &
 else
-	case $1 in
+	case "$1" in
 		[vV]* )
-			sudo sh /path/to/your/vpn/script | while read line; do
+			sudo sh /path/to/your/vpn/script | while read -r line; do
 
 				#checks the output to match "Connected as"
 
-				if echo $line | grep -q "Connected as" ; then
+				if echo "$line" | grep -q "Connected as" ; then
 					sleep 2
 					connect
 				fi
 			done
 			;;
 		[uU]* )
-			sudo umount $dir && sudo pkill openconnect
+			sudo umount "$mnt" && sudo pkill openconnect
 			;;
 		*)
-			echo 'usage: -:connect to calDAV server v:use a vpn u:umount and disconnect'  
+			echo 'usage: -:connect to calDAV server v:use a vpn u:umount and disconnect'
 	esac
 fi
