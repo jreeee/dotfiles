@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # this is set each time setthm() is called, displaying the full path
-awth=$HOME'/awesome/themes/powerarrow-dark/theme.lua'
+awth=$HOME'.config/awesome/themes/powerarrow-dark/theme.lua'
 
 # deprecated as termite is not maintained anymore
 #terconf=$HOME'/.config/termite/config'
@@ -30,10 +30,10 @@ hexpad () {
 rgbatohex () {
 
 	read -a rgba <<< "$1"													# parsing the argument into an array
-    rgba[3]=$(printf "%.0f" "$(echo "${rgba[3]}"' * 255 + 0.5' | bc -l)") 	# 0.x to int btwn 0-255
-    for (( i=0; i<4; i++ )) do
-        rgba[$i]=$(hexpad "$(printf "%x" "${rgba[$i]}")")					# dec to hex plus padding
-    done
+	rgba[3]=$(printf "%.0f" "$(echo "${rgba[3]}"' * 255 + 0.5' | bc -l)") 	# 0.x to int btwn 0-255
+	for (( i=0; i<4; i++ )) do
+		rgba[$i]=$(hexpad "$(printf "%x" "${rgba[$i]}")")					# dec to hex plus padding
+	done
 
 	echo '#'"${rgba[0]}""${rgba[1]}""${rgba[2]}""${rgba[3]}"
 
@@ -57,9 +57,9 @@ chkbg () {
 	if [ -e "$wall"'wall'"$1"'.png' ];then
 		setbg "$wall"'wall'"$1"'.png'
 	elif [ -e "$HOME"'/'"$1" ]; then
-        setbg "$HOME"'/'"$1"
+		setbg "$HOME"'/'"$1"
 	elif [ -e "$1" ]; then
-        setbg "$1"
+		setbg "$1"
 	else
 		echo 'ERROR: could not find'
 		echo "$wall"'wall'"$1"'.png'
@@ -118,10 +118,9 @@ chkthm () {
 
 setthm () {
 
-		#echo ${BASH_SOURCE[0]}
-		thpath=$awesome'themes/'"${thlist[$1]}"'/theme.lua'
-		sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['"$1"'\]/' "$awconf"
-		sed -i  's#^awth=.*#awth="'"$thpath"'"#' "${BASH_SOURCE[0]}"
+	thpath=$awesome'themes/'"${thlist[$1]}"'/theme.lua'
+	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['"$1"'\]/' "$awconf"
+	sed -i  's#^awth=.*#awth="'"$thpath"'"#' "${BASH_SOURCE[0]}"
 
 }
 
@@ -139,9 +138,9 @@ setcol () {
 
 		# termite colors
 
-		# sed --follow-symlinks -i '/\[colors\]/,$d' $terconf
-		# cat $theme >> $terconf
-		# killall -USR1 termite
+		#sed --follow-symlinks -i '/\[colors\]/,$d' $terconf
+		#cat $theme >> $terconf
+		#killall -USR1 termite
 
 		# getting the colors from the selected theme
 
@@ -155,7 +154,6 @@ setcol () {
 		done
 
 		hex_bg=$(rgbatohex "$(echo | awk '/^background/' "$theme" | sed 's/[a-zA-Z=(),]//g')")
-		#hex_bg=${hex_bg_rgba:0:7}
 		hex_a=${hex_bg:7:2}
 		bg_o=$(df -h | awk '/^background / { print $6 }' "$theme" | sed 's/.$//')
 		cols[16]=$(awk '/^cursor / { print $3 }' "$theme")
@@ -182,7 +180,7 @@ setcol () {
 		# awesomewm theme colors
 
 		# setting the colors in the theme.lua
-		#TODO write a nicer loop
+		# TODO write a nicer loop
 		sed -i --follow-symlinks 's/^theme.fg_normal .*/theme.fg_normal \t\t\t\t\t\t\t\t= "'"${cols[13]}"'" -- color13/' "$awth"
 		sed -i --follow-symlinks 's/^theme.fg_focus .*/theme.fg_focus \t\t\t\t\t\t\t\t\t= "'"${cols[6]}"'" -- color6/' "$awth"
 		sed -i --follow-symlinks 's/^theme.fg_urgent .*/theme.fg_urgent \t\t\t\t\t\t\t\t= "'"${cols[3]}"'" -- color3/' "$awth"

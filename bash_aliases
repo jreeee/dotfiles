@@ -19,7 +19,7 @@ alias poweroff="sudo poweroff"
 alias reboot="sudo reboot"
 alias lck="sleep 1 && xtrlock"
 alias vcam="sudo modprobe v4l2loopback video_nr=2 card_label=vcam"
-alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg"
+alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg -o '~/Music/%(title)s.%(ext)s'"
 alias pdf2jpg="pdftoppm -jpeg -r 300"
 
 # dirs
@@ -35,5 +35,3 @@ alias webs="sudo ~/.scripts/webstorage.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
 alias playbg="~/.scripts/an-bg.sh"
 alias setthm="~/.scripts/setthm.sh"
-# the errors above are suppressed bc it will fail a dbus-send
-# if you encounter problems with it just remove &>/dev/null for debug info
