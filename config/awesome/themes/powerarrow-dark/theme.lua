@@ -78,7 +78,6 @@ local separators = lain.util.separators
 
 local keyboardlayout = awful.widget.keyboardlayout:new()
 
-
 local volumearc_widget = require("awesome-wm-widgets.volumearc-widget.volumearc")
 
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
@@ -158,11 +157,13 @@ function theme.at_screen_connect(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            spr2,
+			spr2,
+			spr,
             s.mytaglist,
 			spr1,
 			wibox.container.background(spr, theme.fg_normal),
 			spr2,
+			spr,
 			s.mypromptbox,
         },
 	        s.mytasklist, -- Middle widget
@@ -170,12 +171,14 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
 			spr1,
-			wibox.container.background(spr, theme.fg_normal),
-			spr2, --tmp
-			keyboardlayout, --tmp
-            --wibox.container.background(keyboardlayout, theme.fg_urgent),
-			spr1,
+			{  -- this is ugly and i don' like it but it does the job
+				keyboardlayout,
+				bg = theme.fg_normal,
+				fg = theme.bg_normal,
+				widget = wibox.container.background
+			},
 			spr2,
+			spr,
             volumearc_widget({
                 button_press = function(_, _, _, button)
                     if (button == 1) then
@@ -192,14 +195,26 @@ function theme.at_screen_connect(s)
             }),
             ram_widget(),
             cpu_widget(),
+			spr,
             batteryarc_widget(),
-            net_speed_widget(),
+			spr,
+			spr1,
+			{
+            	net_speed_widget(),
+				bg = theme.fg_normal,
+				fg = theme.bg_normal,
+				widget = wibox.container.background
+			},
+			spr2,
+			spr,
             clock,
-			spr,
-			spr,
-      	 	wibox.container.background(spr, theme.fg_normal),
-            spr,
-			s.mylayoutbox,
+            spr1,
+			{
+				s.mylayoutbox,
+				bg = theme.fg_normal,
+				fg = theme.fg_urgent,
+				widget = wibox.container.background
+			},
         },
     }
 end

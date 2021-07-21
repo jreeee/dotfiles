@@ -47,7 +47,9 @@ can be found in `config/` and are mostly pretty basic (for now)
 
 **the setup**
 
-i use **[artix linux](https://artixlinux.org/)** with **[awesome](https://awesomewm.org/)** as my wm and a theme based on **[lcpz](https://github.com/lcpz/)** **[awesome-copycats](https://github.com/lcpz/awesome-copycats)**, more specific **[powerarrow-dark](https://github.com/lcpz/awesome-copycats/tree/master/themes/powerarrow-dark)**.
+i use **[artix linux](https://artixlinux.org/)** with **[awesome](https://awesomewm.org/)** as my wm and a theme based on **[lcpz](https://github.com/lcpz/)** **[awesome-copycats](https://github.com/lcpz/awesome-copycats)**, more specific **[powerarrow-dark](https://github.com/lcpz/awesome-copycats/tree/master/themes/powerarrow-dark)** although by now the similarities are minimal...
+
+most of the widgets i use in the taskbar are the **[awesome-wm-widgets](https://github.com/streetturtle/awesome-wm-widgets)**, or are at least based on them since i modified some to better suit my setup.
 
 **misc**
 
