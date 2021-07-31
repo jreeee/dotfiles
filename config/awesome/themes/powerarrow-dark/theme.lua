@@ -104,7 +104,11 @@ local clock = awful.widget.watch(
 
 -- Calendar
 local cw = calendar_widget({
-    theme = 'dark', --TODO
+	t_bg = theme.bg_normal,
+	t_fg = theme.fg_normal,
+	t_br = theme.border_normal,
+	t_dt = theme.fg_focus,
+    theme = 'custom',
     placement = 'bottom_right',
     radius = 8,
 })
@@ -193,7 +197,9 @@ function theme.at_screen_connect(s)
             ram_widget(),
             cpu_widget(),
 			spr,
-            batteryarc_widget(),
+            batteryarc_widget({
+				charging_color = theme.fg_normal
+			}),
 			spr,
 			spr1,
 			{
