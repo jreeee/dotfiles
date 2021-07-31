@@ -24,7 +24,7 @@ theme.fg_focus 									= "#C7953C" -- color6
 theme.fg_urgent 								= "#B9372B" -- color3
 theme.bg_normal 								= "#0a0a0ab3" -- termite background when in rgba
 theme.bg_focus 									= "#0a0a0ab3" -- color6 with transparency
-theme.bg_urgent 								= "#b9372bb3" -- color3 with transparency
+theme.bg_urgent 								= "#B9372Bb3" -- color3 with transparency
 theme.border_width                              = dpi(1)
 theme.border_normal 							= "#455e7e" -- color10
 theme.border_focus 								= "#E3D198" -- color14
@@ -79,11 +79,11 @@ local separators = lain.util.separators
 
 local keyboardlayout = awful.widget.keyboardlayout:new()
 
-local volumearc_widget = require("awesome-wm-widgets.volumearc-widget.volumearc")
+local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 
-local brightness_widget = require("awesome-wm-widgets.brightnessarc-widget.brightnessarc") --TODO
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness") --TODO
 
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 
@@ -180,19 +180,15 @@ function theme.at_screen_connect(s)
 			},
 			spr2,
 			spr,
-            volumearc_widget({
-                button_press = function(_, _, _, button)
-                    if (button == 1) then
-                        awful.spawn('pavucontrol --tab=3', false)
-                    elseif (button == 3) then
-                        os.execute('pulsemixer --toggle-mute')
-                    end
-                end
+            volume_widget({
+				widget_type = 'arc',
+				with_icon = 'false'
             }),
             brightness_widget({
-                get_brightness_cmd = 'xbacklight -get',
-                inc_brightness_cmd = 'xbacklight -inc 1',
-                dec_brightness_cmd = 'xbacklight -dec 1'
+                type = 'arc',
+                program = 'xbacklight',
+                step = '1',
+				path_to_icon = ''
             }),
             ram_widget(),
             cpu_widget(),

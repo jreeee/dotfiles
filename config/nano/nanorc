@@ -2,5 +2,7 @@ include /usr/share/nano/sh.nanorc
 include /usr/share/nano/lua.nanorc
 include /usr/share/nano/java.nanorc
 include /usr/share/nano/c.nanorc
+include /usr/share/nano/python.nanorc
 
 set tabsize 4
+set guidestripe 80
