@@ -61,7 +61,7 @@ local function worker(user_args)
 
     net_speed_widget = wibox.widget {
         {
-            id = 'rx_speed',
+            id = 'tx_speed',
             forced_width = width,
             align = 'right',
             widget = wibox.widget.textbox
@@ -71,7 +71,7 @@ local function worker(user_args)
             widget = wibox.widget.textbox
         },
         {
-            id = 'tx_speed',
+            id = 'rx_speed',
             forced_width = width,
             align = 'left',
             widget = wibox.widget.textbox
