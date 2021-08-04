@@ -213,8 +213,7 @@ function theme.at_screen_connect(s)
                 main_color = theme.taskbar_fg,
                 bg_color = theme.taskbar_bg,
 				charging_color = theme.border_focus,
-                low_level_color = theme.border_marked,
-                medium_level_color = theme.taskbar_fg
+                low_level_color = theme.border_marked
 			}),
 			spr,
 			spr1,

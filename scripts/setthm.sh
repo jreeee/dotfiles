@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# this is set each time setthm() is called, displaying the full path
-awth=$HOME'.config/awesome/themes/powerarrow-dark/theme.lua'
+# this is set each time setthm() is called, displaying the full path to the theme (subject to change)
+awth=$HOME'/.config/awesome/themes/powerarrow-dark/theme.lua'
 
 # deprecated as termite is not maintained anymore
 #terconf=$HOME'/.config/termite/config'
@@ -120,6 +120,7 @@ setthm () {
 
 	thpath=$awesome'themes/'"${thlist[$1]}"'/theme.lua'
 	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['"$1"'\]/' "$awconf"
+	#this next part is horrible and you should never do something like this since it changes the very file that is being executed. TODO fix at some point
 	sed -i  's#^awth=.*#awth="'"$thpath"'"#' "${BASH_SOURCE[0]}"
 
 }

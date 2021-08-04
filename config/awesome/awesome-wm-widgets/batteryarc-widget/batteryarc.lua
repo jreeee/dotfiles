@@ -33,7 +33,6 @@ local function worker(user_args)
     local main_color = args.main_color or beautiful.fg_color
     local bg_color = args.bg_color or '#ffffff11'
     local low_level_color = args.low_level_color or '#e53935'
-    local medium_level_color = args.medium_level_color or '#c0ca33'
     local charging_color = args.charging_color or '#43a047'
 
     local warning_msg_title = args.warning_msg_title or 'Houston, we have a problem'
@@ -118,7 +117,7 @@ local function worker(user_args)
             text.text = ''
         end
 
-        if charge < 15 then
+        if charge < 20 then
             widget.colors = { low_level_color }
             if enable_battery_warning and status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
                 -- if 5 minutes have elapsed since the last warning
@@ -126,8 +125,6 @@ local function worker(user_args)
 
                 show_battery_warning()
             end
-        elseif charge > 15 and charge < 40 then
-            widget.colors = { medium_level_color }
         else
             widget.colors = { main_color }
         end
