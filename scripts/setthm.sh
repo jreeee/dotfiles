@@ -190,6 +190,9 @@ setcol () {
 		sed -i --follow-symlinks 's/^theme.border_normal .*/theme.border_normal \t\t\t\t\t\t\t= "'"${cols[10]}"'" -- color10/' "$awth"
 		sed -i --follow-symlinks 's/^theme.border_focus .*/theme.border_focus \t\t\t\t\t\t\t\t= "'"${cols[13]}"'" -- color14/' "$awth"
 		sed -i --follow-symlinks 's/^theme.border_marked .*/theme.border_marked \t\t\t\t\t\t\t= "'"${cols[1]}"'" -- color1/' "$awth"
+		sed -i --follow-symlinks 's/^theme.taskbar_fg .*/theme.taskbar_fg \t\t\t\t\t\t\t\t= "'"${cols[7]}"'" -- color7/' "$awth"
+		sed -i --follow-symlinks 's/^theme.taskbar_bg .*/theme.taskbar_bg \t\t\t\t\t\t\t\t= "'"${cols[0]}"'" -- color0/' "$awth"
+
 
 	else
 		echo 'ERROR: '"$theme"' does not exist'

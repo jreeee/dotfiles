@@ -34,6 +34,8 @@ theme.tasklist_bg_focus                         = "#00000000" --theme.bg_normal
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
+theme.taskbar_fg 								= "#B7BD99" -- color7
+theme.taskbar_bg 								= "#36382E" -- color0
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(140)
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
@@ -155,7 +157,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "bottom", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.taskbar_fg })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -166,7 +168,7 @@ function theme.at_screen_connect(s)
 			spr,
             s.mytaglist,
 			spr1,
-			wibox.container.background(spr, theme.fg_normal),
+			wibox.container.background(spr, theme.taskbar_fg),
 			spr2,
 			spr,
 			s.mypromptbox,
@@ -178,34 +180,48 @@ function theme.at_screen_connect(s)
 			spr1,
 			{  -- this is ugly and i don' like it but it does the job
 				keyboardlayout,
-				bg = theme.fg_normal,
-				fg = theme.bg_normal,
+				bg = theme.taskbar_fg,
+				fg = theme.taskbar_bg,
 				widget = wibox.container.background
 			},
 			spr2,
 			spr,
             volume_widget({
 				widget_type = 'arc',
-				with_icon = 'false'
+				with_icon = 'false',
+                main_color = theme.taskbar_fg,
+                bg_color = theme.taskbar_bg,
+                mute_color = theme.border_marked
             }),
             brightness_widget({
                 type = 'arc',
                 program = 'xbacklight',
                 step = '1',
-				path_to_icon = ''
+				path_to_icon = '',
+                bg_color = theme.taskbar_bg
             }),
-            ram_widget(),
-            cpu_widget(),
+            ram_widget({
+                color_used = theme.taskbar_bg,
+                color_free = theme.taskbar_fg,
+                color_buf = theme.border_normal
+            }),
+            cpu_widget({
+                color = theme.taskbar_fg
+            }),
 			spr,
             batteryarc_widget({
-				charging_color = theme.fg_normal
+                main_color = theme.taskbar_fg,
+                bg_color = theme.taskbar_bg,
+				charging_color = theme.border_focus,
+                low_level_color = theme.border_marked,
+                medium_level_color = theme.taskbar_fg
 			}),
 			spr,
 			spr1,
 			{
             	net_speed_widget(),
-				bg = theme.fg_normal,
-				fg = theme.bg_normal,
+				bg = theme.taskbar_fg,
+				fg = theme.taskbar_bg,
 				widget = wibox.container.background
 			},
 			spr2,
@@ -214,7 +230,7 @@ function theme.at_screen_connect(s)
             spr1,
 			{
 				s.mylayoutbox,
-				bg = theme.fg_normal,
+				bg = theme.taskbar_fg,
 				fg = theme.fg_urgent,
 				widget = wibox.container.background
 			},

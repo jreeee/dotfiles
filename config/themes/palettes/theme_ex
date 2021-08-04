@@ -20,6 +20,6 @@ color5 = #f9bdc0 - machine + prompt symbol
 color13 = #E3D198 - theme fg
 color6 = #C7953C - theme focus fg
 color14 = #EDC376 - highlight color - theme border focus
-color7 = #B7BD99 - fg of the second also font
+color7 = #B7BD99 - fg of the second also font color of the first
 color15 = #E9ECD8 
 
