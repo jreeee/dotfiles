@@ -11,7 +11,7 @@ blub_right='' #   █ 
 #slant_right=''
 #slant_left=' '
 
-prompt_symbol='▷'
+prompt_symbol='ᐅ'
 
 user_symbol='%n'
 user_machine_symbol=' ☡ '
