@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # this is set each time setthm() is called, displaying the full path to the theme (subject to change)
-awth=$HOME'/.config/awesome/themes/powerarrow-dark/theme.lua'
+awth=$HOME'/.config/awesome/themes/modern-slant/theme.lua'
 
 # deprecated as termite is not maintained anymore
 #terconf=$HOME'/.config/termite/config'

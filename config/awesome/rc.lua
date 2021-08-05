@@ -73,12 +73,12 @@ awful.spawn.with_shell(
 
 -- {{{ Variable definitions
 
+-- add themes here
 local themes = {
-    "wip-eva",          -- 1
-    "powerarrow-dark",  -- 2
+    "modern-slant",
 }
 
-local chosen_theme = themes[2]
+local chosen_theme = themes[1]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "alacritty"
@@ -252,6 +252,9 @@ globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
     awful.key({ altkey }, "p", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures") end,
+              {description = "take a screenshot", group = "hotkeys"}),
+
+	awful.key({}, "Print", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
@@ -451,6 +454,46 @@ globalkeys = my_table.join(
     awful.key({}, "XF86AudioMute", function () os.execute("pulsemixer --toggle-mute") end,
             {description = "toggle mute", group = "hotkeys"}),
     
+    -- MPD control i dont like mdp
+    --[[
+    awful.key({ altkey, "Control" }, "Up",
+        function ()
+            os.execute("mpc toggle")
+            beautiful.mpd.update()
+        end,
+        {description = "mpc toggle", group = "widgets"}),
+    awful.key({ altkey, "Control" }, "Down",
+        function ()
+            os.execute("mpc stop")
+            beautiful.mpd.update()
+        end,
+        {description = "mpc stop", group = "widgets"}),
+    awful.key({ altkey, "Control" }, "Left",
+        function ()
+            os.execute("mpc prev")
+            beautiful.mpd.update()
+        end,
+        {description = "mpc prev", group = "widgets"}),
+    awful.key({ altkey, "Control" }, "Right",
+        function ()
+            os.execute("mpc next")
+            beautiful.mpd.update()
+        end,
+        {description = "mpc next", group = "widgets"}),
+    awful.key({ altkey }, "0",
+        function ()
+            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
+            if beautiful.mpd.timer.started then
+                beautiful.mpd.timer:stop()
+                common.text = common.text .. lain.util.markup.bold("OFF")
+            else
+                beautiful.mpd.timer:start()
+                common.text = common.text .. lain.util.markup.bold("ON")
+            end
+            naughty.notify(common)
+        end,
+        {description = "mpc on/off", group = "widgets"}),
+    ]] --
 
     -- Copy primary to clipboard (terminals to gtk)
     awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,
