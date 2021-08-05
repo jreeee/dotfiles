@@ -36,6 +36,7 @@ theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
 theme.taskbar_fg 								= "#B7BD99" -- color7
 theme.taskbar_bg 								= "#36382E" -- color0
+theme.bg_systray								= theme.taskbar_fg --does not work with rgba so i improvised a bit
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(140)
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
@@ -176,14 +177,8 @@ function theme.at_screen_connect(s)
 	        s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
 			spr1,
-			{  -- this is ugly and i don' like it but it does the job
-				keyboardlayout,
-				bg = theme.taskbar_fg,
-				fg = theme.taskbar_bg,
-				widget = wibox.container.background
-			},
+			wibox.container.background(wibox.widget.systray(), theme.taskbar_fg),
 			spr2,
 			spr,
             volume_widget({
@@ -227,6 +222,12 @@ function theme.at_screen_connect(s)
 			spr,
             clock,
             spr1,
+			{
+				keyboardlayout,
+				bg = theme.taskbar_fg,
+				fg = theme.taskbar_bg,
+				widget = wibox.container.background
+			},
 			{
 				s.mylayoutbox,
 				bg = theme.taskbar_fg,
