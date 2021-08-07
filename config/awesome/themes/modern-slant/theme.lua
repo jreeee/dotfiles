@@ -58,7 +58,6 @@ theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = dpi(0)
 
 local markup = lain.util.markup
-local separators = lain.util.separators
 
 local keyboardlayout = awful.widget.keyboardlayout:new()
 
