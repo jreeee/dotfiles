@@ -51,6 +51,8 @@ can be found in `config/`
 
 - `themes` hold the **palettes** `setthm.sh` uses as well as some **wallpapers** i like
 
+- `x11` the xorg configs for the system i'm using
+
 **the system**
 
 i use a relatively cheap HP laptop with a i5, 8gb of ram and a 15.4in screen running **[artix linux](https://artixlinux.org/)** with **[awesome](https://awesomewm.org/)**, **[picom](https://github.com/yshui/picom)** and **[zsh](https://www.zsh.org/)**
@@ -69,8 +71,9 @@ right now it's rather empty, and the folders are self explanatory
 
 - [ ] login interface ?
 - [ ] logoff interface ?
-- [ ] conky theme
-- [ ] adjust theme (rc lua & powerarrow-dark)
-- [ ] tweak colours of the themes further
-- [ ] window decoration ?
+- [ ] tweak colours of the themes
 - [ ] start working on the eva theme
+- [ ] conky theme ?
+- [ ] update screenshots
+- [ ] refactor rc.lua
+- [ ] refactor the widget-code 
