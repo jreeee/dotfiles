@@ -73,12 +73,21 @@ awful.spawn.with_shell(
 
 -- {{{ Variable definitions
 
--- add themes here
 local themes = {
+    "wip-eva",
     "modern-slant",
+	"blackburn",
+	"copland",
+	"dremora",
+	"multicolor",
+	"holo",
+	"rainbow",
+	"steamburn",
+	"powerarrow",
+	"vertex",
 }
 
-local chosen_theme = themes[1]
+local chosen_theme = themes[2]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "alacritty"
@@ -433,25 +442,41 @@ globalkeys = my_table.join(
               {description = "show weather", group = "widgets"}),
 
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 5") end,
+    awful.key({ }, "XF86MonBrightnessUp", 	function () os.execute("xbacklight -inc 5")
+														awesome.emit_signal("bri")
+											end,
               {description = "+5%", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 5") end,
+    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 5")
+														awesome.emit_signal("bri")
+											end,
               {description = "-5%", group = "hotkeys"}),
 
     -- pulse volume control
-    awful.key({ altkey }, "Up", function () os.execute("pulsemixer --change-volume +1") end,
+    awful.key({ altkey }, "Up", 	function () os.execute("pulsemixer --change-volume +1")
+												awesome.emit_signal("vol")
+									end,
             {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey }, "Down", function () os.execute("pulsemixer --change-volume -1") end,
+    awful.key({ altkey }, "Down", 	function () os.execute("pulsemixer --change-volume -1")
+												awesome.emit_signal("vol")
+									end,
             {description = "volume down", group = "hotkeys"}),
-    awful.key({ altkey }, "m", function () os.execute("pulsemixer --toggle-mute") end,
+    awful.key({ altkey }, "m", 		function () os.execute("pulsemixer --toggle-mute")
+												awesome.emit_signal("vol")
+									end,
             {description = "toggle mute", group = "hotkeys"}),
 
     --top row
-    awful.key({}, "XF86AudioRaiseVolume", function () os.execute("pulsemixer --change-volume +1") end,
+    awful.key({}, "XF86AudioRaiseVolume", 	function () os.execute("pulsemixer --change-volume +1")
+														awesome.emit_signal("vol")
+											end,
             {description = "volume up", group = "hotkeys"}),
-    awful.key({}, "XF86AudioLowerVolume", function () os.execute("pulsemixer --change-volume -1") end,
+    awful.key({}, "XF86AudioLowerVolume", 	function () os.execute("pulsemixer --change-volume -1")
+														awesome.emit_signal("vol")
+											end,
             {description = "volume down", group = "hotkeys"}),
-    awful.key({}, "XF86AudioMute", function () os.execute("pulsemixer --toggle-mute") end,
+    awful.key({}, "XF86AudioMute", 			function () os.execute("pulsemixer --toggle-mute")
+														awesome.emit_signal("vol")
+											end,
             {description = "toggle mute", group = "hotkeys"}),
     
     -- MPD control i dont like mdp

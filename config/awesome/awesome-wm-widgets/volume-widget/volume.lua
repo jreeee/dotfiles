@@ -201,19 +201,25 @@ local function worker(user_args)
         end
     end
 
+	awesome.connect_signal("vol", function()
+		spawn.easy_async(GET_VOLUME_CMD, function(stdout)
+			update_graphic(volume.widget, stdout)
+		end)
+	end)
+
     volume.widget:buttons(
             awful.util.table.join(
-                    awful.button({}, 3, function()
+                  --[[ awful.button({}, 3, function()
                         if popup.visible then
                             popup.visible = not popup.visible
                         else
                             rebuild_popup()
                             popup:move_next_to(mouse.current_widget_geometry)
                         end
-                    end),
+                    end), ––]]
                     awful.button({}, 4, function() volume:inc() end),
                     awful.button({}, 5, function() volume:dec() end),
-                    awful.button({}, 2, function() volume:mixer() end),
+                    awful.button({}, 3, function() volume:mixer() end),
                     awful.button({}, 1, function() volume:toggle() end)
             )
     )
@@ -224,4 +230,3 @@ local function worker(user_args)
 end
 
 return setmetatable(volume, { __call = function(_, ...) return worker(...) end })
-

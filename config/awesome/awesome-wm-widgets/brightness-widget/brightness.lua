@@ -158,6 +158,12 @@ local function worker(user_args)
         end)
     end
 
+	awesome.connect_signal("bri", function()
+		spawn.easy_async(get_brightness_cmd, function(out)
+			update_widget(brightness_widget.widget, out)
+		end)
+	end)
+
     brightness_widget.widget:buttons(
             awful.util.table.join(
                     awful.button({}, 1, function() brightness_widget:set(base) end),

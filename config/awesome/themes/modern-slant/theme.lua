@@ -172,6 +172,7 @@ function theme.at_screen_connect(s)
                 bg_color = theme.taskbar_bg,
                 mute_color = theme.border_marked
             }),
+			spr,
             brightness_widget({
                 type = 'arc',
                 program = 'xbacklight',
