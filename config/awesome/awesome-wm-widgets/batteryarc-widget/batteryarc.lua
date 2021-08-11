@@ -35,8 +35,7 @@ local function worker(user_args)
     local low_level_color = args.low_level_color or '#e53935'
     local charging_color = args.charging_color or '#43a047'
 
-    local warning_msg_title = args.warning_msg_title or 'Houston, we have a problem'
-    local warning_msg_text = args.warning_msg_text or 'Battery is dying'
+    local warning_msg_title = args.warning_msg_title or 'Careful - Low Energy'
     local warning_msg_position = args.warning_msg_position or 'bottom_right'
     local warning_msg_icon = args.warning_msg_icon or WIDGET_DIR .. '/ganyu.png'
     local enable_battery_warning = args.enable_battery_warning
@@ -69,17 +68,17 @@ local function worker(user_args)
     local last_battery_check = os.time()
 
     --[[ Show warning notification ]]
-    local function show_battery_warning()
+    local function show_battery_warning(charge)
         naughty.notify {
             icon = warning_msg_icon,
             icon_size = 100,
-            text = warning_msg_text,
+            text = 'Only ' .. charge .. '% left',
             title = warning_msg_title,
             timeout = 25, -- show the warning for a longer time
             hover_timeout = 0.5,
             position = warning_msg_position,
-            bg = "#F06060",
-            fg = "#EEE9EF",
+            bg = low_level_color,
+            fg = bg_color,
             width = 300,
         }
     end
@@ -120,10 +119,10 @@ local function worker(user_args)
         if charge < 20 then
             widget.colors = { low_level_color }
             if enable_battery_warning and status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
-                -- if 5 minutes have elapsed since the last warning
+                -- if 5 minutes have elapsed since the last warning - 300
                 last_battery_check = os.time()
 
-                show_battery_warning()
+                show_battery_warning(charge)
             end
         else
             widget.colors = { main_color }

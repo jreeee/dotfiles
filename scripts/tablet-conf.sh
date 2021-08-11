@@ -7,6 +7,7 @@ connected=$(xrandr | grep $secondary' disconnected')
 
 if [ -n "$connected" ]; then
 	echo 'tablet not connected'
+	xrandr --output $secondary --off
 	exit 0
 fi
 
