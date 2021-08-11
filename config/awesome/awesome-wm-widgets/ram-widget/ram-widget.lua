@@ -30,7 +30,7 @@ local function worker(user_args)
     }
 
     --- Widget which is shown when user clicks on the ram widget
-    local popup = awful.popup{
+    local popup = awful.popup {
        ontop = true,
        visible = false,
        widget = {
@@ -43,10 +43,8 @@ local function worker(user_args)
              color_buf,  -- buf_cache
           },
        },
-       shape = gears.shape.rounded_rect,
-       border_color = beautiful.border_color_active,
-       border_width = 1,
-       offset = { y = 5 },
+       offset = { z = 20 },
+	   hide_on_right_click = true
     }
 
     --luacheck:ignore 231

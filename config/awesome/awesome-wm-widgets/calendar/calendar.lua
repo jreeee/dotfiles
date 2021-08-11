@@ -204,10 +204,7 @@ local function worker(user_args)
     local popup = awful.popup {
         ontop = true,
         visible = false,
-        shape = rounded_shape(radius),
-        offset = { y = 5 },
-        border_width = 1,
-        border_color = calendar_themes[theme].border,
+        offset = { z = 12 },
         widget = cal
     }
 
@@ -245,7 +242,7 @@ local function worker(user_args)
             elseif placement == 'top_right' then
                 awful.placement.top_right(popup, { margins = { top = 30, right = 10}, parent = awful.screen.focused() })
             elseif placement == 'bottom_right' then
-                awful.placement.bottom_right(popup, { margins = { bottom = 30, right = 10},
+                awful.placement.bottom_right(popup, { margins = { bottom = 20, right = 10},
                     parent = awful.screen.focused() })
             else
                 awful.placement.top(popup, { margins = { top = 30 }, parent = awful.screen.focused() })

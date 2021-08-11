@@ -123,16 +123,14 @@ local function worker(user_args)
         timeout = timeout
     }
 
-    local popup = awful.popup{
+    local popup = awful.popup {
         ontop = true,
         visible = false,
-        shape = gears.shape.rounded_rect,
-        border_width = 1,
-        border_color = beautiful.bg_normal,
         maximum_width = 300,
-        offset = { y = 5 },
+		placement = bottom_right,
         widget = {}
     }
+
 
     -- Do not update process rows when mouse cursor is over the widget
     popup:connect_signal("mouse::enter", function() is_update = false end)
@@ -330,6 +328,10 @@ local function worker(user_args)
             }
         end)
     end)
+
+	if placement == 'bottom_right' then
+		awful.placement.bottom_right(popup { margins = { bottom = 20, right = 10}, parent = awful.screen.focused() })
+	end
 
     return cpu_widget
 end
