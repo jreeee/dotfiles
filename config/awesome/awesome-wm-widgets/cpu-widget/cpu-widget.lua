@@ -127,6 +127,7 @@ local function worker(user_args)
         ontop = true,
         visible = false,
         maximum_width = 300,
+		minimum_height = 520,
 		placement = bottom_right,
         widget = {}
     }
