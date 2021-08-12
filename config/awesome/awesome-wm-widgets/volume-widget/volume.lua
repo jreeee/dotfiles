@@ -198,15 +198,11 @@ local function worker(user_args)
     end
 
     function volume:mixer()
-        if mixer_cmd then
-			--TODO: get easy_async to work, check if open prior instead of relying in mixer_enabled 
-			if (mixer_enabled ~= 1) then
-            	spawn(mixer_cmd)
-				mixer_enabled = 1
-			else
-				spawn("pkill " .. mixer_cmd)
-				mixer_enabled = 0
-			end
+        if mixer_cmd == 'pavucontrol' then
+			local script = os.getenv("HOME") .. '/.config/awesome/awesome-wm-widgets/volume-widget/toggle_pav.sh'
+			spawn.easy_async("bash -c " .. script, function() end)
+		else 
+			spawn.easy_async(mixer_cmd, function() end)
         end
     end
 
