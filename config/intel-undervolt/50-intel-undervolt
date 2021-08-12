@@ -13,6 +13,6 @@ case "${1-}" in
 	;;
 esac
 
-#this is for the case that intel-undervolt wont start after resuming from sleep
-#the file you'd need to replace is /usr/lib/elogind/system-sleep
+#this is in case that intel-undervolt wont start after resuming from sleep
 #if you use a different init system, adjust the openrc-commansds accordingly
+#replace /usr/lib/elogind/system-sleep/*-intel-undervolt with this one
