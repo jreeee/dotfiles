@@ -165,7 +165,9 @@ local function worker(user_args)
 
     local mixer_cmd = args.mixer_cmd or 'pavucontrol'
     local widget_type = args.widget_type
-    local refresh_rate = args.refresh_rate or 1
+    local refresh_rate = args.refresh_rate or 100
+	
+	local mixer_enabled = 0
 
     if widget_types[widget_type] == nil then
         volume.widget = widget_types['icon_and_text'].get_widget(args.icon_and_text_args)
@@ -197,9 +199,18 @@ local function worker(user_args)
 
     function volume:mixer()
         if mixer_cmd then
-            spawn.easy_async(mixer_cmd)
+			--TODO: get easy_async to work, check if open prior instead of relying in mixer_enabled 
+			if (mixer_enabled ~= 1) then
+            	spawn(mixer_cmd)
+				mixer_enabled = 1
+			else
+				spawn("pkill " .. mixer_cmd)
+				mixer_enabled = 0
+			end
         end
     end
+
+	
 
 	awesome.connect_signal("vol", function()
 		spawn.easy_async(GET_VOLUME_CMD, function(stdout)

@@ -27,7 +27,7 @@ local function worker(user_args)
     local arc_thickness = args.arc_thickness or 2
     local show_current_level = args.show_current_level or false
     local size = args.size or 18
-    local timeout = args.timeout or 10
+    local timeout = args.timeout or 20
     local show_notification_mode = args.show_notification_mode or 'on_hover' -- on_hover / on_click
 
     local main_color = args.main_color or beautiful.fg_color
