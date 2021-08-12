@@ -1,0 +1,18 @@
+#!/bin/sh
+case "${1-}" in
+	'pre')
+		exec rc-service intel-undervolt stop
+	;;
+
+	'post')
+		exec rc-service intel-undervolt start
+	;;
+
+	*)
+		exit 64
+	;;
+esac
+
+#this is for the case that intel-undervolt wont start after resuming from sleep
+#the file you'd need to replace is /usr/lib/elogind/system-sleep
+#if you use a different init system, adjust the openrc-commansds accordingly

@@ -21,6 +21,7 @@ alias lck="sleep 1 && xtrlock"
 alias vcam="sudo modprobe v4l2loopback video_nr=2 card_label=vcam"
 alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg -o '~/Music/%(title)s.%(ext)s'"
 alias pdf2jpg="pdftoppm -jpeg -r 300"
+alias search="find . -type d -name"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
