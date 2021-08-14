@@ -166,6 +166,7 @@ local function worker(user_args)
     local mixer_cmd = args.mixer_cmd or 'pavucontrol'
     local widget_type = args.widget_type
     local refresh_rate = args.refresh_rate or 100
+	local toggle = args.toggle or true
 	
 	local mixer_enabled = 0
 
@@ -198,9 +199,9 @@ local function worker(user_args)
     end
 
     function volume:mixer()
-        if mixer_cmd == 'pavucontrol' then
-			local script = os.getenv("HOME") .. '/.config/awesome/awesome-wm-widgets/volume-widget/toggle_pav.sh'
-			spawn.easy_async("bash -c " .. script, function() end)
+        if toggle then
+			local script = os.getenv("HOME") .. "/.config/awesome/awesome-wm-widgets/volume-widget/toggle_mixer.sh "
+			spawn.easy_async("bash " .. script .. mixer_cmd, function() end)
 		else 
 			spawn.easy_async(mixer_cmd, function() end)
         end
