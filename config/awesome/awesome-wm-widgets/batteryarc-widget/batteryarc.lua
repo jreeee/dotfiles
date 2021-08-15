@@ -16,6 +16,7 @@ local watch = require("awful.widget.watch")
 
 local HOME = os.getenv("HOME")
 local WIDGET_DIR = HOME .. '/.config/awesome/awesome-wm-widgets/batteryarc-widget'
+local BATTERY_CMD = [[bash -c "acpi"]]
 
 local batteryarc_widget = {}
 
@@ -131,30 +132,47 @@ local function worker(user_args)
 
     watch("acpi", timeout, update_widget, batteryarc_widget)
 
-    -- Popup with battery info
-    local notification
-    local function show_battery_status()
-        awful.spawn.easy_async([[bash -c 'acpi']],
-                function(stdout, _, _, _)
-                    naughty.destroy(notification)
-                    notification = naughty.notify {
-                        position = 'bottom_right',
-                        text = stdout,
-                        title = "Battery status",
-                        timeout = 5,
-                        width = 200,
-                    }
-                end)
-    end
+    -- actual Popup with battery info
 
-    if show_notification_mode == 'on_hover' then
-        batteryarc_widget:connect_signal("mouse::enter", function() show_battery_status() end)
-        batteryarc_widget:connect_signal("mouse::leave", function() naughty.destroy(notification) end)
-    elseif show_notification_mode == 'on_click' then
-        batteryarc_widget:connect_signal('button::press', function(_, _, _, button)
-            if (button == 1) then show_battery_status() end
-        end)
-    end
+	local popup = awful.popup {
+		ontop = true,
+		visible = false,
+		fg = bg_color,
+		bg = main_color,
+		opacity = 0.8,
+		widget = {},
+		offset = { z = 20 },
+		hide_on_right_click = true
+	}
+
+	local update_widget = function(stdout, _, _, _)
+		popup:setup {
+			{
+				markup = "<b>Battery status</b>\n" .. stdout,
+				align = 'center',
+				forced_width = 170,
+				widget = wibox.widget.textbox
+			},
+			margins = 10,
+			widget  = wibox.container.margin
+		}
+	end
+
+	batteryarc_widget:buttons(
+		awful.util.table.join(
+			awful.button({}, 1, function()
+				if popup.visible then
+					popup.visible = not popup.visible
+				else
+					awful.spawn.easy_async(BATTERY_CMD, 
+						function(stdout)
+							update_widget(stdout)
+							popup:move_next_to(mouse.current_widget_geometry)
+					end)
+				end
+            end)
+        )
+    )
 
     return batteryarc_widget
 

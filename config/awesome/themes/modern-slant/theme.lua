@@ -86,10 +86,10 @@ local clock = awful.widget.watch(
 
 -- Calendar
 local cw = calendar_widget({
-	t_bg = theme.bg_normal,
-	t_fg = theme.fg_normal,
-	t_br = theme.border_normal,
-	t_dt = theme.fg_focus,
+	t_bg = theme.taskbar_fg,
+	t_fg = theme.taskbar_bg,
+	t_br = theme.fg_focus,
+	t_dt = theme.border_normal,
     theme = 'custom',
     placement = 'bottom_right',
     radius = 8,
@@ -185,14 +185,17 @@ function theme.at_screen_connect(s)
                 color_buf = theme.border_normal
             }),
             cpu_widget({
-                color = theme.taskbar_fg
+				color = theme.taskbar_bg,
+                foreground_color = theme.taskbar_fg,
+				background_color = theme.bg_normal
             }),
 			spr,
             batteryarc_widget({
                 main_color = theme.taskbar_fg,
                 bg_color = theme.taskbar_bg,
 				charging_color = theme.border_focus,
-                low_level_color = theme.border_marked
+                low_level_color = theme.border_marked,
+				show_notification_mode = 'on_click'
 			}),
 			spr,
 			spr1,

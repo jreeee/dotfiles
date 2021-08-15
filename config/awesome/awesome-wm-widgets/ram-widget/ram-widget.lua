@@ -33,6 +33,9 @@ local function worker(user_args)
     local popup = awful.popup {
        ontop = true,
        visible = false,
+	   fg = color_used,
+	   bg = color_free,
+	   opacity = 0.8,
        widget = {
           widget = wibox.widget.piechart,
           forced_height = 200,
