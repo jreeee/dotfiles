@@ -2,8 +2,8 @@
 <h2 align="center">a couple of configs and scripts and other things i use </h2>  
 <p align="center">
 
-<img src="./misc/screenshots/sc-th-1-new.png" width="40%">
-<img src="./misc/screenshots/palettes.png" width="40%">
+<img src="./misc/readme/sc-th-1-new.jpg" width="40%">
+<img src="./misc/readme/palettes.jpg" width="40%">
 <h3 align="center">left is modern-slant whith palette 1, right is a mashup with palette 2 (left), 1 (center) and 3 (right)</h3>
 </p>
 
@@ -13,17 +13,17 @@ the theme shown in the screenshots above is my theme `modern-slant` which origin
 </p>
 
 <p align="center">
-<img src="./misc/screenshots/desktop-cropped.png" width="80%">
+<img src="./misc/readme/desktop-cropped.jpg" width="80%">
 
 - **0:** workspaces
-- **1:** run-prompt <img src="./misc/screenshots/run-prompt.png" width="110">
-- **2:** (empty) taskbar, with programs open: <img src="./misc/screenshots/taskbar.png" width="100">
+- **1:** run-prompt <img src="./misc/readme/run-prompt.jpg" width="110">
+- **2:** (empty) taskbar, with programs open: <img src="./misc/readme/taskbar.jpg" width="100">
 - **3:** keyboard layout, awesomewm window layout
 
 <h2 align="center">widgets:</h2>
 
 <p align="center">
-<img src="./misc/screenshots/widgets-all.png" width="600">
+<img src="./misc/readme/widgets-all.jpg" width="600">
 
 - **1: volume** - scroll up/down to raise/lower the volume, left click toggles mute (also changes its color), right click toggles pavucontrol
 
@@ -35,15 +35,13 @@ the theme shown in the screenshots above is my theme `modern-slant` which origin
 
 - **5: battery** - shows current battery status, when charging it has an extra dot, when critical the color changes and you get notified every now and again.
 
-<img src="./misc/screenshots/battery-full.png" width="170">
-<img src="./misc/screenshots/battery-charging.png" width="170">
-<img src="./misc/screenshots/battery-empty.png" width="250">
+<img src="./misc/readme/battery-full.jpg" width="170"> <img src="./misc/readme/battery-charging.jpg" width="170"> <img src="./misc/readme/battery-empty.jpg" width="250">
 
 - **6: network** - shows current up- and download speeds
 
 - **7: calendar** - is linked to the clock `3)` and just shows the date. scroll up/down to see other months
 
-`1)`<img src="./misc/screenshots/ram.png" width="250"> `2)`<img src="./misc/screenshots/cpu.png" width="200"> `3)`<img src="./misc/screenshots/calendar.png" width="200">
+`1)`<img src="./misc/readme/ram.jpg" width="250"> `2)`<img src="./misc/readme/cpu.jpg" width="200"> `3)`<img src="./misc/readme/calendar.jpg" width="200">
 
 <h2 align="center"> the scripts: </h2>
 
