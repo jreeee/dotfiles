@@ -34,5 +34,8 @@ alias yt="~/.scripts/yt.sh"
 alias vpnconn="sudo ~/.scripts/priv-uni-vpn.sh"
 alias webs="sudo ~/.scripts/webstorage.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
-alias playbg="~/.scripts/an-bg.sh"
+alias anbg="~/.scripts/an-bg.sh 3> /dev/null"
 alias setthm="~/.scripts/setthm.sh"
+
+# well...
+alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
