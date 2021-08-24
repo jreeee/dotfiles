@@ -4,7 +4,7 @@
 
 <img src="./misc/readme/sc-th-1-new.jpg" width="40%">
 <img src="./misc/readme/palettes.jpg" width="40%">
-<h3 align="center">left is modern-slant whith palette 1, right is a mashup with palette 2 (left), 1 (center) and 3 (right)</h3>
+<h4 align="center">left is modern-slant whith palette 1, right is a mashup with palette 2 (left), 1 (center) and 3 (right)</h4>
 </p>
 
 <h2 align="center"> the theme: </h2>
@@ -41,7 +41,7 @@ the theme shown in the screenshots above is my theme `modern-slant` which origin
 
 - **7: calendar** - is linked to the clock `3)` and just shows the date. scroll up/down to see other months
 
-`1)`<img src="./misc/readme/ram.jpg" width="250"> `2)`<img src="./misc/readme/cpu.jpg" width="200"> `3)`<img src="./misc/readme/calendar.jpg" width="200">
+`1)` <img src="./misc/readme/ram.jpg" width="250"> `2)` <img src="./misc/readme/cpu.jpg" width="200"> `3)` <img src="./misc/readme/calendar.jpg" width="200">
 
 <h2 align="center"> the scripts: </h2>
 
