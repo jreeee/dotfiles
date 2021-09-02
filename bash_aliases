@@ -1,6 +1,7 @@
 # couple 'o aliases
 
-# shortend
+alias sudo='sudo '
+# shortend 
 alias rf="rm -rf"
 alias mk="makepkg -scfi PKGBUILD"
 alias update="sudo pacman -Syu && yay -Ys && yay -Sua"
