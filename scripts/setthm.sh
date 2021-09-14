@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# this is set each time setthm() is called, displaying the full path to the theme (subject to change)
-awth=$HOME'/.config/awesome/themes/modern-slant/theme.lua'
-
 # deprecated as termite is not maintained anymore
 #terconf=$HOME'/.config/termite/config'
 
@@ -12,6 +9,19 @@ awconf=$awesome'rc.lua'
 wall=$HOME'/dotfiles/config/themes/wallpapers/'
 plte=$HOME'/dotfiles/config/themes/palettes/'
 
+# get the theme used by awesome atm by building an array and checking the index in use
+
+# get all the themes, then
+if [ -e $awconf ]; then
+	themestr=$(awk 'BEGIN{f=0} /local themes =/{f=1} /\}/{f=0} {if (f) print }' "$awconf")
+	themelist="${themestr:16}"
+	mapfile -t thlist < <( echo "$themelist" | cut --delimiter='"' --fields=2 )
+	themenum=$(grep '^local chosen_theme =' $awconf | tr -d -c 0-9)
+	awth=$awesome'themes/'"${thlist[$themenum]}"'/theme.lua'
+else
+	echo "ERROR: your rc.lua could not be found, aborting"
+	exit 1
+fi
 # HELPER FUNCTIONS:
 
 # padding for hexadecimal values
@@ -84,12 +94,6 @@ setbg () {
 
 chkthm () {
 
-	# first we get all the themes mentioned in the rc.lua, next we get them sorted into an array
-	# then we check if the input matches a name in that array or a index
-
-	themestr=$(awk 'BEGIN{f=0} /local themes =/{f=1} /\}/{f=0} {if (f) print }' "$awconf")
-	themelist="${themestr:16}"
-	mapfile -t thlist < <( echo "$themelist" | cut --delimiter='"' --fields=2 )
 	thsz="${#thlist[@]}"
 	chk=1
 
@@ -120,8 +124,6 @@ setthm () {
 
 	thpath=$awesome'themes/'"${thlist[$1]}"'/theme.lua'
 	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['"$1"'\]/' "$awconf"
-	#this next part is horrible and you should never do something like this since it changes the very file that is being executed. TODO fix at some point
-	sed -i  's#^awth=.*#awth="'"$thpath"'"#' "${BASH_SOURCE[0]}"
 
 }
 
@@ -131,9 +133,9 @@ setthm () {
 
 setcol () {
 
-	theme=$plte'theme'$1'.txt'
+	palette=$plte'palette'$1'.txt'
 
-	if [ -e "$theme" ]; then
+	if [ -e "$palette" ]; then
 
 		# note: this is very dirty and setup-specific
 
@@ -151,14 +153,14 @@ setcol () {
 
 		for (( i=0; i<16; i++ ));
 		do
-			cols[$i]=$(awk '/color'"$i"' =/ { print $3 }' "$theme")
+			cols[$i]=$(awk '/color'"$i"' =/ { print $3 }' "$palette")
 		done
 
-		hex_bg=$(rgbatohex "$(echo | awk '/^background/' "$theme" | sed 's/[a-zA-Z=(),]//g')")
+		hex_bg=$(rgbatohex "$(echo | awk '/^background/' "$palette" | sed 's/[a-zA-Z=(),]//g')")
 		hex_a=${hex_bg:7:2}
-		bg_o=$(df -h | awk '/^background / { print $6 }' "$theme" | sed 's/.$//')
-		cols[16]=$(awk '/^cursor / { print $3 }' "$theme")
-		cols[17]=$(awk '/^cursor_foreground / { print $3 }' "$theme")
+		bg_o=$(df -h | awk '/^background / { print $6 }' "$palette" | sed 's/.$//')
+		cols[16]=$(awk '/^cursor / { print $3 }' "$palette")
+		cols[17]=$(awk '/^cursor_foreground / { print $3 }' "$palette")
 
 		# if hex_a is to subte/faint for your liking, just replace $hex_bg with ${cols[3]}$hex_a
 
@@ -193,19 +195,18 @@ setcol () {
 		sed -i --follow-symlinks 's/^theme.border_marked .*/theme.border_marked \t\t\t\t\t\t\t= "'"${cols[1]}"'" -- color1/' "$awth"
 
 		# calculating the difference in pseudo brightness so that the taskbar looks right for dark and light themes
-        lum0=$(echo $(( 16#${cols[7]:1:2} )) " + " $(( 16#${cols[7]:3:2} )) " + " $(( 16#${cols[7]:5:2} )) | bc -l)
-        lum1=$(echo $(( 16#${cols[0]:1:2} )) " + " $(( 16#${cols[0]:3:2} )) " + " $(( 16#${cols[0]:5:2} )) | bc -l)
-        if [ $lum0 -gt $lum1 ]; then
-            sed -i --follow-symlinks 's/^theme.taskbar_fg .*/theme.taskbar_fg \t\t\t\t\t\t\t\t= "'"${cols[7]}"'" -- color7/' "$awth"
-            sed -i --follow-symlinks 's/^theme.taskbar_bg .*/theme.taskbar_bg \t\t\t\t\t\t\t\t= "'"${cols[0]}"'" -- color0/' "$awth"
-        else
-            sed -i --follow-symlinks 's/^theme.taskbar_fg .*/theme.taskbar_fg \t\t\t\t\t\t\t\t= "'"${cols[0]}"'" -- color0/' "$awth"
-            sed -i --follow-symlinks 's/^theme.taskbar_bg .*/theme.taskbar_bg \t\t\t\t\t\t\t\t= "'"${cols[7]}"'" -- color7/' "$awth"
-        fi
-
+		lum0=$(echo $(( 16#${cols[7]:1:2} )) " + " $(( 16#${cols[7]:3:2} )) " + " $(( 16#${cols[7]:5:2} )) | bc -l)
+		lum1=$(echo $(( 16#${cols[0]:1:2} )) " + " $(( 16#${cols[0]:3:2} )) " + " $(( 16#${cols[0]:5:2} )) | bc -l)
+		if [ $lum0 -gt $lum1 ]; then
+			sed -i --follow-symlinks 's/^theme.taskbar_fg .*/theme.taskbar_fg \t\t\t\t\t\t\t\t= "'"${cols[7]}"'" -- color7/' "$awth"
+			sed -i --follow-symlinks 's/^theme.taskbar_bg .*/theme.taskbar_bg \t\t\t\t\t\t\t\t= "'"${cols[0]}"'" -- color0/' "$awth"
+		else
+			sed -i --follow-symlinks 's/^theme.taskbar_fg .*/theme.taskbar_fg \t\t\t\t\t\t\t\t= "'"${cols[0]}"'" -- color7/' "$awth"
+			sed -i --follow-symlinks 's/^theme.taskbar_bg .*/theme.taskbar_bg \t\t\t\t\t\t\t\t= "'"${cols[7]}"'" -- color0/' "$awth"
+		fi
 
 	else
-		echo 'ERROR: '"$theme"' does not exist'
+		echo 'ERROR: '"$palette"' does not exist'
 		exit 0
 	fi
 }
