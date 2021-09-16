@@ -11,6 +11,7 @@ function usage () {
     echo "    -c 	 		channels/subscriptions"
     echo "    -s query 		search"
 	echo "    -g / -r 		gui mode (rofi/dmenu)"
+	echo "    -a            audio only"
 	echo "    nothing 		use defaults (search from prompt)"
 	echo
 	echo "add channel names to the file $sublistpath to show them"
@@ -36,7 +37,7 @@ if [[ ${#} -eq 0 ]]; then
 fi
 
 # available flags
-optstring=":s:cgrh"
+optstring=":s:cgrha"
 
 defcmd="fzf"
 defaction="s"
@@ -48,39 +49,43 @@ promptcmd="$defcmd"
 action="$defaction"
 isGui="f"
 query=""
+video="0"
 
 # subscription list
 mkdir -p "${HOME:-}/.config/yt"
 sublistpath="${HOME:-}/.config/yt/sublist"
 sublist=""
-[ -f "$sublistpath" ] && sublist=$(cat "$sublistpath") 
+[ -f "$sublistpath" ] && sublist=$(cat "$sublistpath")
 
 # if not using defaults search for flags
 if [[ $useDefaults = "f" ]]; then
     while getopts ${optstring} arg; do
         case "${arg}" in
-            s) 
+            s)
                 # search in youtube for a query
                 action="s"
                 query="${OPTARG}" ;;
-            c) 
+            c)
                 # search in subscriptions for specific channel
                 action="c"
                 query="${OPTARG}" ;;
-            g|r) 
+            g|r)
                 # set gui mode to true and change the prompt to gui prompt
                 isGui="t"
                 promptcmd="$guicmd" ;;
-            h) 
+            h)
                 # display help / usage
                 usage ;;
-            \?) 
+			a)
+				#disable mpvs video output
+				video="1" ;;
+            \?)
                 # wrong args -> exit with explanation of usage
                 echo "invalid option: -${OPTARG}"
                 echo
                 usage
 				exit 1 ;;
-            :) 
+            :)
                 # missing args -> exit with explanation of usage
                 echo "Option -${OPTARG} needs an argument"
                 echo
@@ -96,7 +101,7 @@ if [ -z "$query" ]; then
     # ask for a channel
     if [[ $action = "c" ]]; then
         # if in gui mode use gui prompt
-        if [[ $isGui = "t" ]]; then 
+        if [[ $isGui = "t" ]]; then
 			query=$($promptcmd -p "Channel: " <<< "$sublist")
             promptcmd="$promptcmd -p Video:"
         else
@@ -106,7 +111,7 @@ if [ -z "$query" ]; then
     else
         # ask for a query
         # if in gui mode use gui prompt
-        if [[ $isGui = "t" ]]; then 
+        if [[ $isGui = "t" ]]; then
             query=$(echo | $promptcmd -p "Search: ")
             promptcmd="$promptcmd -p Video:"
         else
@@ -114,10 +119,10 @@ if [ -z "$query" ]; then
             read -r query
         fi
     fi
-fi 
+fi
 
 # program cancelled -> exit
-if [ -z "$query" ]; then exit; fi 
+if [ -z "$query" ]; then exit; fi
 
 # clean query / channel
 query=$(sed \
@@ -187,9 +192,21 @@ else
         echo -e "$choice\t($id)"
         case $id in
             # 11 digit id = video
-            ???????????) mpv "$videolink$id";;
+            ???????????)
+				if [[ $video = "0" ]]; then
+					mpv "$videolink$id"
+				else
+					mpv --no-video "$videolink$id"
+				fi
+				;;
             # 34 digit id = playlist
-            ??????????????????????????????????) mpv "$playlink$id";;
+            ??????????????????????????????????)
+				if [[ $video == "0" ]]; then
+					mpv "$mpvarg$playlink$id"
+				else
+					mpv --no-video "$mpvarg$playlink$id"
+				fi
+				;;
             *) exit ;;
         esac
     done
