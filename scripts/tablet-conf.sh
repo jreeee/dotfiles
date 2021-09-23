@@ -1,7 +1,7 @@
 #! /bin/bash
 
 primary=$(echo | xrandr | awk '/primary/ { print $1 }')
-secondary=HDMI1 #needs to be set manually
+secondary=HDMI1 #needs to be set manually and refers to the tablet
 
 connected=$(xrandr | grep $secondary' disconnected')
 
