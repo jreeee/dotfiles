@@ -1,6 +1,6 @@
 #! /bin/bash
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 	echo 'PASSWD' | sudo openconnect HOSTNAME --authgroup 'TUNNEL(GROUP)' -u USER --passwd-on-stdin &
 else
 	sudo pkill openconnect

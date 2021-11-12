@@ -3,21 +3,21 @@
 # deprecated as termite is not maintained anymore
 #terconf=$HOME'/.config/termite/config'
 
-terconf=$HOME'/.config/alacritty/alacritty.yml'
-awesome=$HOME'/.config/awesome/'
-awconf=$awesome'rc.lua'
-wall=$HOME'/dotfiles/config/themes/wallpapers/'
-plte=$HOME'/dotfiles/config/themes/palettes/'
+declare -r TERCONF=$HOME'/.config/alacritty/alacritty.yml'
+declare -r AWESOME=$HOME'/.config/awesome/'
+declare -r AWCONF=$AWESOME'rc.lua'
+declare -r WALL=$HOME'/dotfiles/config/themes/wallpapers/'
+declare -r PLTE=$HOME'/dotfiles/config/themes/palettes/'
 
 # get the theme used by awesome atm by building an array and checking the index in use
 
 # get all the themes, then
-if [ -e $awconf ]; then
-	themestr=$(awk 'BEGIN{f=0} /local themes =/{f=1} /\}/{f=0} {if (f) print }' "$awconf")
+if [ -e "$AWCONF" ]; then
+	themestr=$(awk 'BEGIN{f=0} /local themes =/{f=1} /\}/{f=0} {if (f) print }' "$AWCONF")
 	themelist="${themestr:16}"
 	mapfile -t thlist < <( echo "$themelist" | cut --delimiter='"' --fields=2 )
-	themenum=$(grep '^local chosen_theme =' $awconf | tr -d -c 0-9)
-	awth=$awesome'themes/'"${thlist[$themenum]}"'/theme.lua'
+	themenum=$(grep '^local chosen_theme =' "$AWCONF" | tr -d -c 0-9)
+	awth=$AWESOME'themes/'"${thlist[$themenum]}"'/theme.lua'
 else
 	echo "ERROR: your rc.lua could not be found, aborting"
 	exit 1
@@ -64,15 +64,15 @@ lsthm () {
 
 chkbg () {
 
-	if [ -e "$wall"'wall'"$1"'.png' ];then
-		setbg "$wall"'wall'"$1"'.png'
+	if [ -e "$WALL"'wall'"$1"'.png' ];then
+		setbg "$WALL"'wall'"$1"'.png'
 	elif [ -e "$HOME"'/'"$1" ]; then
 		setbg "$HOME"'/'"$1"
 	elif [ -e "$1" ]; then
 		setbg "$1"
 	else
 		echo 'ERROR: could not find'
-		echo "$wall"'wall'"$1"'.png'
+		echo "$WALL"'wall'"$1"'.png'
 		echo "$HOME"'/'"$1"
 		echo "$1"
 		exit 0
@@ -83,8 +83,8 @@ chkbg () {
 
 setbg () {
 
-	sed -i 's#^feh .*#feh --bg-fill '"$1"'#' "$awesome"'fehbg.sh'
-	. "$awesome"'fehbg.sh'
+	sed -i 's#^feh .*#feh --bg-fill '"$1"'#' "$AWESOME"'fehbg.sh'
+	eval "$AWESOME"'fehbg.sh'
 	sed -i --follow-symlinks 's#^theme.wallpaper .*#theme.wallpaper \t\t\t\t\t\t\t\t= "'"$1"'"#' "$awth"
 }
 
@@ -122,8 +122,7 @@ chkthm () {
 
 setthm () {
 
-	thpath=$awesome'themes/'"${thlist[$1]}"'/theme.lua'
-	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['"$1"'\]/' "$awconf"
+	sed -i 's/local chosen_theme = themes\[.*/local chosen_theme = themes\['"$1"'\]/' "$AWCONF"
 
 }
 
@@ -133,7 +132,7 @@ setthm () {
 
 setcol () {
 
-	palette=$plte'palette'$1'.txt'
+	palette=$PLTE'palette'$1'.txt'
 
 	if [ -e "$palette" ]; then
 
@@ -170,15 +169,15 @@ setcol () {
 
 		for (( i=0; i<8; i++ ));
 		do
-			sed -i --follow-symlinks '0,/'"${names[$i]}"': .*/s//'"${names[$i]}"': '\'"${cols[$i]}"\''/' "$terconf"
-			sed -i --follow-symlinks '0,/'"${names[$i]}"': .*/! {0,/'"${names[$i]}"': .*/ s/'"${names[$i]}"': .*/'"${names[$i]}"': '\'"${cols[$((i+8))]}"\''/}' "$terconf"
+			sed -i --follow-symlinks '0,/'"${names[$i]}"': .*/s//'"${names[$i]}"': '\'"${cols[$i]}"\''/' "$TERCONF"
+			sed -i --follow-symlinks '0,/'"${names[$i]}"': .*/! {0,/'"${names[$i]}"': .*/ s/'"${names[$i]}"': .*/'"${names[$i]}"': '\'"${cols[$((i+8))]}"\''/}' "$TERCONF"
 		done
 
-		sed -i --follow-symlinks '0,/cursor:/! {0,/cursor: .*/ s/cursor: .*/cursor: '\'"${cols[16]}"\''/}' "$terconf"
-		sed -i --follow-symlinks '0,/cursor:/! {0,/text: .*/ s/text: .*/text: '\'"${cols[17]}"\''/}' "$terconf"
-		sed -i --follow-symlinks 's/^background_opacity: .*/background_opacity: '"$bg_o"'/' "$terconf"
-		sed -i --follow-symlinks '0,/primary:/! {0,/background: .*/ s/background: .*/background: '\'"${hex_bg:0:7}"\''/}' "$terconf"
-		sed -i --follow-symlinks '0,/primary:/! {0,/foreground: .*/ s/foreground: .*/foreground: '\'"${cols[7]}"\''/}' "$terconf"
+		sed -i --follow-symlinks '0,/cursor:/! {0,/cursor: .*/ s/cursor: .*/cursor: '\'"${cols[16]}"\''/}' "$TERCONF"
+		sed -i --follow-symlinks '0,/cursor:/! {0,/text: .*/ s/text: .*/text: '\'"${cols[17]}"\''/}' "$TERCONF"
+		sed -i --follow-symlinks 's/^background_opacity: .*/background_opacity: '"$bg_o"'/' "$TERCONF"
+		sed -i --follow-symlinks '0,/primary:/! {0,/background: .*/ s/background: .*/background: '\'"${hex_bg:0:7}"\''/}' "$TERCONF"
+		sed -i --follow-symlinks '0,/primary:/! {0,/foreground: .*/ s/foreground: .*/foreground: '\'"${cols[7]}"\''/}' "$TERCONF"
 
 		# awesomewm theme colors
 
@@ -197,7 +196,7 @@ setcol () {
 		# calculating the difference in pseudo brightness so that the taskbar looks right for dark and light themes
 		lum0=$(echo $(( 16#${cols[7]:1:2} )) " + " $(( 16#${cols[7]:3:2} )) " + " $(( 16#${cols[7]:5:2} )) | bc -l)
 		lum1=$(echo $(( 16#${cols[0]:1:2} )) " + " $(( 16#${cols[0]:3:2} )) " + " $(( 16#${cols[0]:5:2} )) | bc -l)
-		if [ $lum0 -gt $lum1 ]; then
+		if [ "$lum0" -gt "$lum1" ]; then
 			sed -i --follow-symlinks 's/^theme.taskbar_fg .*/theme.taskbar_fg \t\t\t\t\t\t\t\t= "'"${cols[7]}"'" -- color7/' "$awth"
 			sed -i --follow-symlinks 's/^theme.taskbar_bg .*/theme.taskbar_bg \t\t\t\t\t\t\t\t= "'"${cols[0]}"'" -- color0/' "$awth"
 		else
@@ -217,18 +216,18 @@ if [ -z "$1" ]; then
 	read -p 'change palette, theme or wallpaper? [p/t/w]' input
 	case $input in
 		[wW]* )
-			echo 'available theme wallpapers are:'; ls -1 "$wall"
+			echo 'available theme wallpapers are:'; ls -1 "$WALL"
 			read -p 'select by typing in the part between "wall" and ".png" or enter a path to the image ' input
 			chkbg "$input"
 			exit 0
 			;;
 		[pP]* )
-			echo 'available palettes are:' "$(ls -1 "$HOME"/dotfiles/config/themes/palettes | sed '1d')"
+			echo 'available palettes are:' "$(ls -1 "$PLTE" | sed '1d')"
 			read -p 'select by typing in the part between "theme" and ".txt" ' input
 			setcol "$input"
 			;;
 		[tT]* )
-			#echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $awconf | sed 's/[",]//g' | sed '1d;$d'`
+			#echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $AWCONF | sed 's/[",]//g' | sed '1d;$d'`
 			echo 'available themes are:'
 			chkthm 0 1
 			read -p 'select by typing in the index or the name of the theme ' input
@@ -244,7 +243,6 @@ if [ -z "$1" ]; then
 elif [ $# -eq "1" ]; then
 	setcol "$1"
 	chkbg "$1"
-	exit 0
 
 elif [ $# -eq "2" ]; then
 	case $1 in

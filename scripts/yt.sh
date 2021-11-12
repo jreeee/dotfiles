@@ -18,7 +18,7 @@ function usage () {
 	echo "in yt -c option. First word should be channel url, optionally"
 	echo "followed by tab and then anything else (channel name/description)"
 	echo "channels not in sublist can be viewed by typing their url in the prompt"
-	echo 
+	echo
 	echo "example file format:"
 	echo "markrober       Mark Rober"
 	echo "vsauce1         VSauce          Michael Steven's Channel"
@@ -202,9 +202,9 @@ else
             # 34 digit id = playlist
             ??????????????????????????????????)
 				if [[ $video == "0" ]]; then
-					mpv "$mpvarg$playlink$id"
+					mpv "$playlink$id"
 				else
-					mpv --no-video "$mpvarg$playlink$id"
+					mpv --no-video "$playlink$id"
 				fi
 				;;
             *) exit ;;
