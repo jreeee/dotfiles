@@ -1,3 +1,4 @@
+
 # couple 'o aliases
 
 # root stuff (yeah, the first two aren't ideal, ik...)
@@ -8,7 +9,7 @@ alias chkdoascfg="doas doas -C /etc/doas.conf && echo 'OK' || echo 'ERR'"
 
 # shortend 
 alias rf="rm -rf"
-alias mk="makepkg -scfi PKGBUILD"
+alias mkp="makepkg -scfi PKGBUILD"
 alias update="sudo pacman -Syu && yay -Ys && yay -Sua"
 alias get="sudo pacman -S"
 alias remove="sudo pacman -Rsnc"
@@ -19,6 +20,7 @@ alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -v"
 alias mkd="mkdir -pv"
+alias tree="tree --du -h"
 alias mtusb="sudo mount -o uid=1000,gid=1000 /dev/sda1 ~/usb"
 alias rlterm="source ~/.zshrc" #"killall -USR1 termite"
 alias poweroff="sudo /usr/bin/poweroff"

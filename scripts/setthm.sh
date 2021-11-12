@@ -241,6 +241,11 @@ if [ -z "$1" ]; then
 
 # with two args
 
+elif [ $# -eq "1" ]; then
+	setcol "$1"
+	chkbg "$1"
+	exit 0
+
 elif [ $# -eq "2" ]; then
 	case $1 in
 		[wW]* )
