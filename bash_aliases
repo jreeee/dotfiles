@@ -1,13 +1,13 @@
-
 # couple 'o aliases
 
 # root stuff (yeah, the first two aren't ideal, ik...)
 alias sudo='doas'
 alias doas='doas '
 alias sudoedit='doas rnano'
-alias chkdoascfg="doas doas -C /etc/doas.conf && echo 'OK' || echo 'ERR'"
+alias cdcg="doas doas -C /etc/doas.conf && echo 'OK' || echo 'ERR'"
 
 # shortend 
+alias ba="nano ~/.bash_aliases"
 alias rf="rm -rf"
 alias mkp="makepkg -scfi PKGBUILD"
 alias update="sudo pacman -Syu && yay -Ys && yay -Sua"
@@ -22,7 +22,7 @@ alias rm="rm -v"
 alias mkd="mkdir -pv"
 alias tree="tree --du -h"
 alias mtusb="sudo mount -o uid=1000,gid=1000 /dev/sda1 ~/usb"
-alias rlterm="source ~/.zshrc" #"killall -USR1 termite"
+alias src="source ~/.zshrc" #"killall -USR1 termite"
 alias poweroff="sudo /usr/bin/poweroff"
 alias reboot="sudo /usr/bin/reboot"
 alias lck="sleep 1 && xtrlock"
@@ -45,6 +45,7 @@ alias webs="sudo ~/.scripts/webstorage.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
 alias anbg="~/.scripts/an-bg.sh 3> /dev/null"
 alias setthm="~/.scripts/setthm.sh"
+alias mensa="echo $(curl -s https://openmensa.org/api/v2/canteens/151/days/$(date -Ih -d "+10 hours")/meals | jq -r '.[] | select(.category|test("Veg*")) | .name')"
 
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
