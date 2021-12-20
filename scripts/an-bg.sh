@@ -23,9 +23,11 @@ _screen() {
 _modify() {
   while read p; do
     # checks if the pid still belongs to mpv and stops / continues / kills it
-    [[ $(ps -p "$p" -o comm=) == "mpv" ]] && kill -"$1" "$p";
+    [[ -n "$p" && $(ps -p "$p" -o comm=) == "mpv" ]] && kill -"$1" "$p";
   done < $PIDFILE
 }
+
+# checking if $PIDFILE contains PID(s)
 
 if [ $# -gt "0" ];then
 
@@ -40,6 +42,9 @@ if [ $# -gt "0" ];then
       ;;
     *)
 	  _modify '9'
+
+      sleep 0.5
+
 	  for i in $( xrandr -q | grep ' connected' | grep -oP '\d+x\d+\+\d+\+\d+')
 	  do
         _screen "$i" "$1"
