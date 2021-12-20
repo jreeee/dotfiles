@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # from https://github.com/CalinLeafshade/dots/blob/master/bin/bin/bg.sh
+# I've made some adjustments for my specific setup
 
 PIDFILE="/var/run/user/$UID/bg.pid"
 
@@ -12,18 +13,42 @@ _screen() {
         --vo=gpu --hwdec=vaapi \
         --loop-file --no-audio --no-osc --no-osd-bar -wid WID --no-input-default-bindings \
         "$2" &
-    PIDs+=($!)
+	sleep 0.5
+	#the process tree has to be created first, hence the sleep
+    PIDs+=($(pstree -p $! | grep -oP '\-mpv\(\d+'| grep -oP '\d+'))
+	# if we only kill xwinwrap mpv will not termiante but rather sleep,
+	# so instead we get mpv's id which also kills xwinwrap when killed
 }
 
-while read p; do
-  [[ $(ps -p "$p" -o comm=) == "xwinwrap" ]] && kill -9 "$p";
-done < $PIDFILE
+_modify() {
+  while read p; do
+    # checks if the pid still belongs to mpv and stops / continues / kills it
+    [[ $(ps -p "$p" -o comm=) == "mpv" ]] && kill -"$1" "$p";
+  done < $PIDFILE
+}
 
-sleep 0.5
+if [ $# -gt "0" ];then
 
-for i in $( xrandr -q | grep ' connected' | grep -oP '\d+x\d+\+\d+\+\d+')
-do
-    _screen "$i" "$1"
-done
+  case $1 in
+    [0] )
+      _modify 'CONT'
+      exit 0
+      ;;
+    [1] )
+      _modify 'STOP'
+      exit 0
+      ;;
+    *)
+	  _modify '9'
+	  for i in $( xrandr -q | grep ' connected' | grep -oP '\d+x\d+\+\d+\+\d+')
+	  do
+        _screen "$i" "$1"
+	  done
 
-printf "%s\n" "${PIDs[@]}" > $PIDFILE
+	  printf "%s\n" "${PIDs[@]}" > $PIDFILE
+
+      exit 0
+  esac
+else
+  _modify '9'
+fi

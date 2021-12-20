@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# deprecated as termite is not maintained anymore
+# deprecated as termite is not maintained and I don't use it anymore
 #terconf=$HOME'/.config/termite/config'
 
 declare -r TERCONF=$HOME'/.config/alacritty/alacritty.yml'
