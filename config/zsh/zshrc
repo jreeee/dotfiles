@@ -72,7 +72,9 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-mg() { mkdir -pv $1 && cd $1; }
+mg() { mkdir -pv "$1" && cd "$1" }
+rg() { grep -P "$1" -r * }
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

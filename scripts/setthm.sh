@@ -6,8 +6,11 @@
 declare -r TERCONF=$HOME'/.config/alacritty/alacritty.yml'
 declare -r AWESOME=$HOME'/.config/awesome/'
 declare -r AWCONF=$AWESOME'rc.lua'
-declare -r WALL=$HOME'/dotfiles/config/themes/wallpapers/'
-declare -r PLTE=$HOME'/dotfiles/config/themes/palettes/'
+declare -r THEMES=$HOME'/dotfiles/config/themes'
+declare -r WALL=$THEMES'/wallpapers/'
+declare -r VIDEO=$THEMES'/videos/'
+declare -r PLTE=$THEMES'/palettes/'
+declare -r BGSH=$HOME'/dotfiles/scripts/an-bg.sh'
 
 # get the theme used by awesome atm by building an array and checking the index in use
 
@@ -58,24 +61,45 @@ lsthm () {
 	done
 }
 
+# VIDEO
+
+setvd () {
+	#variable setting in rc.lua is handeled by an-bg.sh
+	eval "$BGSH" "$1" &>/dev/null 2>&1 &
+}
+
 # WALLPAPER
 
 # checks multiple directries if they contain the background, if so it calls setbg()
 
-chkbg () {
+chkex () {
 
-	if [ -e "$WALL"'wall'"$1"'.png' ];then
-		setbg "$WALL"'wall'"$1"'.png'
+	#disable / pause the video (has alternative aliases too)
+	case "$1" in
+		k|s|c )
+			setvd "$1"
+			exit 0
+			;;
+	esac
+
+	if [ -e "$2""$3""$1""$4" ]; then
+		path="$2""$3""$1""$4"
+	elif [ -e "$2""$3""$1""$5" ]; then
+        path="$2""$3""$1""$5"
 	elif [ -e "$HOME"'/'"$1" ]; then
-		setbg "$HOME"'/'"$1"
+		path="$HOME"'/'"$1"
 	elif [ -e "$1" ]; then
-		setbg "$1"
+		path="$1"
 	else
 		echo 'ERROR: could not find'
-		echo "$WALL"'wall'"$1"'.png'
-		echo "$HOME"'/'"$1"
 		echo "$1"
 		exit 0
+	fi
+
+	if [ "$2" == "$WALL" ]; then
+		setbg "$path"
+	elif [ "$2" == "$VIDEO" ]; then
+		setvd "$path"
 	fi
 }
 
@@ -218,7 +242,7 @@ if [ -z "$1" ]; then
 		[wW]* )
 			echo 'available theme wallpapers are:'; ls -1 "$WALL"
 			read -p 'select by typing in the part between "wall" and ".png" or enter a path to the image ' input
-			chkbg "$input"
+			chkex "$input" "$WALL" "wall" ".png" ".jpg"
 			exit 0
 			;;
 		[pP]* )
@@ -227,11 +251,16 @@ if [ -z "$1" ]; then
 			setcol "$input"
 			;;
 		[tT]* )
-			#echo 'available themes are:'; echo `awk '/^local themes = {/,/}/' $AWCONF | sed 's/[",]//g' | sed '1d;$d'`
 			echo 'available themes are:'
 			chkthm 0 1
 			read -p 'select by typing in the index or the name of the theme ' input
 			chkthm "$input"
+			;;
+		[vV]* )
+			read -p 'set the path to the video that should be played' input
+			# if you want more video formats just replace chkex with setvd or modify the function
+			chkex "$input" "$VIDEO" "video"
+			exit 0
 			;;
 		*)
 			echo 'the input does not match the requirement, exiting'
@@ -242,12 +271,12 @@ if [ -z "$1" ]; then
 
 elif [ $# -eq "1" ]; then
 	setcol "$1"
-	chkbg "$1"
+	chkex "$1" "$WALL" "wall" ".png" ".jpg"
 
 elif [ $# -eq "2" ]; then
 	case $1 in
 		[wW]* )
-			chkbg "$2"
+			chkex "$2" "$WALL" "wall" ".png" ".jpg"
 			exit 0
 			;;
 		[pP]* )
@@ -256,6 +285,10 @@ elif [ $# -eq "2" ]; then
 		[tT]* )
 			chkthm "$2"
 			;;
+		[vV]* )
+			chkex "$2" "$VIDEO" "video"
+			exit 0
+			;;
 		*)
 			echo 'usage: arg1=[p/t/w] arg2=integer/string'
 			exit 0
@@ -263,7 +296,7 @@ elif [ $# -eq "2" ]; then
 
 # with three args
 
-elif [ $# -eq "3" ]; then
+elif [ $# -ge "3" ]; then
 	if [ "$1" != "0" ]; then
 		chkthm "$1"
 	fi
@@ -271,8 +304,12 @@ elif [ $# -eq "3" ]; then
 		setcol "$2"
 	fi
 	if [ "$3" != "0" ]; then
-		chkbg "$3"
+		chkex "$3" "$WALL" "wall" ".png" ".jpg"
 	fi
+	if [ $# -eq "4" ]; then
+		chkex "$4" "$VIDEO" "video"
+	fi
+
 else
 	echo 'usage:'; echo '0 args - you can select what to change'
 	echo '2 args - select what you want to change and what it should be changed into'

@@ -18,6 +18,9 @@ local HOME = os.getenv("HOME")
 local WIDGET_DIR = HOME .. '/.config/awesome/awesome-wm-widgets/batteryarc-widget'
 local BATTERY_CMD = [[bash -c "acpi"]]
 
+local VIDEO_SCRIPT = HOME .. '/dotfiles/scripts/an-bg.sh'
+local playing = false
+
 local batteryarc_widget = {}
 
 local function worker(user_args)
@@ -89,7 +92,7 @@ local function worker(user_args)
         local status
         for s in stdout:gmatch("[^\r\n]+") do
             local cur_status, charge_str, _ = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?(.*)')
-            if cur_status ~= nil and charge_str ~=nil then
+            if cur_status ~= nil and charge_str ~= nil then
                 local cur_charge = tonumber(charge_str)
                 if cur_charge > charge then
                     status = cur_status
@@ -103,9 +106,17 @@ local function worker(user_args)
         if status == 'Charging' then
             text_with_background.bg = charging_color
             text_with_background.fg = '#000000'
+			if not playing then
+				awful.spawn.easy_async("bash " .. VIDEO_SCRIPT .. " c", function() end)
+				playing = true
+			end
         else
             text_with_background.bg = '#00000000'
             text_with_background.fg = main_color
+			if playing and charge < 95 then
+                awful.spawn.easy_async("bash " .. VIDEO_SCRIPT .. " s", function() end)
+				playing = false
+			end
         end
 
         if show_current_level == true then

@@ -15,28 +15,31 @@ _screen() {
         "$2" &
 	sleep 0.5
 	#the process tree has to be created first, hence the sleep
-    PIDs+=($(pstree -p $! | grep -oP '\-mpv\(\d+'| grep -oP '\d+'))
+    PIDs+=("$(pstree -p $! | grep -oP '\-mpv\(\d+'| grep -oP '\d+')")
 	# if we only kill xwinwrap mpv will not termiante but rather sleep,
 	# so instead we get mpv's id which also kills xwinwrap when killed
 }
 
 _modify() {
   while read p; do
-    # checks if the pid still belongs to mpv and stops / continues / kills it
+    # checks if the pid is empty / still belongs to mpv and stops / continues / kills it
     [[ -n "$p" && $(ps -p "$p" -o comm=) == "mpv" ]] && kill -"$1" "$p";
   done < $PIDFILE
+  [[ "$1" -eq "9" ]] && echo "" > $PIDFILE;
 }
 
-# checking if $PIDFILE contains PID(s)
-
-if [ $# -gt "0" ];then
+if [ $# -gt "0" ]; then
 
   case $1 in
-    [0] )
+    [k] )
+      _modify '9'
+      exit 0
+      ;;
+    [c] )
       _modify 'CONT'
       exit 0
       ;;
-    [1] )
+    [s] )
       _modify 'STOP'
       exit 0
       ;;
