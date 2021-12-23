@@ -65,7 +65,7 @@ lsthm () {
 
 setvd () {
 	#variable setting in rc.lua is handeled by an-bg.sh
-	eval "$BGSH" "$1" "0" &>/dev/null 2>&1 &
+	eval "$BGSH" "$1"'/' "0" &>/dev/null 2>&1 &
 }
 
 # WALLPAPER
