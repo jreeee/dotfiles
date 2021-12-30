@@ -47,6 +47,8 @@ local function worker(user_args)
         enable_battery_warning = true
     end
 
+    local stop_video_after = args.stop_video_after or 95
+
     local text = wibox.widget {
         font = font,
         align = 'center',
@@ -113,7 +115,7 @@ local function worker(user_args)
         else
             text_with_background.bg = '#00000000'
             text_with_background.fg = main_color
-			if playing and charge < 95 then
+			if playing and charge < stop_video_after then
                 awful.spawn.easy_async("bash " .. VIDEO_SCRIPT .. " s", function() end)
 				playing = false
 			end

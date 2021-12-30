@@ -22,6 +22,8 @@ local INC_VOLUME_CMD = 'amixer -D pulse sset Master 1%+'
 local DEC_VOLUME_CMD = 'amixer -D pulse sset Master 1%-'
 local TOG_VOLUME_CMD = 'amixer -D pulse sset Master toggle'
 
+local TOGGLE_SCRIPT = os.getenv("HOME") .. "/dotfiles/scripts/aw-toggle-mixer.sh "
+
 
 local widget_types = {
     icon_and_text = require("awesome-wm-widgets.volume-widget.widgets.icon-and-text-widget"),
@@ -200,8 +202,7 @@ local function worker(user_args)
 
     function volume:mixer()
         if toggle then
-			local script = os.getenv("HOME") .. "/.config/awesome/awesome-wm-widgets/volume-widget/toggle_mixer.sh "
-			spawn.easy_async("bash " .. script .. mixer_cmd, function() end)
+			spawn.easy_async("bash " .. TOGGLE_SCRIPT .. mixer_cmd, function() end)
 		else 
 			spawn.easy_async(mixer_cmd, function() end)
         end

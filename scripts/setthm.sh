@@ -10,7 +10,8 @@ declare -r THEMES=$HOME'/dotfiles/config/themes'
 declare -r WALL=$THEMES'/wallpapers/'
 declare -r VIDEO=$THEMES'/videos/'
 declare -r PLTE=$THEMES'/palettes/'
-declare -r BGSH=$HOME'/dotfiles/scripts/an-bg.sh'
+declare -r ANBG=$HOME'/dotfiles/scripts/an-bg.sh'
+declare -r FHBG=$HOME'/dotfiles/scripts/aw-fehbg.sh'
 
 # get the theme used by awesome atm by building an array and checking the index in use
 
@@ -65,7 +66,7 @@ lsthm () {
 
 setvd () {
 	#variable setting in rc.lua is handeled by an-bg.sh
-	eval "$BGSH" "$1"'/' "0" &>/dev/null 2>&1 &
+	eval "$ANBG" "$1"'/' "0" &>/dev/null 2>&1 &
 }
 
 # WALLPAPER
@@ -107,8 +108,8 @@ chkex () {
 
 setbg () {
 
-	sed -i 's#^feh .*#feh --bg-fill '"$1"'#' "$AWESOME"'fehbg.sh'
-	eval "$AWESOME"'fehbg.sh'
+	sed -i 's#^feh .*#feh --bg-fill '"$1"'#' "$FHBG"
+	eval "$FHBG"
 	sed -i --follow-symlinks 's#^theme.wallpaper .*#theme.wallpaper \t\t\t\t\t\t\t\t= "'"$1"'"#' "$awth"
 }
 
@@ -246,8 +247,9 @@ if [ -z "$1" ]; then
 			exit 0
 			;;
 		[pP]* )
-			echo 'available palettes are:' "$(ls -1 "$PLTE" | sed '1d')"
-			read -p 'select by typing in the part between "theme" and ".txt" ' input
+			echo 'available palettes are:'
+			echo "$(find "$PLTE" | sort -k1 | grep -oP 'palette\d+')"
+			read -p 'select by typing their respective number ' input
 			setcol "$input"
 			;;
 		[tT]* )

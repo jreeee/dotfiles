@@ -195,7 +195,8 @@ function theme.at_screen_connect(s)
                 bg_color = theme.taskbar_bg,
 				charging_color = theme.border_focus,
                 low_level_color = theme.border_marked,
-				show_notification_mode = 'on_click'
+				show_notification_mode = 'on_click',
+				stop_video_after = 95
 			}),
 			spr,
 			spr1,

@@ -6,8 +6,8 @@
 # https://github.com/hohmannr/bubblified
 
 # SYMBOL CONSTANTS
-blub_left=' ' #     █  
-blub_right='' #   █ 
+blub_left=' ' #      █  
+blub_right='' #    █ 
 #slant_right=''
 #slant_left=' '
 
@@ -60,12 +60,12 @@ ssh_bubble_color='138'
 # slightly changed it: foreground -> cvcol f name/num, background -> cvcol b name/num
 cvcol () {
     
-    if [[ $1 == 'f' && $2 =~ '[0-9]{3}' && $2 -le 255 && $2 -ge 0 ]]; then
+    if [[ $1 == 'f' && $2 =~ [0-9]{3} && $2 -le 255 && $2 -ge 0 ]]; then
         echo -n "%{$FG[$2]%}"
     elif [[ $1 == 'f' ]]; then
         echo -n "%{$fg[$2]%}"
 
-    elif [[ $1 == 'b' && $2 =~ '[0-9]{3}' && $2 -le 255 && $2 -ge 0 ]]; then
+    elif [[ $1 == 'b' && $2 =~ [0-9]{3} && $2 -le 255 && $2 -ge 0 ]]; then
         echo -n "%{$BG[$2]%}"
     elif [[ $1 == 'b' ]]; then
         echo -n "%{$bg[$2]%}"
