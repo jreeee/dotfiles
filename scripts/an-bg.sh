@@ -2,44 +2,90 @@
 
 # from https://github.com/CalinLeafshade/dots/blob/master/bin/bin/bg.sh
 # I've made some adjustments for my specific setup
+# for it to work all videos in one folder need to have the same file extension
 
 PIDFILE="/var/run/user/$UID/bg.pid"
 
 declare -a PIDs
 declare -a VIDs
+declare -a VRHs # video resolution (only height)
+declare -r THREADS="8"
+
+_generate() {
+  ffmpeg -i "$1" -vf scale=-1:"$2" -g 48 -keyint_min 48 \
+         -sc_threshold 0 -row-mt 1 -threads "$THREADS" -speed 2 -tile-columns 4 \
+         "$3"
+}
 
 _size() {
-  VIDs=( "$2"* )
+  VIDs=( "$2"* ) # add all the files in that directory to the array
   len=${#VIDs[@]}
+
   if [ "$len" -eq "0" ]; then
+    echo 'ERROR: no files could be found, exiting'
     exit 1
-  elif [ "$len" -eq "1" ]; then
-    _screen "$1" "${VIDs[1]}"
-    exit 0
   fi
+
+  # getting all the files that are videos and storing their height in VRHs
+  type=''
+  for (( i=0;  i<"$len"; ++i )) do
+    res_i=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=s=x:p=0 "${VIDs[i]}")
+    if [ "$res_i" -eq "$res_i" ] 2> /dev/null; then
+      VRHs+=("$res_i")
+      if [ "$type" == '' ]; then
+        type=$(echo "${VIDs[i]}" | grep -oP '\..*')
+      fi
+    else
+      VRHs+=("0")
+    fi
+  done
+
+  if [ "$type" == '' ]; then
+    echo 'ERROR: no files could be found, exiting'
+    exit 1
+  fi
+
   res=$(echo "$1" | grep -oP 'x\d+') # sth like 1920x1080-..., becomes x1080
   res=${res:1} # 1080
-  num="$2"
-  num=${num: -2:1} # number of the video selected (like the themes)
-  type=$(find "$2" | grep -oPm1 '\..*') # ending of the first file
-  file="$2"'v'"$num"'-'"$res""$type" # full path
-  if [ -f "$file" ]; then
-    _screen "$1" "$file"
-  else
-    index="0"
-    atindex="$res"
-    for (( i=0;  i<"$len"; ++i )) do
-      vid=${VIDs[i]}
-      name=${vid/$2v/}
-      name=${name/#*-/}
-      name=${name/%.*/}
-      dif=$(( res - name ))
+
+  # trying to find a matching resolution
+  index="0"
+  abs_diff="$res"
+  max_h_i="$res" # used for converting, assuming that the quality is the best due to the size
+  for (( i=0;  i<"$len"; ++i )) do
+    res_i=${VRHs[i]}
+    if [ "$res_i" -gt 0 ]; then
+      dif=$(( res - res_i ))
+      [ "$res_i" -gt "$max_h_i" ] && max_h_i=$i;
       [ "$dif" -lt "0" ] && dif=${dif#-};
-      [ "$dif" -lt "$atindex" ] && index=$i && atindex="$dif";
-    done
+      [ "$dif" -lt "$abs_diff" ] && index=$i && abs_diff="$dif";
+    fi
+  done
 
+  if [ "$abs_diff" -eq "0" ]; then
     _screen "$1" "${VIDs[$index]}"
+  else
+    echo 'there doesn'\''t seem to be a video that matches your screen resolution'
+    read -p 'generate a new one or use a existing resolution close to it? \[n/E\] ' input
 
+    case "$input" in
+      [Nn]* )
+        height="${VRHs[$max_h_i]}"
+        source="${VIDs[$max_h_i]}"
+        if [ "$height" -gt "$res" ]; then
+          echo 'upscaling from '"$res"' to '"$height"
+        else
+          echo 'downscaling from '"$res"' to '"$height"
+        fi
+        file="$2"'gen-'"$height""$type"
+        _generate "$source" "$height" "$file"
+        _screen "$1" "$file"
+        ;;
+       * )
+         echo 'using resolution '"${VRHs[$index]}"' for '"$res"
+         _screen "$1" "${VIDs[$index]}"
+         ;;
+    esac
   fi
 }
 
@@ -79,7 +125,7 @@ if [ $# -gt "0" ]; then
       _modify 'STOP'
       exit 0
       ;;
-    *)
+    * )
 	  _modify '9'
 
       sleep 0.5
