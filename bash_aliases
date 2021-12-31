@@ -45,6 +45,7 @@ alias webs="sudo ~/.scripts/webstorage.sh"
 alias tablet-set="~/.scripts/tablet-conf.sh"
 alias anbg="~/.scripts/an-bg.sh 3> /dev/null"
 alias setthm="~/.scripts/setthm.sh"
+alias hsup="~/.scripts/hsup.sh"
 alias mensa="echo $(curl -s https://openmensa.org/api/v2/canteens/151/days/$(date -Ih -d "+10 hours")/meals | jq -r '.[] | select(.category|test("Veg*")) | .name')"
 alias wth="echo $(curl -s "https://v2.wttr.in/heidelberg\?T\&F\&lang\=en")"
 
