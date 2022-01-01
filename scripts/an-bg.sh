@@ -14,7 +14,7 @@ declare -r THREADS="8"
 _generate() {
   ffmpeg -i "$1" -vf scale=-1:"$2" -g 48 -keyint_min 48 \
          -sc_threshold 0 -row-mt 1 -threads "$THREADS" -speed 2 -tile-columns 4 \
-         "$3"
+         -loglevel 0 -stats "$3"
 }
 
 _size() {
@@ -29,7 +29,7 @@ _size() {
   # getting all the files that are videos and storing their height in VRHs
   type=''
   for (( i=0;  i<"$len"; ++i )) do
-    res_i=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=s=x:p=0 "${VIDs[i]}")
+    res_i=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=s=x:p=0 "${VIDs[i]}" 2> /dev/null)
     if [ "$res_i" -eq "$res_i" ] 2> /dev/null; then
       VRHs+=("$res_i")
       if [ "$type" == '' ]; then
@@ -63,27 +63,27 @@ _size() {
   done
 
   if [ "$abs_diff" -eq "0" ]; then
-    _screen "$1" "${VIDs[$index]}"
+    _screen "$1" "${VIDs[$index]}" &>/dev/null 2>&1
   else
     echo 'there doesn'\''t seem to be a video that matches your screen resolution'
-    read -p 'generate a new one or use a existing resolution close to it? \[n/E\] ' input
+    read -p 'generate a new one or use a existing resolution close to it? [y/N] ' input
 
     case "$input" in
-      [Nn]* )
+      [Yy]* )
         height="${VRHs[$max_h_i]}"
         source="${VIDs[$max_h_i]}"
-        if [ "$height" -gt "$res" ]; then
-          echo 'upscaling from '"$res"' to '"$height"
+        if [ "$res" -gt "$height" ]; then
+          echo 'upscaling from '"$height"' to '"$res"
         else
-          echo 'downscaling from '"$res"' to '"$height"
+          echo 'downscaling from '"$height"' to '"$res"
         fi
-        file="$2"'gen-'"$height""$type"
-        _generate "$source" "$height" "$file"
-        _screen "$1" "$file"
+        file="$2"'gen-'"$res""$type"
+        _generate "$source" "$res" "$file"
+        _screen "$1" "$file" &>/dev/null 2>&1
         ;;
        * )
          echo 'using resolution '"${VRHs[$index]}"' for '"$res"
-         _screen "$1" "${VIDs[$index]}"
+         _screen "$1" "${VIDs[$index]}" &>/dev/null 2>&1
          ;;
     esac
   fi
@@ -107,7 +107,7 @@ _modify() {
     # checks if the pid is empty / still belongs to mpv and stops / continues / kills it
     [[ -n "$p" && $(ps -p "$p" -o comm=) == "mpv" ]] && kill -"$1" "$p";
   done < $PIDFILE
-  [[ "$1" -eq "9" ]] && echo "" > $PIDFILE;
+  [ "$1" -eq "9" ] && echo "" > $PIDFILE;
 }
 
 if [ $# -gt "0" ]; then

@@ -65,8 +65,8 @@ lsthm () {
 # VIDEO
 
 setvd () {
-	#variable setting in rc.lua is handeled by an-bg.sh
-	eval "$ANBG" "$1"'/' "0" &>/dev/null 2>&1 &
+	#videocontrol is handeled by an-bg.sh lua.rc aswell as the batterarc-widget
+	eval "$ANBG" "$1"'/' "0"
 }
 
 # WALLPAPER
