@@ -12,7 +12,7 @@ curl -o "$NEW_FILE" "$SOURCE"
 
 if [ -s "$NEW_FILE" ]; then
 	if [ -e "$OLD_FILE" ]; then
-		if ! cmp -s "$OLD_FILE" "$NEW_FILE"; then
+		if cmp -s "$OLD_FILE" "$NEW_FILE"; then
 			echo 'ERROR: old and new files are identical, skipping'
 			exit 1
 		else
