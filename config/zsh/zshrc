@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+## If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
@@ -74,6 +74,7 @@ source $ZSH/oh-my-zsh.sh
 
 mg() { mkdir -pv "$1" && cd "$1" }
 rg() { grep -P "$1" -r * }
+mensa() { echo $(curl -s 'https://openmensa.org/api/v2/canteens/151/days/'$(date -Ih -d "+10 hours")'/meals' | jq -r '.[] | select(.category|test("Veg*")) | .name') }
 
 # User configuration
 

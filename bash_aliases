@@ -46,7 +46,10 @@ alias tablet-set="~/.scripts/tablet-conf.sh"
 alias anbg="~/.scripts/an-bg.sh 3> /dev/null"
 alias setthm="~/.scripts/setthm.sh"
 alias hsup="~/.scripts/hsup.sh"
-alias mensa="echo $(curl -s 'https://openmensa.org/api/v2/canteens/151/days/'$(date -Ih -d "+10 hours")'/meals' | jq -r '.[] | select(.category|test("Veg*")) | .name')"
+alias genics="~/work/work-eTeach/tools/ics_gen.py"
 
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
+
+# def. args
+alias ani-cli="ani-cli -e '--volume=100 --saturation=40'"
