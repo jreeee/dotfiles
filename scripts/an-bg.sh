@@ -112,16 +112,18 @@ _screen() {
 }
 
 _modify() {
-  while read p; do
-    # checks if the pid is empty / still belongs to mpv and stops / continues / kills it
-    [[ -n "$p" && $(ps -p "$p" -o comm=) == "mpv" ]] && kill -"$1" "$p";
-  done < $PIDFILE
-  [ "$1" -eq "9" ] && echo "" > $PIDFILE;
+  if [ -e "$PIDFILE" ]; then
+    while read p; do
+      # checks if the pid is empty / still belongs to mpv and stops / continues / kills it
+      [[ -n "$p" && $(ps -p "$p" -o comm=) == "mpv" ]] && kill -"$1" "$p";
+    done < $PIDFILE
+  fi
+  [ "$1" == "9" ] && echo "" > $PIDFILE;
 }
 
 if [ $# -gt "0" ]; then
 
-  case $1 in
+  case "$1" in
     [k] )
       _modify '9'
       exit 0

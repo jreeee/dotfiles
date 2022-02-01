@@ -77,8 +77,8 @@ chkex () {
 
 	#disable / pause the video (has alternative aliases too)
 	case "$1" in
-		k|s|c )
-			setvd "$1"
+		[ksc] )
+			eval "$ANBG" "$1"
 			exit 0
 			;;
 	esac
