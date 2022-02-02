@@ -47,9 +47,10 @@ alias anbg="~/.scripts/an-bg.sh 3> /dev/null"
 alias setthm="~/.scripts/setthm.sh"
 alias hsup="~/.scripts/hsup.sh"
 alias genics="~/work/work-eTeach/tools/ics_gen.py"
+alias gla="~/.scripts/gla.sh"
 
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
 
 # def. args
-alias ani-cli="ani-cli -e '--volume=100 --saturation=40'"
+#alias ani-cli="ani-cli -e --volume=100 --saturation=40"
