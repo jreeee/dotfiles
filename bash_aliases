@@ -51,6 +51,3 @@ alias gla="~/.scripts/gla.sh"
 
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
-
-# def. args
-#alias ani-cli="ani-cli -e --volume=100 --saturation=40"

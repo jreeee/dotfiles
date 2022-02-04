@@ -74,8 +74,7 @@ source $ZSH/oh-my-zsh.sh
 
 mg() { mkdir -pv "$1" && cd "$1" }
 rg() { grep -P "$1" -r * }
-mensa() { echo $(curl -s 'https://openmensa.org/api/v2/canteens/151/days/'$(date -Ih -d "+10 hours")'/meals' | jq -r '.[] | select(.category|test("Veg*")) | .name') }
-
+mensa() { [ $# -gt "0" ] && i=$(echo "$1 * 24" | bc -l) || i="10"; echo $(curl -s 'https://openmensa.org/api/v2/canteens/151/days/'$(date -Ih -d "+$i hours")'/meals' | jq -r '.[] | select(.category|test("Veg*")) | .name') }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
