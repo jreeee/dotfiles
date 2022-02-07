@@ -48,6 +48,7 @@ alias setthm="~/.scripts/setthm.sh"
 alias hsup="~/.scripts/hsup.sh"
 alias genics="~/work/work-eTeach/tools/ics_gen.py"
 alias gla="~/.scripts/gla.sh"
+alias chfont="~/.scripts/chfont.sh"
 
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
