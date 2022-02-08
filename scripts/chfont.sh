@@ -2,6 +2,8 @@
 
 declare -r ALACRITTY=$HOME'/.config/alacritty/alacritty.yml'
 declare -r THEME=$HOME'/.config/awesome/themes/modern-slant/theme.lua'
+declare -r GTK2=$HOME'/.gtkrc-2.0'
+declare -r GTK3=$HOME'/.config/gtk-3.0/settings.ini'
 declare -a allfonts
 declare -a selfonts
 
@@ -9,6 +11,8 @@ _setfont() {
 	font=${selfonts[$1]:1}
 	echo "setting font to $font"
 	sed -i --follow-symlinks 's/^    family: .*/    family: '"$font"'/' "$ALACRITTY"
+	sed -i --follow-symlinks 's/^gtk-font-name=.*/gtk-font-name=\"'"$font"' 10\"/' "$GTK2"
+	sed -i --follow-symlinks 's/^gtk-font-name=.*/gtk-font-name=\"'"$font"' 10\"/' "$GTK3"
 	sed -i --follow-symlinks 's/^theme.font.*/theme.font\t\t\t\t\t\t\t\t\t\t= \"'"$font"' 9\"/' "$THEME"
 	echo 'awesome.restart()' | awesome-client 2> /dev/null
 	exit 0
