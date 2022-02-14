@@ -1,5 +1,5 @@
 #!/bin/bash
 
-feh --bg-fill /path/to/your/image/
+feh --no-fehbg --bg-fill /home/jre/dotfiles/config/themes/wallpapers/wall1.png
 
 # the path gets overwritten when using setthm with argument w

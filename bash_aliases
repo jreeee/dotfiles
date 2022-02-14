@@ -46,7 +46,7 @@ alias tablet-set="~/.scripts/tablet-conf.sh"
 alias anbg="~/.scripts/an-bg.sh 3> /dev/null"
 alias setthm="~/.scripts/setthm.sh"
 alias hsup="~/.scripts/hsup.sh"
-alias genics="~/work/work-eTeach/tools/ics_gen.py"
+alias genics="~/git/work-eTeach/tools/ics_gen.py"
 alias gla="~/.scripts/gla.sh"
 alias chfont="~/.scripts/chfont.sh"
 

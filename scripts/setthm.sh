@@ -108,7 +108,7 @@ chkex () {
 
 setbg () {
 
-	sed -i 's#^feh .*#feh --bg-fill '"$1"'#' "$FHBG"
+	sed -i 's#^feh .*#feh --no-fehbg --bg-fill '"$1"'#' "$FHBG"
 	eval "$FHBG"
 	sed -i --follow-symlinks 's#^theme.wallpaper .*#theme.wallpaper \t\t\t\t\t\t\t\t= "'"$1"'"#' "$awth"
 }
