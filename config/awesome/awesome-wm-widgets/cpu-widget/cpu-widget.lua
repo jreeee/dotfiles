@@ -131,6 +131,7 @@ local function worker(user_args)
         maximum_width = 300,
 		minimum_width = 300,
 		minimum_height = 520,
+		maximum_height = 520,
 		bg = foreground_color,
 		fg = color,
 		opacity = 0.8,
@@ -336,9 +337,9 @@ local function worker(user_args)
         end)
     end)
 
-	if placement == 'bottom_right' then
-		awful.placement.bottom_right(popup { margins = { bottom = 20, right = 10}, parent = awful.screen.focused() })
-	end
+	--if placement == 'bottom_right' then
+	--	awful.placement.bottom_right(popup { margins = { bottom = -400, right = 10}, parent = awful.screen.focused() })
+	--end
 
     return cpu_widget
 end

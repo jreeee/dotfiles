@@ -106,10 +106,10 @@ awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.floating,
     awful.layout.suit.tile.left,
-    --awful.layout.suit.tile.bottom,
-    --awful.layout.suit.tile.top,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
-    --awful.layout.suit.fair.horizontal,
+    awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
     --awful.layout.suit.max,
@@ -119,12 +119,12 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.ne,
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
-    --lain.layout.cascade,
-    --lain.layout.cascade.tile,
-    --lain.layout.centerwork,
+    lain.layout.cascade,
+    lain.layout.cascade.tile,
+    lain.layout.centerwork,
     --lain.layout.centerwork.horizontal,
-    --lain.layout.termfair,
-    --lain.layout.termfair.center,
+    lain.layout.termfair,
+    lain.layout.termfair.center,
 }
 
 awful.util.taglist_buttons = my_table.join(
@@ -709,8 +709,11 @@ awful.rules.rules = {
     { rule = { class = "discord" },
     properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
-    { rule = { class = "Thunderbird" },
+    { rule = { class = "Mail" },
       properties = { screen = 1, tag = awful.util.tagnames[5] } },
+
+    { rule = { class = "Code" },
+      properties = { screen = 1, tag = awful.util.tagnames[4] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
