@@ -532,6 +532,8 @@ globalkeys = my_table.join(
               {description = "run browser", group = "launcher"}),
     awful.key({ modkey }, "a", function () awful.spawn(gui_editor) end,
               {description = "run gui editor", group = "launcher"}),
+	awful.key({ modkey, "Shift" }, "x", function () os.execute("sleep 1 && xtrlock") end,
+              {description = "lock inputs", group = "hotkeys"}),
 
     -- Default
     --[[ Menubar
@@ -704,16 +706,16 @@ awful.rules.rules = {
 
     -- Set Firefox to always map on the first tag on screen 3.
     { rule = { class = "firefox" },
-      properties = { screen = 1, tag = awful.util.tagnames[3] } },
+      properties = { screen = 1, tag = awful.util.tagnames[3], maximized = false } },
 
     { rule = { class = "discord" },
     properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
     { rule = { class = "Mail" },
-      properties = { screen = 1, tag = awful.util.tagnames[5] } },
+      properties = { screen = 1, tag = awful.util.tagnames[5], maximized = false } },
 
     { rule = { class = "Code" },
-      properties = { screen = 1, tag = awful.util.tagnames[4] } },
+      properties = { screen = 1, tag = awful.util.tagnames[4], maximized = false } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },

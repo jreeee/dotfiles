@@ -31,6 +31,7 @@ alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg -o '~/Music/%(title
 alias pdf2jpg="pdftoppm -jpeg -r 300"
 alias search="find . -type d -name"
 alias gitlg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gdu="git clean -fdx"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
