@@ -32,7 +32,6 @@ alias pdf2jpg="pdftoppm -jpeg -r 300"
 alias search="find . -type d -name"
 alias gitlg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gdu="git clean -fdx"
-alias zef="libreoffice ~/git/work-eTeach/time/2022/curr.xlsx"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
