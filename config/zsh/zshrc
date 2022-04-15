@@ -77,7 +77,17 @@ rg() { grep -P "$1" -r * }
 mensa() { [ $# -gt "0" ] && i=$(echo "$1 * 24" | bc -l) || i="10"; echo $(curl -s 'https://openmensa.org/api/v2/canteens/151/days/'$(date -Ih -d "+$i hours")'/meals' | jq -r '.[] | select(.category|test("Veg*")) | .name, .prices.students')"€" }
 fontf() { fc-query -f '%{family[0]}\n' "$1" }
 zef() { libreoffice "$HOME/git/work-eTeach/time/2022/Zeiterfassung-"$(date +"%b-%Y")".xlsx" }
-
+flattenpdf() {
+  if [[ $# -ne 2 ]]
+  then
+    echo "Usage: flattenpdf input.pdf output.pdf"
+    return 1
+  fi
+  temp=$(mktemp)
+  pdftk "$1" generate_fdf output ${temp} 
+  pdftk "$1" fill_form ${temp} output "$2" flatten
+  rm ${temp}
+}
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

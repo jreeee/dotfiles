@@ -20,7 +20,7 @@ fi
 for i in "${FOLDERS[@]}"; do
 	cd "$i" || exit 1
 	if [ -e ".git" ]; then
-		tmp=$(find . | grep ".patch$")
+		tmp=$(find . -maxdepth 1 -type f -name "*.patch")
 		if [ "$tmp" != "" ];then
 			echo "- found $tmp"
 			echo "> applying pre-pull patch from $tmp"

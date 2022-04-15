@@ -8,6 +8,7 @@ alias cdcg="doas doas -C /etc/doas.conf && echo 'OK' || echo 'ERR'"
 
 # shortend 
 alias ba="nano ~/.bash_aliases"
+alias za="nano ~/.zshrc"
 alias rf="rm -rf"
 alias mkp="makepkg -scfi PKGBUILD"
 alias update="sudo pacman -Syu && yay -Ys && yay -Sua"
