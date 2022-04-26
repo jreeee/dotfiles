@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/jre/.oh-my-zsh"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -84,10 +85,12 @@ flattenpdf() {
     return 1
   fi
   temp=$(mktemp)
-  pdftk "$1" generate_fdf output ${temp} 
+  pdftk "$1" generate_fdf output ${temp}
   pdftk "$1" fill_form ${temp} output "$2" flatten
   rm ${temp}
 }
+#todo: more than one number, display as table in terminal mb
+jppt() { firefox "https://trackings.post.japanpost.jp/services/srv/search/?requestNo1=$1&search.x=0&search.y=0&locale=en&startingUrlPatten=" & }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
