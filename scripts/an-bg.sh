@@ -99,7 +99,7 @@ _scale() {
 }
 
 _screen() {
-  xwinwrap -ov -ni -g "$1" -- mpv --fullscreen\
+  xwinwrap -ov -ni -b -nf -s -un -g "$1" -- mpv --fs\
         --no-stop-screensaver \
         --vo=gpu --hwdec=vaapi \
         --loop-file --no-audio --no-osc --no-osd-bar -wid WID --no-input-default-bindings \
