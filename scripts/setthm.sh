@@ -200,7 +200,7 @@ setcol () {
 
 		sed -i --follow-symlinks '0,/cursor:/! {0,/cursor: .*/ s/cursor: .*/cursor: '\'"${cols[16]}"\''/}' "$TERCONF"
 		sed -i --follow-symlinks '0,/cursor:/! {0,/text: .*/ s/text: .*/text: '\'"${cols[17]}"\''/}' "$TERCONF"
-		sed -i --follow-symlinks 's/^background_opacity: .*/background_opacity: '"$bg_o"'/' "$TERCONF"
+		sed -i --follow-symlinks '0,/window:/! {0,/opacity: .*/ s/opacity: .*/opacity: '"$bg_o"'/}' "$TERCONF"
 		sed -i --follow-symlinks '0,/primary:/! {0,/background: .*/ s/background: .*/background: '\'"${hex_bg:0:7}"\''/}' "$TERCONF"
 		sed -i --follow-symlinks '0,/primary:/! {0,/foreground: .*/ s/foreground: .*/foreground: '\'"${cols[7]}"\''/}' "$TERCONF"
 
