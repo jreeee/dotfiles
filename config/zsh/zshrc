@@ -92,6 +92,9 @@ flattenpdf() {
 }
 #todo: more than one number, display as table in terminal mb
 jppt() { firefox "https://trackings.post.japanpost.jp/services/srv/search/?requestNo1=$1&search.x=0&search.y=0&locale=en&startingUrlPatten=" & }
+mtusb() { doas mount -o uid=1000,gid=1000 /dev/sd"$1"1 ~/usb }
+
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

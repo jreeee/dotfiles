@@ -10,6 +10,10 @@ declare -r TMP=$FILE_DIR'/tmp'
 
 curl -o "$NEW_FILE" "$SOURCE"
 
+if [ ! -e "$FILE_DIR" ]; then
+	mkdir "$FILE_DIR"
+fi
+
 if [ -s "$NEW_FILE" ]; then
 	if [ -e "$OLD_FILE" ]; then
 		if cmp -s "$OLD_FILE" "$NEW_FILE"; then
