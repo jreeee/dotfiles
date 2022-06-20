@@ -119,3 +119,8 @@ jppt() { firefox "https://trackings.post.japanpost.jp/services/srv/search/?reque
 if [ -f ~/.bash_aliases ]; then
        .  ~/.bash_aliases
 fi
+
+# Auto-Start X
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    startx
+fi
