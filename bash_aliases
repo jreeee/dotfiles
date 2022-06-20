@@ -33,6 +33,7 @@ alias search="find . -type d -name"
 alias gitlg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gdu="git clean -fdx"
 alias ff="git restore Assets/Fonts/SHPinscher/SHPinscher.asset"
+alias tsync="sudo ntpdate -b -u 0.gentoo.pool.ntp.org"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"

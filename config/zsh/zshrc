@@ -122,3 +122,8 @@ mtusb() { doas mount -o uid=1000,gid=1000 /dev/sd"$1"1 ~/usb }
 if [ -f ~/.bash_aliases ]; then
        .  ~/.bash_aliases
 fi
+
+# Auto-Start X
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    startx
+fi
