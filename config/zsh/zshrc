@@ -78,7 +78,7 @@ mg() { mkdir -pv "$1" && cd "$1" }
 rg() { grep -P "$1" -r * }
 mensa() { [ $# -gt "0" ] && i=$(echo "$1 * 24" | bc -l) || i="10"; echo $(curl -s 'https://openmensa.org/api/v2/canteens/151/days/'$(date -Ih -d "+$i hours")'/meals' | jq -r '.[] | select(.category|test("Veg*")) | .name, .prices.students') | sed -e "s/\([0-9].[0-9]\)\( \|$\\)/\10\2/g" -e "s/[0-9].[0-9]\{2\}/&€/g" -e "s/€ /€\n/g" }
 fontf() { fc-query -f '%{family[0]}\n' "$1" }
-zef() { [ $# -gt "0" ] && i="$1" || i="0";libreoffice "$HOME/git/work-eTeach/time/2022/Zeiterfassung-"$(date +"%b-%Y" -d +"$i month")".xlsx" }
+zef() { [ $# -gt "0" ] && i="$1" || i="0"; libreoffice "$HOME/git/work-eTeach/time/2022/Zeiterfassung-"$(date +"%b-%Y" -d +"$i month")".xlsx" }
 flattenpdf() {
   if [[ $# -ne 2 ]]
   then
@@ -92,6 +92,7 @@ flattenpdf() {
 }
 #todo: more than one number, display as table in terminal mb
 jppt() { firefox "https://trackings.post.japanpost.jp/services/srv/search/?requestNo1=$1&search.x=0&search.y=0&locale=en&startingUrlPatten=" & }
+bb() { [ $# -gt "0" ] && i="$1" || i="dual_kawase"; sed -i --follow-symlinks '0,/^blur: {/! {s/^  method = .*/  method = \"'"$i"'\";/}' "$HOME/.config/picom/picom.conf" }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
