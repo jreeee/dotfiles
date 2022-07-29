@@ -41,18 +41,19 @@ alias w19="cd ~/Study/WS2019/"
 alias s20="cd ~/Study/SS2020/"
 alias w20="cd ~/Study/WS2020/"
 
+SCD="$HOME/.scripts"
 # scripts 'n programs
 alias rgb2hex='printf "#%02x%02x%02x\n"'
-alias yt="~/.scripts/yt.sh"
-alias vpnconn="sudo ~/.scripts/priv-uni-vpn.sh"
-alias webs="sudo ~/.scripts/webstorage.sh"
-alias tablet-set="~/.scripts/tablet-conf.sh"
-alias anbg="~/.scripts/an-bg.sh 3> /dev/null"
-alias setthm="~/.scripts/setthm.sh"
-alias hsup="~/.scripts/hsup.sh"
+alias yt="$SCD/yt.sh"
+alias vpnconn="sudo $SCD/priv-uni-vpn.sh"
+alias webs="sudo $SCD/webstorage.sh"
+alias tablet-set="$SCD/tablet-conf.sh"
+alias anbg="$SCD/an-bg.sh 3> /dev/null"
+alias setthm="$SCD/setthm.sh"
+alias hsup="$SCD/hsup.sh"
 alias genics="~/git/work-eTeach/tools/ics_gen.py"
-alias gla="~/.scripts/gla.sh"
-alias chfont="~/.scripts/chfont.sh"
-
+alias gla="$SCD/gla.sh"
+alias chfont="$SCD/chfont.sh"
+alias mensa="$SCD/mensa.sh"
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
