@@ -24,13 +24,13 @@ for i in "${FOLDERS[@]}"; do
 		if [ "$tmp" != "" ];then
 			echo "- found $tmp"
 			echo "> applying pre-pull patch from $tmp"
-			eval "$i/$tmp 1"
+			eval "$i/$tmp"
 		fi
 		echo "> updating ${i:${#GIT}}"
 		git pull
 		if [ "$tmp" != "" ];then
 			echo "> applying post-pull patch from $tmp"
-			eval "$i/$tmp"
+			eval "$i/$tmp 1"
 		fi
 	fi
 done
