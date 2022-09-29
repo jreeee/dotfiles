@@ -91,6 +91,7 @@ flattenpdf() {
 #todo: more than one number, display as table in terminal mb
 jppt() { firefox "https://trackings.post.japanpost.jp/services/srv/search/?requestNo1=$1&search.x=0&search.y=0&locale=en&startingUrlPatten=" & }
 bb() { [ $# -gt "0" ] && i="$1" || i="dual_kawase"; sed -i --follow-symlinks '0,/^blur: {/! {s/^  method = .*/  method = \"'"$i"'\";/}' "$HOME/.config/picom/picom.conf" }
+mnt() { [ $# -gt "0" ] && i="$1" || i="sda1";sudo mount -o uid=1000,gid=1000 /dev/$i ~/usb }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
