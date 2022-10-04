@@ -54,6 +54,7 @@ alias genics="~/git/work-eTeach/tools/ics_gen.py"
 alias gla="$SCD/gla.sh"
 alias chfont="$SCD/chfont.sh"
 alias mensa="$SCD/mensa.sh"
+alias fcord="$SCD/fcord.sh"
 alias zef="~/git/work-eTeach/tools/zef.sh"
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
