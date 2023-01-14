@@ -24,8 +24,8 @@ all() { vega; vege; fish; meat; }
 
 while [ $# -gt 0 ]; do
     case "$1" in
-    -i | --id) [ $# -gt 2 ] && [ "$2" -eq "$2" ] 2>/dev/null && id="$2" || usage; shift 2;;
-    -d | --day) [ $# -gt 2 ] && [ "$2" -eq "$2" ] 2>/dev/null && i="$2" || usage; shift 2;;
+    -i | --id) [ $# -gt 1 ] && [ "$2" -eq "$2" ] 2>/dev/null && id="$2" || usage; shift 2;;
+    -d | --day) [ $# -gt 1 ] && [ "$2" -eq "$2" ] 2>/dev/null && i="$2" || usage; shift 2;;
     -f | --fish) fish; shift;;
     -m | --meat) meat; shift;;
     -v | --vegan) vega; shift;;
@@ -35,7 +35,7 @@ while [ $# -gt 0 ]; do
     esac
 done
 # default display if there is no dish specified / no dish of that type:
-[ "$str" == "" ] && vega ; vege;
+[ "$str" == "" ] && vega && vege;
 [ "$i" == "" ] && i=10 || i=$(echo "$i * 24" | bc -l)
 [ "$str" == "" ] && printf %b "No Mensa?\n" || printf %b "$(curl -s "https://openmensa.org/api/v2/canteens/$id" | jq -j .name), $(date -d "+$i hours" "+%a %e %b %g"):\n$str\n"
 
