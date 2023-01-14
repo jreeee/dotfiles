@@ -18,7 +18,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/modern-slant"
-theme.wallpaper 								= "/home/jre/Downloads/edgy+.png"
+theme.wallpaper 								= "/home/jre/Pictures/download/akira-ref.png"
 theme.font										= "FiraCode Nerd Font 9"
 theme.fg_normal 								= "#E3D198" -- color13
 theme.fg_focus 									= "#C7953C" -- color6
