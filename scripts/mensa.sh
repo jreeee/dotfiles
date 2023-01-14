@@ -5,7 +5,7 @@
 # euro sign, vegan, vegetarian, meat, fish, clear
 cols=("\\\e[1;36m" "\\\e[1;31m" "\\\e[1;32m" "\\\e[1;33m" "\\\e[1;34m" "\\\e[0m")
 id="151"
-i=3
+
 usage() {
     printf '%b' "Usage:\n-i specify openmensa id, default id:$id\n-d specify the day\n-m show meat dishes\n-f show fish dishes\n-v show vegan dishes\n-t show vegetarian dishes\n-a show all dishes\n-h show usage\n"
     exit 1
@@ -24,8 +24,8 @@ all() { vega; vege; fish; meat; }
 
 while [ $# -gt 0 ]; do
     case "$1" in
-    -i | --id) [ $# -gt 2 ] && [ "$2" -eq "$2" ] 2>/dev/null && id="$2" || usage; shift 2;;    
-    -d | --day) [ $# -gt 2 ] && [ "$2" -eq "$2" ] 2>/dev/null && i="$2" || usage; shift 2;;        
+    -i | --id) [ $# -gt 2 ] && [ "$2" -eq "$2" ] 2>/dev/null && id="$2" || usage; shift 2;;
+    -d | --day) [ $# -gt 2 ] && [ "$2" -eq "$2" ] 2>/dev/null && i="$2" || usage; shift 2;;
     -f | --fish) fish; shift;;
     -m | --meat) meat; shift;;
     -v | --vegan) vega; shift;;
