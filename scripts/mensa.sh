@@ -43,7 +43,7 @@ while [ $# -gt 0 ]; do
     esac
 done
 # default display if there is no dish specified:
-[ "$sel" == "" ] && sel=$default;
+[ "$sel" == "0x0" ] && sel=$default;
 [ "$d" == "" ] && d=10 || d=$(echo "$d * 24" | bc -l)
 unmask
 [ "$str" == "" ] && printf %b "No Mensa?\n" || printf %b "$(curl -s "https://openmensa.org/api/v2/canteens/$id" | jq -j .name), $(date -d "+$d hours" "+%a %e %b %g"):\n$str\n"
