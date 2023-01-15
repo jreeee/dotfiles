@@ -37,7 +37,7 @@ while [ $# -gt 0 ]; do
     -V | --vegan) sel=$(( 0x1 | sel )); shift;;
     -T | --only-vegetarian) sel=$(( 0x2 | sel)); shift;;
     -v | --vegetarian) sel=$(( 0x3 | sel )); shift;;
-    -p | --paleo) sel=$(( 0x7 | sel )); shift;;
+    -p | --pescetarian) sel=$(( 0x7 | sel )); shift;;
     -a | --all) sel=0xf; shift;;
     *) usage;;
     esac
