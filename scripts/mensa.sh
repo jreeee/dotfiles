@@ -22,10 +22,10 @@ meat() { str=$str$(soup "Fleisch" "${cols[3]}" "M"); }
 vega() { str=$str$(soup "Vegan" "${cols[1]}" "V"); }
 vege() { str=$str$(soup "Vegetarisch" "${cols[2]}" "T"); }
 unmask() {
-	[ $((sel & 0x1)) -eq $(( 0x1 )) ] && vega
-	[ $((sel & 0x2)) -eq $(( 0x2 )) ] && vege
-	[ $((sel & 0x4)) -eq $(( 0x4 )) ] && fish
-	[ $((sel & 0x8)) -eq $(( 0x8 )) ] && meat
+    [ $((sel & 0x1)) -eq $(( 0x1 )) ] && vega
+    [ $((sel & 0x2)) -eq $(( 0x2 )) ] && vege
+    [ $((sel & 0x4)) -eq $(( 0x4 )) ] && fish
+    [ $((sel & 0x8)) -eq $(( 0x8 )) ] && meat
 }
 
 while [ $# -gt 0 ]; do
@@ -36,7 +36,7 @@ while [ $# -gt 0 ]; do
     -M | --meat) sel=$(( 0x8 | sel )); shift;;
     -V | --vegan) sel=$(( 0x1 | sel )); shift;;
     -T | --only-vegetarian) sel=$(( 0x2 | sel)); shift;;
-	-v | --vegetarian) sel=$(( 0x3 | sel )); shift;;
+    -v | --vegetarian) sel=$(( 0x3 | sel )); shift;;
     -p | --paleo) sel=$(( 0x7 | sel )); shift;;
     -a | --all) sel=0xf; shift;;
     *) usage;;
