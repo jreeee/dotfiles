@@ -6,7 +6,7 @@
 # https://github.com/hohmannr/bubblified
 
 # SYMBOL CONSTANTS
-blub_left=' ' #      █  
+blub_left=' ' #      █  
 blub_right='' #    █ 
 #slant_right=''
 #slant_left=' '

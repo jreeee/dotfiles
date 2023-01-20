@@ -103,7 +103,7 @@ clock:connect_signal("button::press",
 -- Separators
 local spr = wibox.widget.textbox(' ')
 local spr2 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", " "))
-local spr1 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", " "))
+local spr1 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", " "))
 
 function theme.at_screen_connect(s)
     -- Quake application
