@@ -56,6 +56,6 @@ alias gla="$SCD/gla.sh"
 alias chfont="$SCD/chfont.sh"
 alias mensa="$SCD/mensa.sh"
 alias fcord="$SCD/fcord.sh"
-alias zef="~/git/work-eTeach/tools/zef.sh"
+alias zef="~/git/zef/zef.sh"
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
