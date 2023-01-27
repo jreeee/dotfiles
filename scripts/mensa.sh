@@ -13,14 +13,14 @@ usage() {
     exit 1
 }
 soup() {
-    tmp="$(curl -s "https://openmensa.org/api/v2/canteens/$id/days/$(date -Ih -d "+$d hours")/meals" | jq -j '.[] | select(.category|test("'"$1"'")) | .name, .prices.students' | sed -e "s/\([0-9]\.[0-9]\)\([^0-9]\|$\)/\10\2/g;s/[0-9]\.[0-9]\{2\}/ ${cols[0]}&€${cols[5]}\n/g;s/^\|\(\\n\)\([^$]\)/\1$2$3->${cols[5]} \2/g")"
+    tmp="$(curl -s "https://openmensa.org/api/v2/canteens/$id/days/$(date -Ih -d "+$d hours")/meals" | jq -j '.[] | select(.notes[]|test("'"$1"'")) | .name, .prices.students' | sed -e "s/\([0-9]\.[0-9]\)\([^0-9]\|$\)/\10\2/g;s/[0-9]\.[0-9]\{2\}/ ${cols[0]}&€${cols[5]}\n/g;s/^\|\(\\n\)\([^$]\)/\1$2$3->${cols[5]} \2/g")"
     [ "$str" != "" ] && tmp="\n$tmp"
     printf %b "$tmp"
 }
-fish() { str=$str$(soup "Fisch" "${cols[4]}" "F");}
-meat() { str=$str$(soup "Fleisch" "${cols[3]}" "M"); }
-vega() { str=$str$(soup "Vegan" "${cols[1]}" "V"); }
-vege() { str=$str$(soup "Vegetarisch" "${cols[2]}" "T"); }
+fish() { str=$str$(soup "\\\(F\\\)" "${cols[4]}" "F"); }
+meat() { str=$str$(soup "\\\(S\\\)|\\\(R\\\)|\\\(G\\\)" "${cols[3]}" "M"); }
+vega() { str=$str$(soup "\\\(V\\\*\\\)" "${cols[1]}" "V"); }
+vege() { str=$str$(soup "\\\(V\\\)|contains(\\\V\\\*\\\))|not" "${cols[2]}" "T"); } # should be "!(V*) and (V)"
 unmask() {
     [ $((sel & 0x1)) -eq $(( 0x1 )) ] && vega
     [ $((sel & 0x2)) -eq $(( 0x2 )) ] && vege
