@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# set -x
+
 declare -a FOLDERS
 
 GIT="$HOME/git/"
@@ -18,8 +20,8 @@ if [ -e "$IGNORE" ]; then
 fi
 
 for i in "${FOLDERS[@]}"; do
-	cd "$i" || exit 1
-	if [ -e ".git" ]; then
+	if [ -e "$i" ] && [ -e "$i/.git" ]; then
+		cd "$i" || exit 1
 		tmp=$(find . -maxdepth 1 -type f -name "*.patch")
 		if [ "$tmp" != "" ];then
 			echo "- found $tmp"
