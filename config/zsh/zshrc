@@ -70,7 +70,11 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	git
+	z
+	zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,8 +98,9 @@ mtusb() { doas mount -o uid=1000,gid=1000 /dev/sd"$1"1 ~/usb }
 
 
 bb() { [ $# -gt "0" ] && i="$1" || i="dual_kawase"; sed -i --follow-symlinks '0,/^blur: {/! {s/^  method = .*/  method = \"'"$i"'\";/}' "$HOME/.config/picom/picom.conf" }
-mnt() { [ $# -gt "0" ] && i="$1" || i="sda1";sudo mount -o uid=1000,gid=1000 /dev/$i ~/usb }
+mnt() { [ $# -lt "1" ] && find /dev/ -type b || sudo mount -o rw /dev/$1 ~/usb }
 bl() { xbacklight -set $1 }
+sshable() { nmap -p 22 $(ip addr | grep -n $(ip route | grep default | cut -d\  -f5)$ | awk '{print $3}') > /tmp/sshable && grep -n open /tmp/sshable | cut -d ":" -f 1 | while read x; do head $(echo -$(echo $x -4 | bc -l)) /tmp/sshable | tail -1; done }
 eval $(thefuck --alias)
 # User configuration
 
