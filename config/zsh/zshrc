@@ -102,6 +102,7 @@ mnt() { [ $# -lt "1" ] && find /dev/ -type b || sudo mount -o rw /dev/$1 ~/usb }
 bl() { xbacklight -set $1 }
 sshable() { nmap -p 22 $(ip addr | grep -n $(ip route | grep default | cut -d\  -f5)$ | awk '{print $3}') > /tmp/sshable && grep -n open /tmp/sshable | cut -d ":" -f 1 | while read x; do head $(echo -$(echo $x -4 | bc -l)) /tmp/sshable | tail -1; done }
 eval $(thefuck --alias)
+lazy() { for i in $@; do firefox "genshin.mihoyo.com/en/gift?code=$i" &>/dev/null; done }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
