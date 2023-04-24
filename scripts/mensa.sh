@@ -1,6 +1,6 @@
 #! /bin/bash
 # mensa script using the openmensa API (https://openmensa.org/api/v2)
-
+#set -x
 # colours for: euro sign, vegan, vegetarian, meat, fish, clear
 cols=("\\\e[1;36m" "\\\e[1;31m" "\\\e[1;32m" "\\\e[1;33m" "\\\e[1;34m" "\\\e[0m")
 id="151"
@@ -13,17 +13,17 @@ usage() {
     exit 1
 }
 soup() {
-    tmp="$(curl -s "https://openmensa.org/api/v2/canteens/$id/days/$(date -Ih -d "+$d hours")/meals" | jq -j '.[] | select(.notes[]|test("'"$1"'")) | .name, .prices.students' | sed -e "s/\([0-9]\.[0-9]\)\([^0-9]\|$\)/\10\2/g;s/[0-9]\.[0-9]\{2\}/ ${cols[0]}&€${cols[5]}\n/g;s/^\|\(\\n\)\([^$]\)/\1$2$3->${cols[5]} \2/g")"
+    tmp="$(curl -s "https://openmensa.org/api/v2/canteens/$id/days/$(date -Ih -d "+$d hours")/meals" | jq -j '.[] | select(.notes[]|test("'"$1"'"))'"$2"' | .name, .prices.students' | sed -e "s/\([0-9]\.[0-9]\)\([^0-9]\|$\)/\10\2/g;s/[0-9]\.[0-9]\{2\}/ ${cols[0]}&€${cols[5]}\n/g;s/^\|\(\\n\)\([^$]\)/\1$3$4->${cols[5]} \2/g")"
     [ "$str" != "" ] && tmp="\n$tmp"
     printf %b "$tmp"
 }
-fish() { str=$str$(soup "\\\(F\\\)" "${cols[4]}" "F"); }
-meat() { str=$str$(soup "\\\(S\\\)|\\\(R\\\)|\\\(G\\\)" "${cols[3]}" "M"); }
-vega() { str=$str$(soup "\\\(V\\\*\\\)" "${cols[1]}" "V"); }
-vege() { str=$str$(soup "\\\(V\\\)|contains(\\\V\\\*\\\))|not" "${cols[2]}" "T"); } # should be "!(V*) and (V)"
+fish() { str=$str$(soup "\\\(F\\\)" "" "${cols[4]}" "F"); }
+meat() { str=$str$(soup "\\\(S\\\)|\\\(R\\\)|\\\(G\\\)" "" "${cols[3]}" "M"); }
+vega() { str=$str$(soup "\\\(V\\\*\\\)" "" "${cols[1]}" "V"); }
+#vege() { str=$str$(soup "\\\(V\\\)" "|select(.notes[]|test(\"\\\(V\\\*\\\)\")|not)" "${cols[2]}" "T"); } # should be "!(V*) and (V)"
 unmask() {
     [ $((sel & 0x1)) -eq $(( 0x1 )) ] && vega
-    [ $((sel & 0x2)) -eq $(( 0x2 )) ] && vege
+#    [ $((sel & 0x2)) -eq $(( 0x2 )) ] && vege
     [ $((sel & 0x4)) -eq $(( 0x4 )) ] && fish
     [ $((sel & 0x8)) -eq $(( 0x8 )) ] && meat
 }
@@ -35,7 +35,7 @@ while [ $# -gt 0 ]; do
     -F | --fish) sel=$(( 0x4 | sel)); shift;;
     -M | --meat) sel=$(( 0x8 | sel )); shift;;
     -V | --vegan) sel=$(( 0x1 | sel )); shift;;
-    -T | --only-vegetarian) sel=$(( 0x2 | sel)); shift;;
+#    -T | --only-vegetarian) sel=$(( 0x2 | sel)); shift;;
     -v | --vegetarian) sel=$(( 0x3 | sel )); shift;;
     -p | --pescetarian) sel=$(( 0x7 | sel )); shift;;
     -a | --all) sel=0xf; shift;;

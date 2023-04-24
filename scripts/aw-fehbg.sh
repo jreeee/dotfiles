@@ -1,5 +1,5 @@
 #!/bin/bash
 
-feh --no-fehbg --bg-fill /home/jre/Pictures/download/akira-ref.png
+feh --no-fehbg --bg-fill /home/jre/the-folder/misc/glt-nn.jpg
 
 # the path gets overwritten when using setthm with argument w
