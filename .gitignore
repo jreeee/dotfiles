@@ -1,2 +1,3 @@
 **/*.save
 .stuff
+config/themes/videos/*
