@@ -798,3 +798,16 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
+-- Unity is love Unity is life
+
+client.connect_signal("focus", function(t)
+    local clients = awful.client.visible(s)
+    for _, client in pairs(clients) do
+        if awful.rules.match(client, {class = "Unity"}) then
+            client.border_width = client.border_width + 1
+            gears.timer.start_new(1/60, function()
+                client.border_width = client.border_width - 1
+            end)
+        end
+    end
+end)
