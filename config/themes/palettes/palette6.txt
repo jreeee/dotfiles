@@ -1,0 +1,24 @@
+[colors]
+
+background = rgba(25, 25, 25, 0.9)
+
+cursor = #c86256
+cursor_foreground = #262a1b
+
+color0 = #3e4035
+color8 = #323627
+color4 = #78b45b
+color12 = #5c9441
+color1 = #c96154
+color9 = #7e4e42
+color3 = #dcdca4
+color2 = #599e99
+color11 = #b9b977
+color10 = #498a86
+color5 = #baba7c
+color13 = #a1a161
+color6 = #ecbbb4
+color14 = #d79e96
+color7 = #e5dfdf
+color15 = #d3bdbd 
+

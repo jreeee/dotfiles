@@ -6,7 +6,7 @@
 # https://github.com/hohmannr/bubblified
 
 # SYMBOL CONSTANTS
-blub_left=' ' #      █  
+blub_left='' #      █  
 blub_right='' #    █ 
 #slant_right=''
 #slant_left=' '
@@ -28,9 +28,9 @@ git_renamed_symbol=''
 git_untracked_symbol='裸'
 git_copied_symbol=''
 git_unmerged_symbol='!'
-git_stashed_symbol=''
+git_stashed_symbol=' '
 
-ssh_symbol='ssh'
+ssh_symbol=''
 
 # COLOR CONSTANTS
 # NOTE: Possible values include zsh-color-strings like 'red', 'black', 'magenta' etc. Aswell as zsh-color-codes which you can list with the command 'spectrum_ls', e.g. '078' for the 78th color code.
