@@ -35,6 +35,7 @@ alias gdu="git clean -fdx"
 alias ff="git restore Assets/Fonts/SHPinscher/SHPinscher.asset"
 alias tsync="sudo ntpdate -b -u 0.gentoo.pool.ntp.org"
 alias discord="discord --enable-gpu-rasterization"
+alias lss="du -sm * | sort -nr | head -n 15"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
