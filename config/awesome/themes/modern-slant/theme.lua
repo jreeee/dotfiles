@@ -20,23 +20,23 @@ local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/modern-slant"
 theme.wallpaper 								= "/home/jre/the-folder/misc/glt-nn.jpg"
 theme.font										= "FiraCode Nerd Font 9"
-theme.fg_normal 								= "#E3D198" -- color13
-theme.fg_focus 									= "#C7953C" -- color6
-theme.fg_urgent 								= "#B9372B" -- color3
-theme.bg_normal 								= "#0a0a0ab3" -- termite background when in rgba
-theme.bg_focus 									= "#0a0a0ab3" -- color6 with transparency
-theme.bg_urgent 								= "#B9372Bb3" -- color3 with transparency
+theme.fg_normal 								= "#a1a161" -- color13
+theme.fg_focus 									= "#ecbbb4" -- color6
+theme.fg_urgent 								= "#dcdca4" -- color3
+theme.bg_normal 								= "#191919e6" -- termite background when in rgba
+theme.bg_focus 									= "#191919e6" -- color6 with transparency
+theme.bg_urgent 								= "#dcdca4e6" -- color3 with transparency
 theme.border_width                              = dpi(1)
-theme.border_normal 							= "#455e7e" -- color10
-theme.border_focus 								= "#E3D198" -- color14
-theme.border_marked 							= "#74B8D3" -- color1
+theme.border_normal 							= "#498a86" -- color10
+theme.border_focus 								= "#a1a161" -- color14
+theme.border_marked 							= "#c96154" -- color1
 theme.tasklist_bg_normal						= "#00000000"
 theme.tasklist_bg_focus                         = "#00000000" --theme.bg_normal
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
-theme.taskbar_fg 								= "#B7BD99" -- color7
-theme.taskbar_bg 								= "#36382E" -- color0
+theme.taskbar_fg 								= "#e5dfdf" -- color7
+theme.taskbar_bg 								= "#3e4035" -- color0
 theme.bg_systray								= theme.taskbar_fg --does not work with rgba so i improvised a bit
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(130)
@@ -102,8 +102,8 @@ clock:connect_signal("button::press",
 
 -- Separators
 local spr = wibox.widget.textbox(' ')
-local spr2 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", " "))
-local spr1 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", " "))
+local spr2 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", ""))
+local spr1 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", ""))
 
 function theme.at_screen_connect(s)
     -- Quake application
