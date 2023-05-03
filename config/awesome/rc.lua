@@ -260,11 +260,14 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures") end,
+    awful.key({ altkey }, "p", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures/screenshots") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
-	awful.key({}, "Print", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures") end,
+	awful.key({}, "Print", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures/screenshots") end,
               {description = "take a screenshot", group = "hotkeys"}),
+
+	awful.key({ modkey, "Shift" }, "s", function() os.execute("scrot -s 'area-%Y-%m-%d-%H-%M-%S.png' && mv area* ~/Pictures/screenshots") end,
+              {description = "take area screenshot", group = "hotkeys"}),
 
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
@@ -429,11 +432,11 @@ globalkeys = my_table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Dropdown application
+    -- Dropdown application //TODO
     awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
               {description = "dropdown application", group = "launcher"}),
 
-    -- Widgets popups
+    -- Widgets popups //TODO
     awful.key({ altkey, }, "c", function () if beautiful.cal then beautiful.cal.show(7) end end,
               {description = "show calendar", group = "widgets"}),
     awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
@@ -540,13 +543,12 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
     --]]
-    --[[ dmenu
-    awful.key({ modkey }, "x", function ()
+    --dmenu
+    --[[ awful.key({ modkey }, "d", function ()
             os.execute(string.format("dmenu_run -i -fn 'Monospace' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
             beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
         end,
-        {description = "show dmenu", group = "launcher"})
-    --]]
+        {description = "show dmenu", group = "launcher"}), --]]
     -- alternatively use rofi, a dmenu-like application with more features
     -- check https://github.com/DaveDavenport/rofi for more details
     --[[ rofi
@@ -704,14 +706,14 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = false } },
 
-    -- Set Firefox to always map on the first tag on screen 3.
+    -- Set Firefox to always map on the third tag on screen 3.
     { rule = { class = "firefox" },
       properties = { screen = 1, tag = awful.util.tagnames[3], maximized = false } },
 
     { rule = { class = "discord" },
     properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
-    { rule = { class = "Mail" },
+    { rule = { class = "thunderbird" },
       properties = { screen = 1, tag = awful.util.tagnames[5], maximized = false } },
 
     { rule = { class = "Code" },
@@ -720,7 +722,7 @@ awful.rules.rules = {
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
 
-	{ rule = { class = "libreoffice" }, properties = { maximized = false } },
+	{ rule = { class = "libreoffice" }, properties = { maximized = false } }, 
 }
 -- }}}
 
@@ -798,8 +800,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
--- Unity is love Unity is life
-
 client.connect_signal("focus", function(t)
     local clients = awful.client.visible(s)
     for _, client in pairs(clients) do
