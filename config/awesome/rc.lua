@@ -260,13 +260,13 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures/screenshots") end,
+    awful.key({ altkey }, "p", function() os.execute("scrot -e 'mv $f ~/Pictures/screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png'") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
-	awful.key({}, "Print", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures/screenshots") end,
+	awful.key({}, "Print", function() os.execute("scrot -e 'mv $f ~/Pictures/screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png'") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
-	awful.key({ modkey, "Shift" }, "s", function() os.execute("scrot -s 'area-%Y-%m-%d-%H-%M-%S.png' && mv area* ~/Pictures/screenshots") end,
+	awful.key({ modkey, "Shift" }, "s", function() os.execute("scrot -s -e 'mv $f ~/Pictures/screenshots/area-%Y-%m-%d-%H-%M-%S.png' && scrot -e 'xclip -selection clipboard -t image/png -i $f'") end,
               {description = "take area screenshot", group = "hotkeys"}),
 
     -- X screen locker
