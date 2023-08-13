@@ -1,6 +1,6 @@
 [colors]
 
-background = rgba(25, 25, 25, 0.9)
+background = rgba(25, 25, 25, 0.5)
 
 cursor = #c86256
 cursor_foreground = #262a1b

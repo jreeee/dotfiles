@@ -266,7 +266,7 @@ globalkeys = my_table.join(
 	awful.key({}, "Print", function() os.execute("scrot -e 'mv $f ~/Pictures/screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png'") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
-	awful.key({ modkey, "Shift" }, "s", function() os.execute("scrot -s -e 'mv $f ~/Pictures/screenshots/area-%Y-%m-%d-%H-%M-%S.png' && scrot -e 'xclip -selection clipboard -t image/png -i $f'") end,
+	awful.key({ modkey, "Shift" }, "s", function() os.execute("scrot -s -e 'mv $f ~/Pictures/screenshots/area-%Y-%m-%d-%H-%M-%S.png' && scrot -e 'xclip -selection clipboard -t image/png -i $f && rm $f'") end,
               {description = "take area screenshot", group = "hotkeys"}),
 
     -- X screen locker
@@ -714,7 +714,7 @@ awful.rules.rules = {
     properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
     { rule = { class = "thunderbird" },
-      properties = { screen = 1, tag = awful.util.tagnames[5], maximized = false } },
+      properties = { screen = 1, tag = awful.util.tagnames[6], maximized = false } },
 
     { rule = { class = "Code" },
       properties = { screen = 1, tag = awful.util.tagnames[4], maximized = false } },
