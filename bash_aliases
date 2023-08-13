@@ -27,7 +27,7 @@ alias poweroff="sudo /usr/bin/poweroff"
 alias reboot="sudo /usr/bin/reboot"
 alias lck="sleep 1 && xtrlock"
 alias vcam="sudo modprobe v4l2loopback video_nr=2 card_label=vcam"
-alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg -o '~/Music/%(title)s.%(ext)s'"
+alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg --add-metadata -o '~/Music/%(title)s.%(ext)s'"
 alias pdf2jpg="pdftoppm -jpeg -r 300"
 alias search="find . -type d -name"
 alias gitlg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -36,6 +36,7 @@ alias ff="git restore Assets/Fonts/SHPinscher/SHPinscher.asset"
 alias tsync="sudo ntpdate -b -u 0.gentoo.pool.ntp.org"
 alias discord="discord --enable-gpu-rasterization"
 alias lss="du -sm * | sort -nr | head -n 15"
+alias kvpn="sudo pkill openconnect"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
@@ -44,6 +45,7 @@ alias w20="cd ~/Study/WS2020/"
 
 SCD="$HOME/.scripts"
 # scripts 'n programs
+alias psp="exec /usr/bin/PPSSPPQt &"
 alias rgb2hex='printf "#%02x%02x%02x\n"'
 alias yt="$SCD/yt.sh"
 alias vpnconn="sudo $SCD/priv-uni-vpn.sh"

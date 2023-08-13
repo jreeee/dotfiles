@@ -6,6 +6,7 @@ export ZSH="/home/jre/.oh-my-zsh"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export PATH="$PATH:/home/jre/.local/bin"
+export DISABLE_QT5_COMPAT=1
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -101,6 +102,7 @@ bl() { xbacklight -set $1 }
 sshable() { nmap -p 22 $(ip addr | grep -n $(ip route | grep default | cut -d\  -f5)$ | awk '{print $3}') > /tmp/sshable && grep -n open /tmp/sshable | cut -d ":" -f 1 | while read x; do head $(echo -$(echo $x -4 | bc -l)) /tmp/sshable | tail -1; done }
 eval $(thefuck --alias)
 lazy() { for i in $@; do firefox "genshin.mihoyo.com/en/gift?code=$i" &>/dev/null; done }
+2gif() { ffmpeg -y -i "$1" -vf palettegen /tmp/"$1"-palette.png; ffmpeg -y -i "$1" -i /tmp/"$1"-palette.png -filter_complex paletteuse -r 10 "$2" }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
