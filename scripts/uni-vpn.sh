@@ -1,10 +1,13 @@
 #! /bin/bash
 
+# config for uni weimar
+
 ADDR="vpngate.uni-weimar.de"
 PASSWD="$(echo "$(sudo cat /etc/wpa_supplicant/wpa_supplicant.conf | grep "eduroam" -A 20 | grep "password" | cut -d\" -f2)")"
 TUNNEL="tunnel Uni Weimar"
+# this would work but requires another login and zsh instead of bash
 #USER="$(echo "${"$(sudo cat /etc/wpa_supplicant/wpa_supplicant.conf | grep "eduroam" -A 20 | grep " identity" | cut -d\" -f2)":0:8}")"
-USER="vomo5083"
+USER="username"
 
 if [ -z "$1" ]; then
 	echo "$PASSWD" | sudo openconnect "vpngate.uni-weimar.de" --authgroup "tunnel Uni Weimar" -u "$USER" --passwd-on-stdin &
