@@ -1,0 +1,136 @@
+#_# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="/home/jre/.oh-my-zsh"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+export PATH="$PATH:/home/jre/.local/bin:~/.dotnet/tools"
+export DISABLE_QT5_COMPAT=1
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="bubblified-new"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+CASE_SENSITIVE="false"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="dd/mm/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+	git
+	z
+	zsh-autosuggestions
+)
+
+source $ZSH/oh-my-zsh.sh
+
+mg() { mkdir -pv "$1" && cd "$1" }
+fontf() { fc-query -f '%{family[0]}\n' "$1" }
+flattenpdf() {
+  if [[ $# -ne 2 ]]
+  then
+    echo "Usage: flattenpdf input.pdf output.pdf"
+    return 1
+  fi
+  temp=$(mktemp)
+  pdftk "$1" generate_fdf output ${temp}
+  pdftk "$1" fill_form ${temp} output "$2" flatten
+  rm ${temp}
+}
+#todo: more than one number, display as table in terminal mb
+jppt() { url="https://trackings.post.japanpost.jp/services/srv/search/?requestNo1=${1:?"no tracking number provided"}"; for i in $(seq 2 $#); do url="$url&requestNo$i=${@:$i:1}"; done; firefox "$url&search.x=0&search.y=0&locale=en&startingUrlPatten=" &> /dev/null }
+bb() { [ $# -gt "0" ] && i="$1" || i="dual_kawase"; sed -i --follow-symlinks '0,/^blur: {/! {s/^  method = .*/  method = \"'"$i"'\";/}' "$HOME/.config/picom/picom.conf" }
+mnt() { [ $# -lt "1" ] && find /dev/ -type b || sudo mount -o rw /dev/$1 ~/usb }
+bl() { xbacklight -set $1 }
+sshable() { nmap -p 22 $(ip addr | grep -n $(ip route | grep default | cut -d\  -f5)$ | awk '{print $3}') > /tmp/sshable && grep -n open /tmp/sshable | cut -d ":" -f 1 | while read x; do head $(echo -$(echo $x -4 | bc -l)) /tmp/sshable | tail -1; done }
+eval $(thefuck --alias)
+lazy() { for i in $@; do firefox "genshin.mihoyo.com/en/gift?code=$i" &>/dev/null; done }
+2gif() { ffmpeg -y -i "$1" -vf palettegen /tmp/"$1"-palette.png; ffmpeg -y -i "$1" -i /tmp/"$1"-palette.png -filter_complex paletteuse -r 10 "$2" }
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#    export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# comfy aliases
+
+if [ -f ~/.bash_aliases ]; then
+       .  ~/.bash_aliases
+fi
+
+# Auto-Start X
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    startx
+fi
