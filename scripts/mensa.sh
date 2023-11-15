@@ -1,4 +1,7 @@
 #! /bin/bash
+
+# severely outdated
+
 # mensa script using the openmensa API (https://openmensa.org/api/v2)
 #set -x
 # colours for: euro sign, vegan, vegetarian, meat, fish, clear

@@ -1,0 +1,25 @@
+very poor documentation
+[colors] - necessary for termite
+
+background = rgba(10, 10, 10, 0.7) this is a different format for rgba but will be automatically converted to hex for alacritty
+
+cursor = #B9372B  - cursor color
+cursor_foreground = #F35849 - text color
+
+color0 = #36382E - bg of the first bubble
+color8 = #484944
+color1 = #74B8D3 - error - theme border marked
+color9 = #7277C
+color2 = #35455A - second bubble fg
+color10 = #455e7e - theme border normal
+color3 = #B9372B - theme urgent fg
+color11 = #F35849
+color4 = #A67287
+color12 = #C594A8
+color5 = #f9bdc0 - machine + prompt symbol 
+color13 = #E3D198 -
+color6 = #C7953C - theme focus fg
+color14 = #EDC376 - highlight color - theme border focus
+color7 = #B7BD99 - theme fg
+color15 = #E9ECD8 
+

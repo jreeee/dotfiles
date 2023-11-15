@@ -2,6 +2,8 @@
 
 # thanks for having horrible linux support with your incredibly outdated electron version discord
 
+# NOTE: Discord works again, but this "works" for basically all electron-esque apps
+
 loop() {
 	# this is about as horrible as it gets: when deleting pids for the first time new ones spawn
 	# it wouldnt work when it was stored in arrays, hence this abomination which takes more time to finish (which i think is whats happening)

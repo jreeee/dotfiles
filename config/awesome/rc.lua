@@ -191,6 +191,8 @@ lain.layout.cascade.tile.nmaster       = 5
 lain.layout.cascade.tile.ncol          = 2
 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme))
+--beautiful.init(string.format("/usr/share/awesome/themes/%s/theme.lua", chosen_theme))
+
 -- }}}
 
 -- {{{ Menu
