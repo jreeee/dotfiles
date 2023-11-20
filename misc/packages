@@ -69,6 +69,7 @@ curl
 dbus-openrc
 device-mapper
 dhcpcd
+dhcpcd-openrc
 discord
 dotnet-runtime
 dotnet-sdk

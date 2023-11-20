@@ -2,10 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/jre/.oh-my-zsh"
+setxkbmap -layout de
+export ZSH="$HOME/.oh-my-zsh"
+export INTEL_DEBUG=noccs
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-export PATH="$PATH:/home/jre/.local/bin:~/.dotnet/tools"
+export PATH="$PATH:$HOME/.local/bin:~/.dotnet/tools"
 export DISABLE_QT5_COMPAT=1
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
