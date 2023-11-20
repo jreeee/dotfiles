@@ -75,7 +75,6 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
 	git
 	z
-	zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh

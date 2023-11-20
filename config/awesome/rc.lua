@@ -57,7 +57,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", "xss-lock -n /usr/lib/xsecurelock/dimmer -l xsecurelock " }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", "xss-lock -n /usr/lib/xsecurelock/dimmer -l xsecurelock" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -87,7 +87,7 @@ local themes = {
 	"vertex",
 }
 
-local chosen_theme = themes[2]
+local chosen_theme = themes[6]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "alacritty"
@@ -535,8 +535,9 @@ globalkeys = my_table.join(
               {description = "run browser", group = "launcher"}),
     awful.key({ modkey }, "a", function () awful.spawn(gui_editor) end,
               {description = "run gui editor", group = "launcher"}),
-	awful.key({ modkey, "Shift" }, "x", function () os.execute("sleep 1 && xtrlock") end,
-              {description = "lock inputs", group = "hotkeys"}),
+
+    awful.key({ modkey, "Shift" }, "x", function () os.execute("sleep 1 && xtrlock") end,
+    {description = "lock inputs", group = "hotkeys"}),
 
     -- Default
     --[[ Menubar
