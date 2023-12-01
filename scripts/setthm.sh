@@ -11,7 +11,7 @@ declare -r WALL=$THEMES'/wallpapers/'
 declare -r VIDEO=$THEMES'/videos/'
 declare -r PLTE=$THEMES'/palettes/'
 declare -r ANBG=$HOME'/dotfiles/scripts/an-bg.sh'
-declare -r FHBG=$HOME'/dotfiles/scripts/aw-fehbg.sh'
+declare -r FHBG=$HOME'/dotfiles/scripts/fehbg.sh'
 
 # get the theme used by awesome atm by building an array and checking the index in use
 

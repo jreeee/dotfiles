@@ -57,12 +57,14 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", "xss-lock -n /usr/lib/xsecurelock/dimmer -l xsecurelock " }) -- entries must be separated by commas
+local blur_script=string.format("%s/.scripts/blur.sh", os.getenv("HOME"))
+
+run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", string.format("xss-lock -n /usr/lib/xsecurelock/dimmer -l -- %s ", blur_script) }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
 awful.spawn.with_shell(
-    'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
+    'if (xrdb -$query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
     'xrdb -merge <<< "awesome.started:true";' ..
     -- list each of your autostart commands, followed by ; inside single quotes, followed by ..
     'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
@@ -96,7 +98,7 @@ local cycle_prev   = true -- cycle trough all previous client or just the first 
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
 local browser      = os.getenv("BROWSER") or "firefox"
-local scrlocker    = "xsecurelock"
+local scrlocker    = blur_script or "xsecurelock"
 local filemanager  = "pcmanfm"
 local mediaplayer  = "mpv"
 

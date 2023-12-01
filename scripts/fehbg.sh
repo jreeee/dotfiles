@@ -1,4 +1,4 @@
 #!/bin/bash
 
-feh --bg-fill $HOME/dotfiles/config/themes/wallpapers/wall1.png
+feh --no-fehbg --bg-fill /home/jre/the-folder/misc/steampunk.jpg
 

@@ -9,6 +9,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export PATH="$PATH:$HOME/.local/bin:~/.dotnet/tools"
 export DISABLE_QT5_COMPAT=1
+export XSECURELOCK_SAVER="$HOME/.scripts/saver_feh.sh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
