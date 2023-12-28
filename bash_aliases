@@ -38,6 +38,9 @@ alias tsync="sudo ntpdate -b -u 0.gentoo.pool.ntp.org" # fexed by adding ntp-ope
 alias discord="discord --enable-gpu-rasterization"
 alias lss="du -sm * | sort -nr | head -n 15"
 alias kvpn="sudo pkill openconnect"
+alias tl="task list"
+alias ta="task add"
+alias td="task done"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
