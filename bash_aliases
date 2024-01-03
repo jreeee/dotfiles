@@ -37,6 +37,7 @@ alias tsync="sudo ntpdate -b -u 0.gentoo.pool.ntp.org"
 alias discord="discord --enable-gpu-rasterization"
 alias lss="du -sm * | sort -nr | head -n 15"
 alias kvpn="sudo pkill openconnect"
+alias nsight="exec ~/nvidia/NVIDIA-Nsight-Graphics-2023.4/host/linux-desktop-nomad-x64/ngfx-ui"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
