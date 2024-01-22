@@ -278,7 +278,7 @@ globalkeys = my_table.join(
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey,           }, "h",      hotkeys_popup.show_help,
               {description = "show help", group="awesome"}),
     -- Tag browsing
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -288,10 +288,10 @@ globalkeys = my_table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
-    --[[ Non-empty tag browsing breaks firefox tab nav, disabled 4 now
-    awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
+    --[[ Non-empty tag browsing breaks firefox tab nav,
+    awful.key({ altkey }, "Up", function () lain.util.tag_view_nonempty(-1) end,
               {description = "view  previous nonempty", group = "tag"}),
-    awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
+    awful.key({ altkey }, "Down", function () lain.util.tag_view_nonempty(1) end,
               {description = "view  previous nonempty", group = "tag"}),
     --]]
 
@@ -424,6 +424,30 @@ globalkeys = my_table.join(
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
+
+    awful.key({ altkey, "s", },   "Down",      function ()
+        local c = client.focus
+        if awful.layout.get(mouse.screen) == awful.layout.suit.floating or (c and c.floating) then
+            c:relative_move( 0, 5, 0, -10)  end end,
+        {description = "increase height of window", group = "layout"}),
+
+    awful.key({ altkey,  "s", },    "Up",      function ()
+        local c = client.focus
+        if awful.layout.get(mouse.screen) == awful.layout.suit.floating or (c and c.floating) then
+            c:relative_move( 0, -5, 0, 10)  end end,
+              {description = "decrease height of window", group = "layout"}),
+
+    awful.key({ altkey,  "s", },  "Right",      function ()
+    local c = client.focus
+    if awful.layout.get(mouse.screen) == awful.layout.suit.floating or (c and c.floating) then
+        c:relative_move( 5, 0, -10, 0)  end end,
+            {description = "decrease width of window", group = "layout"}),
+
+    awful.key({ altkey, "s", },    "Left",      function ()
+    local c = client.focus
+    if awful.layout.get(mouse.screen) == awful.layout.suit.floating or (c and c.floating) then
+        c:relative_move( -5, 0, 10, 0)  end end,
+            {description = "decrease width of window", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
               function ()
