@@ -3,6 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/jre/.oh-my-zsh"
+xset dpms 1200 1500 1600
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export PATH="$PATH:/home/jre/.local/bin"
