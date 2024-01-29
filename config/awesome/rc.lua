@@ -57,7 +57,9 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", "xss-lock -n /usr/lib/xsecurelock/dimmer -l xsecurelock" }) -- entries must be separated by commas
+local blur_script=string.format("%s/.scripts/blur.sh", os.getenv("HOME"))
+
+run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script) }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -87,6 +89,7 @@ local themes = {
 	"vertex",
 }
 
+
 local chosen_theme = themes[6]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
@@ -96,7 +99,7 @@ local cycle_prev   = true -- cycle trough all previous client or just the first 
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
 local browser      = os.getenv("BROWSER") or "firefox"
-local scrlocker    = "xsecurelock"
+local scrlocker    = string.format("%s 1", blur_script)  or "xsecurelock"
 local filemanager  = "pcmanfm"
 local mediaplayer  = "mpv"
 

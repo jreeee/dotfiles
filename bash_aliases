@@ -61,5 +61,7 @@ alias chfont="$SCD/chfont.sh"
 alias mensa="$SCD/mensa.sh"
 alias fcord="$SCD/fcord.sh &> /dev/null"
 alias zef="~/git/zef/zef.sh"
+alias lock-blur="$SCD/blur.sh"
+
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet

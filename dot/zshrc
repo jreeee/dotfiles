@@ -3,11 +3,13 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/jre/.oh-my-zsh"
-xset dpms 1200 1500 1600
+xset dpms 1500 1500 1500
+xset s 1495 6
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export PATH="$PATH:/home/jre/.local/bin"
 export DISABLE_QT5_COMPAT=1
+export XSECURELOCK_SAVER="$HOME/.scripts/saver-feh.sh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
