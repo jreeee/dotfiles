@@ -3,7 +3,8 @@
 
 # Path to your oh-my-zsh installation.
 setxkbmap -layout de
-xset dpms 900 1000 1100
+xset dpms 910 910 910
+xset s 900 6
 export ZSH="$HOME/.oh-my-zsh"
 export INTEL_DEBUG=noccs
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
@@ -106,6 +107,7 @@ sshable() { nmap -p 22 $(ip addr | grep -n $(ip route | grep default | cut -d\  
 eval $(thefuck --alias)
 lazy() { for i in $@; do firefox "genshin.mihoyo.com/en/gift?code=$i" &>/dev/null; done }
 2gif() { ffmpeg -y -i "$1" -vf palettegen /tmp/"$1"-palette.png; ffmpeg -y -i "$1" -i /tmp/"$1"-palette.png -filter_complex paletteuse -r 10 "$2" }
+0pad() { [ $# -eq "2" ] && j="$2" || j="mp4"; for i in $(seq 1 9); do; mv "$1$i.$j" "${1}0$i.$j"; done }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
