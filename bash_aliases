@@ -33,6 +33,7 @@ alias search="find . -type d -name"
 alias gitlg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gdu="git clean -fdx"
 alias ff="git restore Assets/Fonts/SHPinscher/SHPinscher.asset"
+alias sd="xrandr --output HDMI-A-0 --below DisplayPort-0 && xrandr --output DVI-D-0 --right-of DisplayPort-0"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"

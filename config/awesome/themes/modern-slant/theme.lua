@@ -1,10 +1,8 @@
-
 --[[
      
      modern slant - by github.com/jreeee - based off of 
      Powerarrow Dark Awesome WM theme
      github.com/lcpz
-
 --]]
 
 local gears = require("gears")
@@ -12,6 +10,7 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
+--local widgets = require("awesome-wm-widgets")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -19,7 +18,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/modern-slant"
 theme.wallpaper 								= "/home/jre/dotfiles/config/themes/wallpapers/wall1.png"
-theme.font										= "FiraCode Nerd Font 9"
+theme.font										= "FiraCode Nerd Font Mono 9"
 theme.fg_normal 								= "#E3D198" -- color13
 theme.fg_focus 									= "#C7953C" -- color6
 theme.fg_urgent 								= "#B9372B" -- color3
@@ -61,17 +60,17 @@ local markup = lain.util.markup
 
 local keyboardlayout = awful.widget.keyboardlayout:new()
 
---local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
+local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
---local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
+local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 
---local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness") --TODO
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness") --TODO
 
---local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 
---local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 
---local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
+local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
 
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 
@@ -164,7 +163,7 @@ function theme.at_screen_connect(s)
 			wibox.container.background(wibox.widget.systray(), theme.taskbar_fg),
 			spr2,
 			spr,
- --[[           volume_widget({
+            volume_widget({
 				widget_type = 'arc',
 				with_icon = 'false',
                 main_color = theme.taskbar_fg,
@@ -172,13 +171,13 @@ function theme.at_screen_connect(s)
                 mute_color = theme.border_marked
             }),
 			spr,
-  --brightness_widget({
-    --            type = 'arc',
-      --          program = 'xbacklight',
-        --        step = '1',
-		--		path_to_icon = '',
-          --      bg_color = theme.taskbar_bg
-            --}),
+            --[[brightness_widget({
+                type = 'arc',
+                program = 'xbacklight',
+                step = '1',
+				path_to_icon = '',
+                bg_color = theme.taskbar_bg
+            }), -]]
             ram_widget({
                 color_used = theme.taskbar_bg,
                 color_free = theme.taskbar_fg,
@@ -190,22 +189,22 @@ function theme.at_screen_connect(s)
 				background_color = theme.bg_normal
             }),
 			spr,
---            batteryarc_widget({
-  --             main_color = theme.taskbar_fg,
-    --            bg_color = theme.taskbar_bg,
-	--			charging_color = theme.border_focus,
-      --          low_level_color = theme.border_marked,
-		--		show_notification_mode = 'on_click',
-		--		stop_video_after = 95
-		--	}),
-		--	spr,
+            --[[batteryarc_widget({
+                main_color = theme.taskbar_fg,
+                bg_color = theme.taskbar_bg,
+				charging_color = theme.border_focus,
+                low_level_color = theme.border_marked,
+				show_notification_mode = 'on_click',
+				stop_video_after = 95
+			}),
+			spr,--]]
 			spr1,
 			{
             	net_speed_widget(),
 				bg = theme.taskbar_fg,
 				fg = theme.taskbar_bg,
 				widget = wibox.container.background
-			}, --]]
+			},
 			spr2,
 			spr,
             clock,
