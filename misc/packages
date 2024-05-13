@@ -53,6 +53,7 @@ alsa-utils-openrc
 archlinux-keyring
 archlinux-mirrorlist
 artix-archlinux-support
+lib32-artix-archlinux-support
 artix-keyring
 artix-mirrorlist
 audacity
