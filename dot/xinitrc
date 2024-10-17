@@ -1,4 +1,4 @@
-setxkbmap -layout de
+setxkbmap -layout us
 xrdb ~/.Xresources
 
 #exec awesome

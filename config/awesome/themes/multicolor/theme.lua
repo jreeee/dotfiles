@@ -17,20 +17,21 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
 theme.wallpaper                                 = theme.confdir .. "/wall.png"
-theme.font                                      = "xos4 Terminus 8"
-theme.menu_bg_normal                            = "#000000"
+
+--[[ theme.menu_bg_normal                            = "#000000"
 theme.menu_bg_focus                             = "#000000"
-theme.bg_normal                                 = "#000000"
-theme.bg_focus                                  = "#000000"
-theme.bg_urgent                                 = "#000000"
-theme.fg_normal                                 = "#aaaaaa"
-theme.fg_focus                                  = "#ff8c00"
-theme.fg_urgent                                 = "#af1d18"
+theme.bg_normal 								= "#0a0a0ab3" -- termite background when in rgba
+theme.bg_focus 									= "#0a0a0ab3" -- color6 with transparency
+theme.bg_urgent 								= "#B9372Bb3" -- color3 with transparency
+theme.fg_normal 								= "#E3D198" -- color13
+theme.taskbar_fg				= "#aaaaaa"
+theme.fg_focus 									= "#C7953C" -- color6
+theme.fg_urgent 								= "#B9372B" -- color3
 theme.fg_minimize                               = "#ffffff"
 theme.border_width                              = dpi(1)
-theme.border_normal                             = "#1c2022"
-theme.border_focus                              = "#606060"
-theme.border_marked                             = "#3ca4d8"
+theme.border_normal 							= "#455e7e" -- color10
+theme.border_focus 								= "#E3D198" -- color14
+theme.border_marked 							= "#74B8D3" -- color1
 theme.menu_border_width                         = 0
 theme.menu_width                                = dpi(130)
 theme.menu_submenu_icon                         = theme.confdir .. "/icons/submenu.png"
@@ -38,6 +39,28 @@ theme.menu_fg_normal                            = "#aaaaaa"
 theme.menu_fg_focus                             = "#ff8c00"
 theme.menu_bg_normal                            = "#050505dd"
 theme.menu_bg_focus                             = "#050505dd"
+--]]
+
+theme.font                                                                              = "FiraCode Nerd Font Mono 9"
+theme.fg_normal 								= "#E3D198" -- color13
+theme.fg_focus 									= "#C7953C" -- color6
+theme.fg_urgent 								= "#B9372B" -- color3
+theme.bg_normal 								= "#0a0a0ab3" -- termite background when in rgba
+theme.bg_focus 									= "#0a0a0ab3" -- color6 with transparency
+theme.bg_urgent 								= "#B9372Bb3" -- color3 with transparency
+theme.border_width                              = dpi(1)
+theme.border_normal 							= "#455e7e" -- color10
+theme.border_focus 								= "#E3D198" -- color14
+theme.border_marked 							= "#74B8D3" -- color1
+theme.tasklist_bg_normal                                                = "#00000000"
+theme.tasklist_bg_focus                         = "#00000000" --theme.bg_normal
+theme.titlebar_bg_focus                         = theme.bg_focus
+theme.titlebar_bg_normal                        = theme.bg_normal
+theme.titlebar_fg_focus                         = theme.fg_focus
+theme.taskbar_fg 								= "#E3D198" -- color7
+theme.taskbar_bg 								= "#36382E" -- color0
+theme.bg_systray                                                                = theme.taskbar_fg --does not work with rgba so i improvised a bit
+
 theme.widget_temp                               = theme.confdir .. "/icons/temp.png"
 theme.widget_uptime                             = theme.confdir .. "/icons/ac.png"
 theme.widget_cpu                                = theme.confdir .. "/icons/cpu.png"
@@ -51,7 +74,7 @@ theme.widget_netup                              = theme.confdir .. "/icons/net_u
 theme.widget_mail                               = theme.confdir .. "/icons/mail.png"
 theme.widget_batt                               = theme.confdir .. "/icons/bat.png"
 theme.widget_clock                              = theme.confdir .. "/icons/clock.png"
-theme.widget_vol                                = theme.confdir .. "/icons/spkr.png"
+--theme.widget_vol                                = theme.confdir .. "/icons/spkr.png"
 theme.taglist_squares_sel                       = theme.confdir .. "/icons/square_a.png"
 theme.taglist_squares_unsel                     = theme.confdir .. "/icons/square_b.png"
 theme.tasklist_plain_task_name                  = true
@@ -93,11 +116,23 @@ theme.titlebar_maximized_button_focus_active    = theme.confdir .. "/icons/title
 
 local markup = lain.util.markup
 
+local keyboardlayout = awful.widget.keyboardlayout:new()
+
+local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
+
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+
+local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+
+local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
+
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+
 -- Textclock
-os.setlocale(os.getenv("LANG")) -- to localize the clock
-local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local mytextclock = wibox.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#ab7367", ">") .. markup("#de5e1e", " %H:%M "))
-mytextclock.font = theme.font
+--os.setlocale(os.getenv("LANG")) -- to localize the clock
+--local clockicon = wibox.widget.imagebox(theme.widget_clock)
+--local mytextclock = wibox.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#ab7367", ">") .. markup("#de5e1e", " %H:%M "))
+--mytextclock.font = theme.font
 
 -- Calendar
 theme.cal = lain.widget.cal({
@@ -133,6 +168,17 @@ theme.fs = lain.widget.fs({
     end
 })
 --]]
+
+-- Calendar
+local cw = calendar_widget({
+        t_bg = theme.taskbar_fg,
+        t_fg = theme.taskbar_bg,
+        t_br = theme.fg_focus,
+        t_dt = theme.border_normal,
+    theme = 'custom',
+    placement = 'bottom_right',
+    radius = 8,
+})
 
 -- Mail IMAP check
 --[[ commented because it needs to be set before use
@@ -173,32 +219,18 @@ local temp = lain.widget.temp({
     end
 })
 
---[[ Battery
-local baticon = wibox.widget.imagebox(theme.widget_wbatt)
-local bat = lain.widget.bat({
-    settings = function()
-        local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
-
-        if bat_now.ac_status == 1 then
-            perc = perc .. " plug"
-        end
-
-        widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, perc .. " "))
+-- Textclock
+local clockicon = wibox.widget.imagebox(theme.widget_clock)
+local clock = awful.widget.watch(
+    "date +'%a %d %b %R'", 60,
+    function(widget, stdout)
+        widget:set_markup(markup.font(theme.font, stdout))
     end
-})
---]]
-
--- ALSA volume
-local volicon = wibox.widget.imagebox(theme.widget_vol)
-theme.volume = lain.widget.alsa({
-    settings = function()
-        if volume_now.status == "off" then
-            volume_now.level = volume_now.level .. "M"
-        end
-
-        widget:set_markup(markup.fontfg(theme.font, "#7493d2", volume_now.level .. "% "))
-    end
-})
+)
+clock:connect_signal("button::press", 
+    function(_, _, _, button)
+        if button == 1 then cw.toggle() end
+   	end)
 
 -- Net
 local netdownicon = wibox.widget.imagebox(theme.widget_netdown)
@@ -253,6 +285,11 @@ theme.mpd = lain.widget.mpd({
     end
 })
 
+-- Separators
+local spr = wibox.widget.textbox(' ')
+local spr2 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", ""))
+local spr1 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", ""))
+
 function theme.at_screen_connect(s)
     -- Quake application
     s.quake = lain.util.quake({ app = awful.util.terminal })
@@ -267,17 +304,23 @@ function theme.at_screen_connect(s)
     -- Tags
     fairv = awful.layout.suit.fair
     centerw = lain.layout.centerwork
-    awful.tag(awful.util.tagnames, s, {fairv, fairv, centerw, fairv, fairv, fairv, fairv})
+    -- tag layout assignment
+    awful.tag(awful.util.tagnames, s, {fairv, fairv, fairv, fairv, fairv, fairv, fairv})
 
     -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
+    s.mypromptbox = awful.widget.prompt({
+                bg = theme.taskbar_fg,
+                fg = theme.taskbar_bg,
+                prompt = 'ᐅ ',
+                bg_cursor = theme.fg_urgent
+                })
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
     s.mylayoutbox:buttons(my_table.join(
                            awful.button({}, 1, function () awful.layout.inc(-1) end),
                            awful.button({}, 2, function () awful.layout.inc(-1) end),
-                           awful.button({}, 3, function () awful.layout.inc(-1) end),
+                           awful.button({}, 3, function () awful.layout.set(awful.layout.layouts[3]) end),
                            awful.button({}, 4, function () awful.layout.inc(-1) end),
                            awful.button({}, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
@@ -292,42 +335,61 @@ function theme.at_screen_connect(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-        { -- Left widgets
+	{ -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            --s.mylayoutbox,
+                        spr2,
+                        spr,
             s.mytaglist,
-            s.mypromptbox,
-            --mpdicon,
-            --theme.mpd.widget,
+                        spr1,
+                        wibox.container.background(spr, theme.taskbar_fg),
+                        s.mypromptbox,
+                        spr2
         },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
+                s.mytasklist, -- Middle widget
+ 	{ -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            --mailicon,
-            --theme.mail.widget,
-            netdownicon,
-            netdowninfo,
-            netupicon,
-            netupinfo.widget,
-            volicon,
-            theme.volume.widget,
-            memicon,
-            memory.widget,
-            cpuicon,
-            cpu.widget,
-            --fsicon,
-            --theme.fs.widget,
-            --weathericon,
-            --theme.weather.widget,
-            tempicon,
-            temp.widget,
-            --baticon,
-            --bat.widget,
-            clockicon,
-            mytextclock,
-            s.mylayoutbox,
-        },
+                        spr1,
+                        wibox.container.background(wibox.widget.systray(), theme.taskbar_fg),
+                        spr2,
+                        spr,
+            volume_widget({
+                                widget_type = 'arc',
+                                with_icon = 'false',
+                main_color = theme.taskbar_fg,
+                bg_color = theme.taskbar_bg,
+                mute_color = theme.border_marked
+            }),
+            ram_widget({
+                color_used = theme.taskbar_bg,
+                color_free = theme.taskbar_fg,
+                color_buf = theme.border_normal
+            }),
+            cpu_widget({
+                                color = theme.taskbar_bg,
+		                foreground_color = theme.taskbar_fg,
+                                background_color = theme.bg_normal
+            }),
+            {
+
+                net_speed_widget(),
+                                widget = wibox.container.background
+                        },
+                        spr,
+            clock,
+            spr1,
+                        {
+                                keyboardlayout,
+                                bg = theme.taskbar_fg,
+                                fg = theme.taskbar_bg,
+                                widget = wibox.container.background
+                        },
+                        {
+                                s.mylayoutbox,
+                                bg = theme.taskbar_fg,
+                                fg = theme.fg_urgent,
+                                widget = wibox.container.background
+                        },
+            },
     }
 end
 

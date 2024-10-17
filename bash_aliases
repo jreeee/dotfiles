@@ -38,6 +38,7 @@ alias discord="discord --enable-gpu-rasterization"
 alias lss="du -sm * | sort -nr | head -n 15"
 alias kvpn="sudo pkill openconnect"
 alias nsight="exec ~/nvidia/NVIDIA-Nsight-Graphics-2023.4/host/linux-desktop-nomad-x64/ngfx-ui"
+alias vi="nano"
 
 # dirs
 alias w19="cd ~/Study/WS2019/"
@@ -63,5 +64,6 @@ alias fcord="$SCD/fcord.sh &> /dev/null"
 alias zef="~/git/zef/zef.sh"
 alias lock-blur="$SCD/blur.sh"
 
+alias unity_dummy_gl="unity_dummy"
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
