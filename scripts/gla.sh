@@ -5,6 +5,15 @@
 declare -a FOLDERS
 
 GIT="$HOME/git/"
+
+if [ $# == 1 ]; then
+	if [ "$1" == "." ]; then
+		GIT="$(pwd)/"
+	else
+		GIT="$1/"
+	fi
+fi
+
 IGNORE="$GIT.ignore"
 FOLDERS=( "$GIT"* )
 
