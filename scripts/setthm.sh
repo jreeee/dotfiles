@@ -6,7 +6,7 @@
 declare -r TERCONF=$HOME'/.config/alacritty/alacritty.yml'
 declare -r AWESOME=$HOME'/.config/awesome/'
 declare -r AWCONF=$AWESOME'rc.lua'
-declare -r THEMES=$HOME'/dotfiles/config/themes'
+declare -r THEMES=$HOME'/dotfiles/misc/themes'
 declare -r WALL=$THEMES'/wallpapers/'
 declare -r VIDEO=$THEMES'/videos/'
 declare -r PLTE=$THEMES'/palettes/'

@@ -1,18 +1,24 @@
 #!/bin/bash
-# dependencies: mpv youtube-dl fzf rofi/dmenu gnu-grep
-#https://github.com/sayan01/scripts/blob/master/yt
+# DISCLAIMER: this script has been started solely by me (sayan01)
+# and has had contributions from others like Nicholas-Baron,
+# juanCortelezzi, and mfoep (refer to contributors on Github)
+# this script is not based off of any other work by anyone else,
+# nor is it made in association with anyone else, regardless of
+# their claims.
 
-# NOTE:  if you dont have gnu grep you can replace grep with rg
+# dependencies: mpv yt-dlp fzf rofi/dmenu grep (GNU grep)
+
+# NOTE:  if you dont have GNU grep you can replace grep with rg
 
 # explain usage
 function usage () {
-    echo "usage: yt"
-    echo "    -h			help"
-    echo "    -c 	 		channels/subscriptions"
-    echo "    -s query 		search"
-	echo "    -g / -r 		gui mode (rofi/dmenu)"
-	echo "    -a            audio only"
-	echo "    nothing 		use defaults (search from prompt)"
+  echo "usage: yt"
+  echo "    -h        help"
+  echo "    -c        channels/subscriptions"
+  echo "    -s query  search"
+  echo "    -g / -r   gui mode (rofi/dmenu)"
+  echo "    -m        music mode (audio only) [dont use with -r]"
+  echo "  nothing     use defaults (search from prompt)"
 	echo
 	echo "add channel names to the file $sublistpath to show them"
 	echo "in yt -c option. First word should be channel url, optionally"
@@ -25,7 +31,7 @@ function usage () {
 	echo "BlackGryph0n    Black Gryph0n   Gabriel Brown signs stuff"
 	echo "TomScottGo      Tom Scott"
 	echo "danielthrasher  Daniel Thrasher"
-    exit 0
+  exit 0
 }
 
 # dont use defaults
@@ -37,7 +43,7 @@ if [[ ${#} -eq 0 ]]; then
 fi
 
 # available flags
-optstring=":s:cgrha"
+optstring=":s:cgrhm"
 
 defcmd="fzf"
 defaction="s"
@@ -49,7 +55,23 @@ promptcmd="$defcmd"
 action="$defaction"
 isGui="f"
 query=""
-video="0"
+mpv_options=""
+
+max_resolution="480"
+max_fps="30"
+ignore_codec=""
+ytdlformats="bestvideo"
+
+if [ -n "$max_resolution" ] ; then
+  ytdlformats+="[height<=?$max_resolution]"
+fi
+if [ -n "$max_fps" ] ; then
+  ytdlformats+="[fps<=?$max_fps]"
+fi
+if [ -n "$ignore_codec" ] ; then
+  ytdlformats+="[vcodec!=$ignore_codec]"
+fi
+ytdlformats+="+bestaudio/best"
 
 # subscription list
 mkdir -p "${HOME:-}/.config/yt"
@@ -73,25 +95,22 @@ if [[ $useDefaults = "f" ]]; then
                 # set gui mode to true and change the prompt to gui prompt
                 isGui="t"
                 promptcmd="$guicmd" ;;
+            m)
+               # make the mpv headless
+                mpv_options+="--no-video" ;;
             h)
                 # display help / usage
                 usage ;;
-			a)
-				#disable mpvs video output
-				video="1" ;;
             \?)
                 # wrong args -> exit with explanation of usage
                 echo "invalid option: -${OPTARG}"
                 echo
-                usage
-				exit 1 ;;
+                usage ;;
             :)
                 # missing args -> exit with explanation of usage
                 echo "Option -${OPTARG} needs an argument"
                 echo
-                usage
-				exit 1 ;;
-
+                usage ;;
         esac
     done
 fi
@@ -135,12 +154,12 @@ query=$(sed \
 # if channel look for channel vids
 if [[ $action = "c" ]]; then
     response=$(curl -s "https://www.youtube.com/c/$query/videos" |\
-      sed "s/{\"gridVideoRenderer/\n\n&/g" |\
+      sed "s/{\"videoRenderer/\n\n&/g" |\
       sed "s/}]}}}]}}/&\n\n/g" |\
-      awk -v ORS="\n\n" '/gridVideoRenderer/')
+      awk -v ORS="\n\n" '/videoRenderer/')
 
     # if unable to fetch the youtube results page, inform and exit
-    if ! grep -q "gridVideoRenderer" <<< "$response"; then echo "unable to fetch yt"; exit 1; fi
+    if ! grep -q "videoRenderer" <<< "$response"; then echo "unable to fetch yt"; exit 1; fi
 
     # regex expression to match video entries from yt channel page
     # get the list of videos and their ids to ids
@@ -156,7 +175,7 @@ if [[ $action = "c" ]]; then
       id=$(echo -e "$ids" | grep -Fwm1 "$choice" | cut -d'	' -f1) # get id of choice
       echo -e "$choice\t($id)"
       case $id in
-          ???????????) mpv "$videolink$id";;
+          ???????????) mpv "$videolink$id" "$mpv_options" --ytdl-format="$ytdlformats";;
           *) exit ;;
       esac
     done
@@ -192,21 +211,9 @@ else
         echo -e "$choice\t($id)"
         case $id in
             # 11 digit id = video
-            ???????????)
-				if [[ $video = "0" ]]; then
-					mpv "$videolink$id"
-				else
-					mpv --no-video "$videolink$id"
-				fi
-				;;
+            ???????????) mpv "$videolink$id" $mpv_options --ytdl-format="$ytdlformats";;
             # 34 digit id = playlist
-            ??????????????????????????????????)
-				if [[ $video == "0" ]]; then
-					mpv "$playlink$id"
-				else
-					mpv --no-video "$playlink$id"
-				fi
-				;;
+            ??????????????????????????????????) mpv "$playlink$id" $mpv_options --ytdl-format="$ytdlformats";;
             *) exit ;;
         esac
     done

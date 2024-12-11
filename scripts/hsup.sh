@@ -13,8 +13,14 @@ curl -o "$NEW_FILE" "$SOURCE"
 if [ -s "$NEW_FILE" ]; then
 	if [ -e "$OLD_FILE" ]; then
 		if cmp -s "$OLD_FILE" "$NEW_FILE"; then
-			echo 'ERROR: old and new files are identical, skipping'
-			exit 1
+			read -p 'INFO: old and new files are identical, proceed [y/N]' input
+			case $input in
+				[yY]* )
+					;;
+				*)
+					echo 'exiting'
+					exit 1
+			esac
 		else
 			rm "$OLD_FILE"
 		fi
@@ -34,4 +40,4 @@ sed -i '$a # blocked sites' "$TMP"
 
 sed -i  '$r'"$OLD_FILE" "$TMP"
 
-sudo cp -f "$TMP" "$HOSTS"
+doas cp -f "$TMP" "$HOSTS"

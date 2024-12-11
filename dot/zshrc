@@ -108,6 +108,9 @@ eval $(thefuck --alias)
 lazy() { for i in $@; do firefox "genshin.mihoyo.com/en/gift?code=$i" &>/dev/null; done }
 2gif() { ffmpeg -y -i "$1" -vf palettegen /tmp/"$1"-palette.png; ffmpeg -y -i "$1" -i /tmp/"$1"-palette.png -filter_complex paletteuse -r 10 "$2" }
 0pad() { [ $# -eq "2" ] && j="$2" || j="mp4"; for i in $(seq 1 9); do; mv "$1$i.$j" "${1}0$i.$j"; done }
+runtime() { [ $# -gt "0" ] && i="$1" || i=1;echo "$(find . -exec ffprobe -v quiet -of csv=p=0 -show_entries format=duration {} \; | paste -sd+ -| bc) / (60 * $i)" | bc -l }
+gettitle() { ffprobe "$1" 2>&1 | sed -E -n 's/^ *title *: (.*)/\1/p' }
+flac2mp3() { parallel ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: ./*.flac }
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

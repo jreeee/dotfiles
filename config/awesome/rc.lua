@@ -59,7 +59,7 @@ end
 
 local blur_script=string.format("%s/.scripts/blur.sh", os.getenv("HOME"))
 
-run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script) }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script) }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
