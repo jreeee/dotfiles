@@ -1,11 +1,19 @@
+"""
+simple script that interfaces with dbus to skip songs where the artist is not
+set would default to 'Unknown' instead, adding those entries to a text file
+to be reviewed and tagged later
+
+this is just a quick hacked together script 'cause i want to properly scrobble
+my music. not for WIN use, as it doesn't use (support?) MPRIS afaik
+"""
+
+import os
 import dbus
 import dbus.mainloop.glib
 from gi.repository import GLib
-import os
 
-PLAYER_NAME = 'rhythmbox'
+PLAYER_NAME = 'rhythmbox' # what i currently use for audio playback
 PLAYER_PATH = f'org.mpris.MediaPlayer2.{PLAYER_NAME}'
-# add skipped songs to properly tag them later
 FILE_OF_SHAME = os.path.expanduser("~/.local/state/music-cringelist")
 
 def add_title(title, metadata):
@@ -14,8 +22,8 @@ def add_title(title, metadata):
     loc = location.replace("%20", " ")
     info = f"{title} - {album} @ {loc[7:]}"
     print(info)
-    with open(FILE_OF_SHAME, "a") as list:
-        list.write(info + "\n")
+    with open(FILE_OF_SHAME, "a") as listing:
+        listing.write(info + "\n")
 
 def skip_track():
     session_bus = dbus.SessionBus()
@@ -46,7 +54,6 @@ def main():
 
     # Connect to the session bus
     session_bus = dbus.SessionBus()
-    player_object = session_bus.get_object(PLAYER_PATH, '/org/mpris/MediaPlayer2')
 
     # Add a signal receiver for PropertiesChanged
     session_bus.add_signal_receiver(
@@ -59,7 +66,10 @@ def main():
 
     # Run the main loop
     print(f"Listening for track changes on {PLAYER_PATH}...")
-    GLib.MainLoop().run()
+    try:
+        GLib.MainLoop().run()
+    except KeyboardInterrupt:
+        print("exiting")
 
 if __name__ == "__main__":
     main()

@@ -22,8 +22,6 @@ alias mgb="mg build && cmake .."
 alias mkd="mkdir -pv"
 alias tree="tree --du -h"
 alias src="source ~/.zshrc" # "killall -USR1 termite"
-alias poweroff="sudo /usr/bin/poweroff"
-alias reboot="/usr/bin/reboot"
 alias lck="sleep 1 && xtrlock"
 alias vcam="sudo modprobe v4l2loopback video_nr=2 card_label=vcam"
 alias 2mp3="youtube-dl -x --audio-format mp3 --prefer-ffmpeg --add-metadata -o '%(title)s.%(ext)s'"
@@ -38,8 +36,9 @@ alias tl="task list"
 alias ta="task add"
 alias td="task done"
 
-SCD="$HOME/.scripts"
 # scripts 'n programs
+SCD="$HOME/.scripts"
+
 alias ia="$SCD/ia"
 alias psp="exec /usr/bin/PPSSPPQt &"
 alias rgb2hex='printf "#%02x%02x%02x\n"'
@@ -57,6 +56,8 @@ alias mensa="$SCD/mensa.sh"
 alias fcord="$SCD/fcord.sh &> /dev/null"
 alias zef="~/git/zef/zef.sh"
 alias lock-blur="$SCD/blur.sh"
+alias khi="~/git/khinsider/khinsider.py"
+alias skuk="python $SCD/dbussin.py"
 
 # bluetooth
 bl_in_ear="21:D5:F0:D5:6E:3A"
