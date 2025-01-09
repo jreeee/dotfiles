@@ -64,6 +64,7 @@ alias mensa="$SCD/mensa.sh"
 alias fcord="$SCD/fcord.sh &> /dev/null"
 alias zef="~/git/zef/zef.sh"
 alias lock-blur="$SCD/blur.sh"
+alias mute="$SCD/mute.sh"
 
 alias unity_dummy_gl="unity_dummy"
 # well...

@@ -152,10 +152,10 @@ function theme.at_screen_connect(s)
 			spr2,
 			spr,
             s.mytaglist,
-			spr1,
+			wibox.container.background(spr1, theme.taskbar_fg),
 			wibox.container.background(spr, theme.taskbar_fg),
 			s.mypromptbox,
-			spr2
+			wibox.container.background(spr2, theme.taskbar_fg),
         },
 	        s.mytasklist, -- Middle widget
         { -- Right widgets

@@ -16,7 +16,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
-theme.wallpaper                                 = theme.confdir .. "/wall.png"
+theme.wallpaper 								= "/home/jre/Downloads/ganyu-wp3.jpg"
 
 --[[ theme.menu_bg_normal                            = "#000000"
 theme.menu_bg_focus                             = "#000000"
@@ -57,7 +57,7 @@ theme.tasklist_bg_focus                         = "#00000000" --theme.bg_normal
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
-theme.taskbar_fg 								= "#E3D198" -- color7
+theme.taskbar_fg 								= "#B7BD99" -- color7
 theme.taskbar_bg 								= "#36382E" -- color0
 theme.bg_systray                                                                = theme.taskbar_fg --does not work with rgba so i improvised a bit
 
