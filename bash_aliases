@@ -35,6 +35,7 @@ alias kvpn="sudo pkill openconnect"
 alias tl="task list"
 alias ta="task add"
 alias td="task done"
+alias logout="pkill -u $(whoami)"
 
 # scripts 'n programs
 SCD="$HOME/.scripts"

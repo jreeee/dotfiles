@@ -2,7 +2,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-setxkbmap -layout de
 xset dpms 910 910 910
 xset s 900 6
 export ZSH="$HOME/.oh-my-zsh"
@@ -12,6 +11,10 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export PATH="$PATH:$HOME/.local/bin:~/.dotnet/tools"
 export DISABLE_QT5_COMPAT=1
 export XSECURELOCK_SAVER="$HOME/.scripts/saver_feh.sh"
+export XMODIFIERS=@im=ibus
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+ibus-daemon -drx
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
