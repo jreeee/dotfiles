@@ -361,7 +361,12 @@ function theme.at_screen_connect(s)
                 bg_color = theme.taskbar_bg,
                 mute_color = theme.border_marked
             }),
-            mpris_widget(),
+            spr,
+            mpris_widget({
+                size = 32,
+                arc_thickness = 4,
+                bg_color = theme.taskbar_bg,
+            }),
             ram_widget({
                 color_used = theme.taskbar_bg,
                 color_free = theme.taskbar_fg,

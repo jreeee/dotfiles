@@ -201,13 +201,17 @@ local function worker(user_args)
     local play_icon = args.play_icon or path_to_icons .. '/symbolic/actions/media-playback-start-symbolic.svg'
     local stop_icon = args.stop_icon or path_to_icons .. '/symbolic/actions/media-playback-stop-symbolic.svg'
     local library_icon = args.library_icon or path_to_icons .. '/symbolic/places/folder-music-symbolic.svg'
-    local popup_width = args.popup_width or 300
+    local popup_width = args.popup_width or 250
+
+    local arc_thickness = args.arc_thickness or 2
+    local size = args.size or 18
+    local bg_color = args.bg_color or '#ffffff11'
 
     playerctl.player_name = args.default_player or 'firefox'
 
     local icon = wibox.widget {
         widget = wibox.widget.imagebox,
-        image = play_icon,
+        image = gears.color.recolor_image(play_icon, beautiful.fg_normal),
     }
 
     local progress_widget = wibox.widget {
@@ -216,29 +220,17 @@ local function worker(user_args)
         min_value = 0,
         max_value = 1,
         value = 0,
-        thickness = 2,
+        thickness = arc_thickness,
         start_angle = 4.71238898, -- 2pi*3/4
-        forced_height = 24,
-        forced_width = 24,
+        forced_height = size,
+        forced_width = size,
         rounded_edge = true,
-        colors = { '#ffffff11', 'black' },
+        bg = bg_color,
         paddings = 2,
     }
 
-    local artist_widget = wibox.widget {
-        font = font,
-        widget = wibox.widget.textbox,
-    }
-
-    local title_widget = wibox.widget {
-        font = font,
-        widget = wibox.widget.textbox,
-    }
-
     mpris_widget = wibox.widget {
---        artist_widget,
         progress_widget,
---        title_widget,
         spacing = 4,
         layout = wibox.layout.fixed.horizontal,
     }
@@ -258,8 +250,6 @@ local function worker(user_args)
     }
 
     local update_metadata = function(meta)
-        --artist_widget:set_text(meta.artist)
-        --title_widget:set_text(meta.current_song)
 
         local album = ""
         if meta.album ~= nil and meta.album ~= "" then
@@ -268,7 +258,7 @@ local function worker(user_args)
         local s = meta.current_song .. '\nby ' .. meta.artist .. album  .. ' (' .. duration(meta.position) .. '/' .. duration(meta.length) .. ')'
         metadata_widget:set_text(s)
 
-        progress_widget.values = { 1.0 - (meta.progress or 0.0), meta.progress or 0.0 }
+        progress_widget.values = { 0.0 , meta.progress or 0.0 }
 
         -- poor man's urldecode
         local art_url = meta.art_url:gsub('file://', '/')
@@ -292,17 +282,17 @@ local function worker(user_args)
         end
 
         if metadata.status == 'Playing' then
-            icon.image = pause_icon
+            icon.image = gears.color.recolor_image(pause_icon, beautiful.fg_normal)
             widget.colors = { beautiful.widget_main_color }
             update_metadata(metadata)
         elseif metadata.status == 'Paused' then
-            icon.image = play_icon
+            icon.image = gears.color.recolor_image(play_icon, beautiful.fg_normal)
             widget.colors = { beautiful.widget_main_color }
             update_metadata(metadata)
         elseif metadata.status == 'Stopped' then
-            icon.image = stop_icon
+            icon.image = gears.color.recolor_image(stop_icon, beautiful.fg_normal)
         else -- no player is running
-            icon.image = library_icon
+            icon.image = gears.color.recolor_image(library_icon, beautiful.fg_normal)
             widget.colors = { beautiful.widget_red }
         end
     end
