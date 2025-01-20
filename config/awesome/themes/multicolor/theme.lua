@@ -24,7 +24,7 @@ theme.bg_normal 								= "#0a0a0ab3" -- termite background when in rgba
 theme.bg_focus 									= "#0a0a0ab3" -- color6 with transparency
 theme.bg_urgent 								= "#B9372Bb3" -- color3 with transparency
 theme.fg_normal 								= "#E3D198" -- color13
-theme.taskbar_fg				= "#aaaaaa"
+theme.taskbar_fg				= "#C7953C" -- color6
 theme.fg_focus 									= "#C7953C" -- color6
 theme.fg_urgent 								= "#B9372B" -- color3
 theme.fg_minimize                               = "#ffffff"
@@ -57,7 +57,7 @@ theme.tasklist_bg_focus                         = "#00000000" --theme.bg_normal
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
-theme.taskbar_fg 								= "#B7BD99" -- color7
+theme.taskbar_fg 								= "#E3D198" -- color14
 theme.taskbar_bg 								= "#36382E" -- color0
 theme.bg_systray                                                                = theme.taskbar_fg --does not work with rgba so i improvised a bit
 
@@ -224,7 +224,7 @@ local temp = lain.widget.temp({
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
 local clock = awful.widget.watch(
-    "date +'%a %d %b %R'", 60,
+    "date +'%a %d %b %R'", 1,
     function(widget, stdout)
         widget:set_markup(markup.font(theme.font, stdout))
     end
@@ -354,6 +354,7 @@ function theme.at_screen_connect(s)
                         wibox.container.background(wibox.widget.systray(), theme.taskbar_fg),
                         spr2,
                         spr,
+                        spr,
             volume_widget({
                                 widget_type = 'arc',
                                 with_icon = 'false',
@@ -361,6 +362,8 @@ function theme.at_screen_connect(s)
                 bg_color = theme.taskbar_bg,
                 mute_color = theme.border_marked
             }),
+            spr,
+            spr,
             spr,
             mpris_widget({
                 size = 32,
