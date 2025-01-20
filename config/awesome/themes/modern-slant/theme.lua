@@ -1,4 +1,3 @@
-
 --[[
      
      modern slant - by github.com/jreeee - based off of 
@@ -94,6 +93,8 @@ local cw = calendar_widget({
     placement = 'bottom_right',
     radius = 8,
 })
+
+local mpris_widget = require("awesome-wm-widgets.mpris-widget")
 
 clock:connect_signal("button::press", 
     function(_, _, _, button)

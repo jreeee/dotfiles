@@ -43,4 +43,6 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 export XDG_SESSION_TYPE=x11
 export XDG_CURRENT_DESTOP=awesome
-exec awesome
+#exec awesomewm
+# debug stuff
+exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr

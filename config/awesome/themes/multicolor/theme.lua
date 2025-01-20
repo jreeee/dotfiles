@@ -16,7 +16,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
-theme.wallpaper 								= "/home/jre/Downloads/ganyu-wp3.jpg"
+theme.wallpaper 								= "/home/jre/git/dotfiles/misc/themes/wallpapers/wall1.png"
 
 --[[ theme.menu_bg_normal                            = "#000000"
 theme.menu_bg_focus                             = "#000000"
@@ -127,6 +127,8 @@ local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
 
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+
+local mpris_widget = require("awesome-wm-widgets.mpris-widget")
 
 -- Textclock
 --os.setlocale(os.getenv("LANG")) -- to localize the clock
@@ -359,6 +361,7 @@ function theme.at_screen_connect(s)
                 bg_color = theme.taskbar_bg,
                 mute_color = theme.border_marked
             }),
+            mpris_widget(),
             ram_widget({
                 color_used = theme.taskbar_bg,
                 color_free = theme.taskbar_fg,
