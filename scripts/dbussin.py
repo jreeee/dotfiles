@@ -1,4 +1,7 @@
+#! /usr/bin/env python
 """
+music hoarding and tagging problems: the accompanying script
+
 simple script that interfaces with dbus to skip songs where the artist is not
 set would default to 'Unknown' instead, adding those entries to a text file
 to be reviewed and tagged later
@@ -39,10 +42,20 @@ def on_properties_changed(interface, changed, invalidated):
     if 'Metadata' in changed:
         metadata = changed['Metadata']
         artist = ', '.join(metadata.get('xesam:artist', []))
+        length = metadata.get('mpris:length')
         title = metadata.get('xesam:title', 'Unknown')
+        # nice but not what i usually want to listen to
+        blacklist = ("inst", "off vocal", "offvocal")
         if artist == "Unknown":
             print("yikes, tag your music properly")
             add_title(title, metadata)
+            skip_track()
+        # begone short king
+        elif length < 150000000:
+            print("sorry too short, skipping " + str(length))
+            skip_track()
+        elif [i for i in blacklist if i in title.lower()]:
+            print("blacklisted, skipping")
             skip_track()
         else:
             print(f"Now Playing: {title} by {artist}")
