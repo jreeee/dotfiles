@@ -5,6 +5,7 @@
 
 DIMMER="/usr/lib/xsecurelock/dimmer"
 FILE="/tmp/scrshot-blurred.png"
+SAVER="/home/jre/.scripts/saver-feh.sh"
 
 if [ -e "$FILE" ]; then
     rm "$FILE"
@@ -17,7 +18,9 @@ if [ "" != "$validPid" ]; then
 	scrot "$FILE"
 fi
 
+sleep 1
+
 if [[ ${#} -ne "0" ]]; then
-	xsecurelock
-	kill -9 "$validPid"
+	# kill -9 "$validPid"
+	XSECURELOCK_SAVER="$SAVER" xsecurelock
 fi
