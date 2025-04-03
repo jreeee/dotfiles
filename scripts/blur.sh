@@ -10,4 +10,4 @@ else
 	eval "$SET_BG 1" &
 fi
 
-eval /usr/lib/xsecurelock/dimmer
+eval /usr/lib/xsecurelock/dimmer &

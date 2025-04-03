@@ -45,17 +45,17 @@ def on_properties_changed(interface, changed, invalidated):
         length = metadata.get('mpris:length')
         title = metadata.get('xesam:title', 'Unknown')
         # nice but not what i usually want to listen to
-        blacklist = ("inst", "off vocal", "offvocal")
+        blacklist = ("inst", "off vocal", "offvocal", "karaoke")
         if artist == "Unknown":
             print("yikes, tag your music properly")
             add_title(title, metadata)
             skip_track()
         # begone short king
         elif length < 150000000:
-            print("sorry too short, skipping " + str(length))
+            print(f"sorry too short: {title}")
             skip_track()
         elif [i for i in blacklist if i in title.lower()]:
-            print("blacklisted, skipping")
+            print(f"blacklisted: {title}")
             skip_track()
         else:
             print(f"Now Playing: {title} by {artist}")
