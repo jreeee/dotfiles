@@ -1,11 +1,9 @@
-setxkbmap -layout de
+# setxkbmap -layout de
 xrdb ~/.Xresources
 
 #exec awesome
 #exec "picom -CG --experimental-backends"
-#exec dbus-launch --exit-with-session awesome
-
-#!/bin/sh
+# exec dbus-launch --exit-with-session awesome
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -43,4 +41,6 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 export XDG_SESSION_TYPE=x11
 export XDG_CURRENT_DESTOP=awesome
+
 exec awesome
+#exec "$HOME/.scripts/gentoo-pipewire-launcher"
