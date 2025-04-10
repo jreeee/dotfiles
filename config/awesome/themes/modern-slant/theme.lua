@@ -18,7 +18,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/modern-slant"
-theme.wallpaper 								= "/home/jre/the-folder/misc/noelle.jpg"
+theme.wallpaper 								= "/home/jre/git/dotfiles/misc/themes/wallpaper/wall1.png"
 theme.font										= "FiraCode Nerd Font 9"
 theme.fg_normal 								= "#E3D198" -- color13
 theme.fg_focus 									= "#C7953C" -- color6
@@ -61,7 +61,7 @@ local markup = lain.util.markup
 
 local keyboardlayout = awful.widget.keyboardlayout:new()
 
-local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
+-- local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 
@@ -164,13 +164,13 @@ function theme.at_screen_connect(s)
 			wibox.container.background(wibox.widget.systray(), theme.taskbar_fg),
 			spr2,
 			spr,
-            volume_widget({
-				widget_type = 'arc',
-				with_icon = 'false',
-                main_color = theme.taskbar_fg,
-                bg_color = theme.taskbar_bg,
-                mute_color = theme.border_marked
-            }),
+            --volume_widget({
+		--		widget_type = 'arc',
+		--		with_icon = 'false',
+               -- main_color = theme.taskbar_fg,
+               -- bg_color = theme.taskbar_bg,
+               -- mute_color = theme.border_marked
+            --}),
 			spr,
             brightness_widget({
                 type = 'arc',
