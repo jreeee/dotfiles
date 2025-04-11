@@ -42,5 +42,7 @@ fi
 export XDG_SESSION_TYPE=x11
 export XDG_CURRENT_DESTOP=awesome
 
-exec awesome
-#exec "$HOME/.scripts/gentoo-pipewire-launcher"
+#exec awesome
+# debug/logging, might require creating the "awesome" folder in .cache ymmv
+exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+exec "$HOME/.scripts/gentoo-pipewire-launcher"
