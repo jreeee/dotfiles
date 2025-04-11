@@ -6,12 +6,12 @@
 declare -r TERCONF=$HOME'/.config/alacritty/alacritty.yml'
 declare -r AWESOME=$HOME'/.config/awesome/'
 declare -r AWCONF=$AWESOME'rc.lua'
-declare -r THEMES=$HOME'/dotfiles/misc/themes'
+declare -r THEMES=$HOME'/git/dotfiles/misc/themes'
 declare -r WALL=$THEMES'/wallpapers/'
 declare -r VIDEO=$THEMES'/videos/'
 declare -r PLTE=$THEMES'/palettes/'
-declare -r ANBG=$HOME'/dotfiles/scripts/an-bg.sh'
-declare -r FHBG=$HOME'/dotfiles/scripts/fehbg.sh'
+declare -r ANBG=$HOME'/git/dotfiles/scripts/an-bg.sh'
+declare -r FHBG=$HOME'/git/dotfiles/scripts/fehbg.sh'
 
 # get the theme used by awesome atm by building an array and checking the index in use
 
