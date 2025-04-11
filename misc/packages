@@ -176,11 +176,11 @@ xorg-xev
 xorg-xinit
 xorg-xinput
 xorg-xradr
-xsecurelock
+#xsecurelock
 xsel
-xss-lock
+#xss-lock
 xterm
-xtrlock
-yt-dlp
+#xtrlock
+#yt-dlp
 zip
-zsh
+.zsh
