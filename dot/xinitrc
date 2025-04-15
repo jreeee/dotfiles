@@ -41,6 +41,7 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 export XDG_SESSION_TYPE=x11
 export XDG_CURRENT_DESTOP=awesome
+export XDG_DATA_DIRS=/usr/share/:/usr/local/share
 
 #exec awesome
 # debug/logging, might require creating the "awesome" folder in .cache ymmv

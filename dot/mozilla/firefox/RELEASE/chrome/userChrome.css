@@ -1,0 +1,18 @@
+/*
+hide the native tabs 
+> about:config / toolkit.legacyUserProfileCustomizations.stylesheets = true
+restart ff
+*/
+#TabsToolbar {
+    visibility: collapse;
+}
+
+/* hide the sidebar header */
+#sidebar-header {
+    visibility: collapse;
+}
+
+/* decrease min sidebar width */
+#sidebar {
+    min-width: 100px !important;
+}

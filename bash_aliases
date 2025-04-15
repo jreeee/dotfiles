@@ -59,6 +59,7 @@ alias zef="~/git/zef/zef.sh"
 alias lock-blur="$SCD/blur.sh"
 alias khi="~/git/khinsider/khinsider.py"
 alias skuk="python $SCD/dbussin.py"
+alias renpy="$HOME/Renpy/renpy-8.3.7-sdk/renpy.sh"
 
 # bluetooth
 bl_in_ear="21:D5:F0:D5:6E:3A"
