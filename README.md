@@ -1,6 +1,8 @@
 <h1 align="center">my dotfiles</h1>
+
 > [!NOTE] 
 > these dotfiles have been with me for a good while, and having set up a new pc with them recently, i noticed, that there's a lot of things that don't work, especially my awesomewm theme. i'm planning to make a new dotfiles repo _soon_ that addresses (hopefully) all of the current issues. i also plan to make use of the wiki option, so that'll help organizing everything while keeping the Readme more minimal.
+
 <h2 align="center">a couple of configs and scripts and other things i use </h2>  
 <p align="center">
 
