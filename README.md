@@ -1,4 +1,6 @@
 <h1 align="center">my dotfiles</h1>
+> [!NOTE] 
+> these dotfiles have been with me for a good while, and having set up a new pc with them recently, i noticed, that there's a lot of things that don't work, especially my awesomewm theme. i'm planning to make a new dotfiles repo _soon_ that addresses (hopefully) all of the current issues. i also plan to make use of the wiki option, so that'll help organizing everything while keeping the Readme more minimal.
 <h2 align="center">a couple of configs and scripts and other things i use </h2>  
 <p align="center">
 
@@ -90,7 +92,7 @@ can be found in `config/`
 
 <h2 align="center"> the system: </h2>
 
-i use a relatively cheap HP laptop with a i5, 8gb of ram and a 15.4in screen running **[artix linux](https://artixlinux.org/)** with **[awesome](https://awesomewm.org/)**, **[picom](https://github.com/yshui/picom)** and **[zsh](https://www.zsh.org/)**. because the screen has trash color accuracy it is likely that the palettes only look good on this pc and really bad on any *decent* display, sorry for that.
+i use a relatively cheap HP laptop with a i5, 8gb of ram and a 15.4in screen running **[artix linux](https://artixlinux.org/)** with **[openrc](https://github.com/OpenRC/openrc) using **[awesome](https://awesomewm.org/)**, **[picom](https://github.com/yshui/picom)** and **[zsh](https://www.zsh.org/)**. because the screen has trash color accuracy it is likely that the palettes only look good on this pc and really bad on any *decent* display, sorry for that.
 
 <h2 align="center"> misc: </h2>
 
