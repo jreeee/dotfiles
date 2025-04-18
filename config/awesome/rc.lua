@@ -58,8 +58,9 @@ local function run_once(cmd_arr)
 end
 
 local blur_script=string.format("%s/.scripts/blur.sh", os.getenv("HOME"))
+local audio_script=string.format("%s/.scripts/gentoo-pipewire-launcher", os.getenv("HOME"))
 
-run_once({ "urxvtd", "unclutter -root", "picom", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script) }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root", "picom", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script, audio_script, "pipewire-pulse") }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -482,30 +483,30 @@ globalkeys = my_table.join(
 											end,
               {description = "-5%", group = "hotkeys"}),
 
-    -- pulse volume control
-    awful.key({ altkey }, "Up", 	function () os.execute("pulsemixer --change-volume +1")
+    -- pulse/pipewire volume control
+    awful.key({ altkey }, "Up", 	function () os.execute("pamixer -i 1")
 												awesome.emit_signal("vol")
 									end,
             {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey }, "Down", 	function () os.execute("pulsemixer --change-volume -1")
+    awful.key({ altkey }, "Down", 	function () os.execute("pamixer -d 1")
 												awesome.emit_signal("vol")
 									end,
             {description = "volume down", group = "hotkeys"}),
-    awful.key({ altkey }, "m", 		function () os.execute("pulsemixer --toggle-mute")
+    awful.key({ altkey }, "m", 		function () os.execute("pamixer -t")
 												awesome.emit_signal("vol")
 									end,
             {description = "toggle mute", group = "hotkeys"}),
 
     --top row
-    awful.key({}, "XF86AudioRaiseVolume", 	function () os.execute("pulsemixer --change-volume +1")
+    awful.key({}, "XF86AudioRaiseVolume", 	function () os.execute("pamixer -i 1")
 														awesome.emit_signal("vol")
 											end,
             {description = "volume up", group = "hotkeys"}),
-    awful.key({}, "XF86AudioLowerVolume", 	function () os.execute("pulsemixer --change-volume -1")
+    awful.key({}, "XF86AudioLowerVolume", 	function () os.execute("pamixer -d 1")
 														awesome.emit_signal("vol")
 											end,
             {description = "volume down", group = "hotkeys"}),
-    awful.key({}, "XF86AudioMute", 			function () os.execute("pulsemixer --toggle-mute")
+    awful.key({}, "XF86AudioMute", 			function () os.execute("pamixer -t")
 														awesome.emit_signal("vol")
 											end,
             {description = "toggle mute", group = "hotkeys"}),

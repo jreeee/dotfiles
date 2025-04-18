@@ -1,4 +1,4 @@
 #!/bin/bash
 
-feh --no-fehbg --bg-fill /home/jre/git/dotfiles/misc/themes/wallpapers/wall1.png
+feh --no-fehbg --bg-fill "$HOME/.config/awesome/themes/modern-slant/wall.png"
 

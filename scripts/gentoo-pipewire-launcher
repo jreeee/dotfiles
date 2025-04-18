@@ -25,3 +25,4 @@ pkill -u "${USER}" -x pipewire-media-session 1>/dev/null 2>&1
 
 # Finally a session manager is required for PipeWire to do anything.
 exec /usr/bin/wireplumber &
+exec pipewire-pulse &

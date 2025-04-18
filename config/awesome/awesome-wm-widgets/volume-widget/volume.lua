@@ -16,21 +16,21 @@ local watch = require("awful.widget.watch")
 local utils = require("awesome-wm-widgets.volume-widget.utils")
 
 
-local LIST_DEVICES_CMD = [[sh -c "pacmd list-sinks; pacmd list-sources"]]
+local LIST_DEVICES_CMD = [[sh -c "pactl list sinks; pacmd list sources"]]
 local GET_VOLUME_CMD = 'amixer -D pulse sget Master'
 local INC_VOLUME_CMD = 'amixer -D pulse sset Master 1%+'
 local DEC_VOLUME_CMD = 'amixer -D pulse sset Master 1%-'
 local TOG_VOLUME_CMD = 'amixer -D pulse sset Master toggle'
 
-local TOGGLE_SCRIPT = os.getenv("HOME") .. "/dotfiles/scripts/aw-toggle-mixer.sh "
+local TOGGLE_SCRIPT = os.getenv("HOME") .. "/git/dotfiles/scripts/aw-toggle-mixer.sh "
 
 
 local widget_types = {
-    icon_and_text = require("awesome-wm-widgets.volume-widget.widgets.icon-and-text-widget"),
-    icon = require("awesome-wm-widgets.volume-widget.widgets.icon-widget"),
+    --icon_and_text = require("awesome-wm-widgets.volume-widget.widgets.icon-and-text-widget"),
+    --icon = require("awesome-wm-widgets.volume-widget.widgets.icon-widget"),
     arc = require("awesome-wm-widgets.volume-widget.widgets.arc-widget"),
-    horizontal_bar = require("awesome-wm-widgets.volume-widget.widgets.horizontal-bar-widget"),
-    vertical_bar = require("awesome-wm-widgets.volume-widget.widgets.vertical-bar-widget")
+    --horizontal_bar = require("awesome-wm-widgets.volume-widget.widgets.horizontal-bar-widget"),
+    --vertical_bar = require("awesome-wm-widgets.volume-widget.widgets.vertical-bar-widget")
 }
 local volume = {}
 
@@ -72,7 +72,7 @@ local function build_rows(devices, on_checkbox_click, device_type)
         }
 
         checkbox:connect_signal("button::press", function()
-            spawn.easy_async(string.format([[sh -c 'pacmd set-default-%s "%s"']], device_type, device.name), function()
+            spawn.easy_async(string.format([[sh -c 'pactl set-default-%s "%s"']], device_type, device.name), function()
                 on_checkbox_click()
             end)
         end)
@@ -121,7 +121,7 @@ local function build_rows(devices, on_checkbox_click, device_type)
         end)
 
         row:connect_signal("button::press", function()
-            spawn.easy_async(string.format([[sh -c 'pacmd set-default-%s "%s"']], device_type, device.name), function()
+            spawn.easy_async(string.format([[sh -c 'pactl set-default-%s "%s"']], device_type, device.name), function()
                 on_checkbox_click()
             end)
         end)
@@ -165,7 +165,7 @@ local function worker(user_args)
 
     local args = user_args or {}
 
-    local mixer_cmd = args.mixer_cmd or 'pavucontrol'
+    local mixer_cmd = args.mixer_cmd or 'pwvucontrol'
     local widget_type = args.widget_type
     local refresh_rate = args.refresh_rate or 100
 	local toggle = args.toggle or true
