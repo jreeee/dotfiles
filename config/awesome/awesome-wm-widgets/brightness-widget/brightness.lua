@@ -21,6 +21,8 @@ local set_brightness_cmd
 local inc_brightness_cmd
 local dec_brightness_cmd
 
+local get_privacy_guard_state_cmd = [[grep -m 1 -o "[0-9]" /proc/acpi/ibm/lcdshadow]]
+
 local brightness_widget = {}
 
 local function show_warning(message)
@@ -37,7 +39,7 @@ local function worker(user_args)
     local type = args.type or 'arc' -- arc or icon_and_text
     local path_to_icon = args.path_to_icon or ICON_DIR .. 'brightness.svg'
     local font = args.font or 'Play 9'
-    local timeout = args.timeout or 100
+    local timeout = args.timeout or 30
 
 	local main_color = args.main_color or beautiful.fg_color
 	local bg_color = args.bg_color or beautiful.bg_color
@@ -47,6 +49,16 @@ local function worker(user_args)
     local base = args.base or 20
     local current_level = 0 -- current brightness value
     local tooltip = args.tooltip or false
+
+    local dot = wibox.widget {
+        font = font,
+        align = 'center',
+        valign = 'center',
+        widget = wibox.widget.textbox
+    }
+    
+    local dot_with_background = wibox.container.background(dot)
+
     if program == 'light' then
         get_brightness_cmd = 'light -G'
         set_brightness_cmd = 'light -S ' -- <level>
@@ -86,15 +98,7 @@ local function worker(user_args)
         }
     elseif type == 'arc' then
         brightness_widget.widget = wibox.widget {
-            {
-                {
-                    image = path_to_icon,
-                    resize = true,
-                    widget = wibox.widget.imagebox,
-                },
-                valigh = 'center',
-                layout = wibox.container.place
-            },
+            dot_with_background,
             max_value = 100,
             thickness = 2,
             start_angle = 4.71238898, -- 2pi*3/4
@@ -116,6 +120,15 @@ local function worker(user_args)
     local update_widget = function(widget, stdout, _, _, _)
         local brightness_level = tonumber(string.format("%.0f", stdout))
         current_level = brightness_level
+        -- 1: privacy guard enabled - dot
+        -- 0: disabled - no dot
+        spawn.easy_async(get_privacy_guard_state_cmd, function(res)
+            if res == '1\n' then
+                dot_with_background.bg = main_color
+            else
+                dot_with_background.bg = '#00000000'
+            end
+        end)
         widget:set_value(brightness_level)
     end
 

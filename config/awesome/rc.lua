@@ -60,7 +60,7 @@ end
 local blur_script=string.format("%s/.scripts/blur.sh", os.getenv("HOME"))
 local audio_script=string.format("%s/.scripts/gentoo-pipewire-launcher", os.getenv("HOME"))
 
-run_once({ "urxvtd", "unclutter -root", "picom", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script, audio_script, "pipewire-pulse") }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root", "picom", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script, audio_script) }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[

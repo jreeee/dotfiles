@@ -96,10 +96,19 @@ i use a relatively cheap HP laptop with a i5, 8gb of ram and a 15.4in screen run
 
 right now it's rather empty, and the folders are self explanatory
 
-- `plymouth/` includes a boot theme called `nerv10` which is based on **[this](https://aur.archlinux.org/packages/plymouth-theme-arch10/)** made by  **[Mauro A. Meloni](https://maurom.com/)** (i basically just slapped a downscaled logo on there).
+- `plymouth/` includes a boot theme called `nerv10` which is based on **[arch10](https://aur.archlinux.org/packages/plymouth-theme-arch10/)** made by  **[Mauro A. Meloni](https://maurom.com/)** (i basically just slapped a downscaled logo on there).
 
 - lain-solid / lain-solid-col: ascii-art i made of the copland os logo shown in the anime serial experiments lain. gets used by `neofetch` to display the os. the col-version contains color-tags which makes it looks nicer imho.
 
+<h2 align="center"> gtk stuff: </h2>
+
+i currently use lxappearance for setting gtk themes, it's not ideal since this is not a lx(dm)session but works well enough for me for now
+i use
+- **themes:** _sweet-dark_ with matisse_classic EB at 11px
+- **icons:** _candy-icons_
+- **cursors:** _sweet-cursors_
+
+i am thinking of patching the theme packages a bit to fit my terminal theme, but before that can happen, i want to fix my alacritty conf fist
 #
 
 <h3 align="center">TODO:</h3>  

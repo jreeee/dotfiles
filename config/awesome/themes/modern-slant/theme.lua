@@ -65,7 +65,7 @@ local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness") --TODO
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 
@@ -177,7 +177,8 @@ function theme.at_screen_connect(s)
                 program = 'xbacklight',
                 step = '1',
 				path_to_icon = '',
-                bg_color = theme.taskbar_bg
+                bg_color = theme.taskbar_bg,
+                main_color = theme.taskbar_fg
             }),
             ram_widget({
                 color_used = theme.taskbar_bg,
