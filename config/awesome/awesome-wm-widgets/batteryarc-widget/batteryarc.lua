@@ -93,7 +93,8 @@ local function worker(user_args)
         local charge = 0
         local status
         for s in stdout:gmatch("[^\r\n]+") do
-            local cur_status, charge_str, _ = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?(.*)')
+            print(s)
+            local cur_status, charge_str, _ = string.match(s, '.+: ([%a%s]+), (%d?%d?%d)%%,?(.*)')
             if cur_status ~= nil and charge_str ~= nil then
                 local cur_charge = tonumber(charge_str)
                 if cur_charge > charge then
@@ -130,7 +131,7 @@ local function worker(user_args)
             text.text = ''
         end
 
-        if charge < 20 then
+        if charge < 20 and charge > 0 then
             widget.colors = { low_level_color }
             if enable_battery_warning and status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
                 -- if 5 minutes have elapsed since the last warning - 300
