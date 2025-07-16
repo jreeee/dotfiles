@@ -22,6 +22,10 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
                       require("awful.hotkeys_popup.keys")
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
+
+naughty.config.defaults['icon_size'] = 128
+naughty.config.defaults['position'] = "bottom_right"
+
 -- }}}
 
 -- {{{ Error handling
@@ -59,7 +63,6 @@ end
 
 local blur_script=string.format("%s/.scripts/blur.sh", os.getenv("HOME"))
 local audio_script=string.format("%s/.scripts/gentoo-pipewire-launcher", os.getenv("HOME"))
-
 run_once({ "urxvtd", "unclutter -root", "picom", string.format("xss-lock -n %s -l -- xsecurelock ", blur_script, audio_script) }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
@@ -750,6 +753,8 @@ awful.rules.rules = {
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
+
+    { rule = { class = "Unity"}, properties = { maximized = true } },
 
 	{ rule = { class = "libreoffice" }, properties = { maximized = false } }, 
 }

@@ -1,4 +1,4 @@
-#_# If you come from bash you might have to change your $PATH.
+## If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 ZSH_DISABLE_COMPFIX=true
@@ -12,6 +12,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export PATH="$PATH:$HOME/.local/bin:~/.dotnet/tools"
 export DISABLE_QT5_COMPAT=1
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export XSECURELOCK_SAVER="$HOME/.scripts/saver_feh.sh"
 export XMODIFIERS=@im=ibus
 export GTK_IM_MODULE=ibus
@@ -89,7 +90,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-source emsdk_env.sh 2&>1
+#source emsdk_env.sh 2&>1
 
 mg() { mkdir -pv "$1" && cd "$1" }
 fontf() { fc-query -f '%{family[0]}\n' "$1" }
@@ -117,6 +118,8 @@ lazy() { for i in $@; do firefox "genshin.mihoyo.com/en/gift?code=$i" &>/dev/nul
 runtime() { [ $# -gt "0" ] && i="$1" || i=1;echo "$(find . -exec ffprobe -v quiet -of csv=p=0 -show_entries format=duration {} \; | paste -sd+ -| bc) / (60 * $i)" | bc -l }
 gettitle() { ffprobe "$1" 2>&1 | sed -E -n 's/^ *title *: (.*)/\1/p' }
 flac2mp3() { parallel ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: ./*.flac }
+serve() { [ $# -gt "0" ] && i="$1" || i=8888; echo "serving $(pwd) @ $(ip addr | grep -n wlan0$ | awk '{print $3}' | cut -d/ -f1):$i"; python -m http.server $i }
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

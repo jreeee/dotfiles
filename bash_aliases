@@ -4,6 +4,8 @@
 alias sudo="doas"
 alias sudoedit='doas rnano'
 alias cdcg="doas doas -C /etc/doas.conf && echo 'OK' || echo 'ERR'"
+alias poweroff="doas /sbin/poweroff"
+alias reboot="doas /sbin/reboot"
 
 # shortend 
 alias ba="nano ~/.bash_aliases"

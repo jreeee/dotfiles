@@ -63,6 +63,8 @@ local keyboardlayout = awful.widget.keyboardlayout:new()
 
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
+local mpris_widget = require("awesome-wm-widgets.mpris-widget")
+
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
@@ -171,7 +173,11 @@ function theme.at_screen_connect(s)
                 bg_color = theme.taskbar_bg,
                 mute_color = theme.border_marked
             }),
-			spr,
+            spr,
+            mpris_widget({
+                bg_color = theme.taskbar_bg,
+            }),
+            spr,
             brightness_widget({
                 type = 'arc',
                 program = 'xbacklight',
