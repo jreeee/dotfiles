@@ -25,6 +25,10 @@ local dpi           = require("beautiful.xresources").apply_dpi
 
 local mpris_widget = require("awesome-wm-widgets.mpris-widget")
 
+-- set max size of icons of the notification icons - here for a 4k monitor
+naughty.config.defaults['icon_size'] = 256
+naughty.config.defaults['position'] = "bottom_right"
+
 -- }}}
 
 -- {{{ Error handling
