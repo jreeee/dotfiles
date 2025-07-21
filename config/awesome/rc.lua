@@ -13,8 +13,8 @@ local gears         = require("gears")
 local awful         = require("awful")
                       require("awful.autofocus")
 local wibox         = require("wibox")
-local beautiful     = require("beautiful")
 local naughty       = require("naughty")
+local beautiful     = require("beautiful")
 local lain          = require("lain")
 --local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
@@ -27,6 +27,10 @@ local dpi           = require("beautiful.xresources").apply_dpi
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
+
+naughty.config.defaults['icon_size'] = 128
+naughty.config.defaults['position'] = "bottom_right"
+
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
@@ -57,7 +61,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom -CG --experimental-backends", "xss-lock -n /usr/lib/xsecurelock/dimmer -l xsecurelock " }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root", "start-pulseaudio-x11", "picom", "xss-lock -n /usr/lib/xsecurelock/dimmer -l xsecurelock " }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -262,6 +266,10 @@ globalkeys = my_table.join(
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
     awful.key({ altkey }, "p", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures") end,
               {description = "take a screenshot", group = "hotkeys"}),
+
+     -- Capture part of the screen
+ 	awful.key({ modkey, "Shift" }, "s", function() os.execute("scrot -s -e 'mv $f ~/Pictures/screenshots/area-%Y-%m-%d-%H-%M-%S.png' && scrot -e 'xclip -selection clipboard -t image/png -i $f && rm $f'") end,
+               {description = "take area screenshot", group = "hotkeys"}),
 
 	awful.key({}, "Print", function() os.execute("scrot 'screenshot-%Y-%m-%d-%H-%M-%S.png' && mv screenshot* ~/Pictures") end,
               {description = "take a screenshot", group = "hotkeys"}),
@@ -706,13 +714,13 @@ awful.rules.rules = {
 
     -- Set Firefox to always map on the first tag on screen 3.
     { rule = { class = "firefox" },
-      properties = { screen = 1, tag = awful.util.tagnames[3], maximized = false } },
+      properties = { maximized = false } },
 
     { rule = { class = "discord" },
-    properties = { screen = 1, tag = awful.util.tagnames[2] } },
+    properties = { screen = 3, tag = awful.util.tagnames[1] } },
 
     { rule = { class = "Mail" },
-      properties = { screen = 1, tag = awful.util.tagnames[5], maximized = false } },
+      properties = { screen = 3, tag = awful.util.tagnames[2], maximized = false } },
 
     { rule = { class = "Code" },
       properties = { screen = 1, tag = awful.util.tagnames[4], maximized = false } },

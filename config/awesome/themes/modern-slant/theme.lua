@@ -74,6 +74,8 @@ local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed"
 
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 
+local mpris_widget = require("awesome-wm-widgets.mpris-widget")
+
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
 local clock = awful.widget.watch(
@@ -102,7 +104,7 @@ clock:connect_signal("button::press",
 -- Separators
 local spr = wibox.widget.textbox(' ')
 local spr2 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", " "))
-local spr1 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", " "))
+local spr1 = wibox.widget.textbox(markup.font("Fira Code Nerd Font 12", ""))
 
 function theme.at_screen_connect(s)
     -- Quake application
@@ -171,6 +173,11 @@ function theme.at_screen_connect(s)
                 mute_color = theme.border_marked
             }),
 			spr,
+            spr,
+            spr,
+            mpris_widget({
+                bg_color = theme.taskbar_fg,
+            }),
             --[[brightness_widget({
                 type = 'arc',
                 program = 'xbacklight',
