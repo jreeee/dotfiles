@@ -1,11 +1,9 @@
 # couple 'o aliases
 
-# root stuff (yeah, the first two aren't ideal, ik...)
-alias sudo="doas"
-alias sudoedit='doas rnano'
+# root stuff
 alias cdcg="doas doas -C /etc/doas.conf && echo 'OK' || echo 'ERR'"
-alias poweroff="doas /sbin/poweroff"
-alias reboot="doas /sbin/reboot"
+#alias poweroff="doas /sbin/poweroff"
+#alias reboot="doas /sbin/reboot"
 
 # shortend 
 alias ba="nano ~/.bash_aliases"
@@ -17,6 +15,7 @@ alias remove="sudo pacman -Rsnc"
 alias untar="tar -zxvf"
 alias lm="ls -t -1"
 alias lt="ls --human-readable --size -1 -S --classify"
+alias dusch="du -sch * | sort -h"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -v"
@@ -62,6 +61,7 @@ alias lock-blur="$SCD/blur.sh"
 alias khi="~/git/khinsider/khinsider.py"
 alias skuk="python $SCD/dbussin.py"
 alias renpy="$HOME/Renpy/renpy-8.3.7-sdk/renpy.sh"
+alias discord="discord >/dev/null 2>&1" #shut discord up to not fill up my logs with garbage
 
 # bluetooth
 bl_in_ear="21:D5:F0:D5:6E:3A"

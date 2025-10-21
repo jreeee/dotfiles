@@ -119,6 +119,7 @@ runtime() { [ $# -gt "0" ] && i="$1" || i=1;echo "$(find . -exec ffprobe -v quie
 gettitle() { ffprobe "$1" 2>&1 | sed -E -n 's/^ *title *: (.*)/\1/p' }
 flac2mp3() { parallel ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: ./*.flac }
 serve() { [ $# -gt "0" ] && i="$1" || i=8888; echo "serving $(pwd) @ $(ip addr | grep -n wlan0$ | awk '{print $3}' | cut -d/ -f1):$i"; python -m http.server $i }
+conhome() { [[ $(echo $(wg show)) == "" ]] && doas wg-quick up wg0 || doas wg-quick down wg0 }
 
 # User configuration
 

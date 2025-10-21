@@ -24,7 +24,7 @@ local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 
 naughty.config.defaults['icon_size'] = 128
-naughty.config.defaults['position'] = "bottom_right"
+naughty.config.defaults.position = "bottom_right"
 
 -- }}}
 
@@ -754,9 +754,7 @@ awful.rules.rules = {
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
 
-    { rule = { class = "Unity"}, properties = { maximized = true } },
-
-	{ rule = { class = "libreoffice" }, properties = { maximized = false } }, 
+    { rule = { class = "libreoffice" }, properties = { maximized = false } }, 
 }
 -- }}}
 
@@ -834,14 +832,14 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
-client.connect_signal("focus", function(t)
-    local clients = awful.client.visible(s)
-    for _, client in pairs(clients) do
-        if awful.rules.match(client, {class = "Unity"}) then
-            client.border_width = client.border_width + 1
-            gears.timer.start_new(1/60, function()
-                client.border_width = client.border_width - 1
-            end)
-        end
-    end
-end)
+--client.connect_signal("focus", function(t)
+--    local clients = awful.client.visible(s)
+--    for _, client in pairs(clients) do
+--       if awful.rules.match(client, {class = "Unity"}) then
+--            client.border_width = client.border_width + 1
+--            gears.timer.start_new(1/60, function()
+--                client.border_width = client.border_width - 1
+--            end)
+--        end
+--    end
+--end)

@@ -9,6 +9,7 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
+local naughty = require('naughty')
 
 local playerctl = {
     player_name = nil,
@@ -35,6 +36,7 @@ local watch_fields = {
     [7] = 'album',
     [8] = 'xesam:contentCreated',
 }
+
 
 local watch_cmd = string.format("-f '{{%s}}' metadata", table.concat(watch_fields, '}};{{'))
 --print(watch_cmd)
@@ -74,6 +76,12 @@ function playerctl:watch(timeout, callback, widget)
     local _, timer = awful.widget.watch(cmd, timeout, cb, widget)
     self.timer = timer
 end
+
+-- naughty.connect_signal("request::display", function(n)
+--   if(n.title == "Webscrobbler") --needs regex or more
+--     -- split n.message into the fields
+-- end)
+
 
 function playerctl:toggle() awful.spawn(self:cmd('play-pause'), false) end
 

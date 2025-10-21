@@ -2,7 +2,7 @@
 
 declare -r HOSTS='/etc/hosts'
 declare -r SOURCE='https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'
-declare -r FILE_DIR=$HOME'/dotfiles/.stuff'
+declare -r FILE_DIR=$HOME'/git/dotfiles/.stuff'
 declare -r NEW_FILE=$FILE_DIR'/new_hosts'
 declare -r OLD_FILE=$FILE_DIR'/hosts_src'
 declare -r BACKUP=$FILE_DIR'/hosts.bak'
