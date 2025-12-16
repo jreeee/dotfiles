@@ -717,10 +717,10 @@ awful.rules.rules = {
       properties = { maximized = false } },
 
     { rule = { class = "discord" },
-    properties = { screen = 3, tag = awful.util.tagnames[1] } },
+    properties = { screen = 2, tag = awful.util.tagnames[1] } },
 
     { rule = { class = "Mail" },
-      properties = { screen = 3, tag = awful.util.tagnames[2], maximized = false } },
+      properties = { screen = 2, tag = awful.util.tagnames[2], maximized = false } },
 
     { rule = { class = "Code" },
       properties = { screen = 1, tag = awful.util.tagnames[4], maximized = false } },
