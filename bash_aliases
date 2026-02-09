@@ -28,6 +28,7 @@ alias reboot="sudo /usr/bin/reboot"
 alias lck="sleep 1 && xtrlock"
 alias vcam="sudo modprobe v4l2loopback video_nr=2 card_label=vcam"
 alias 2mp3="yt-dlp -x --audio-format mp3 --prefer-ffmpeg -o '~/Music/%(title)s.%(ext)s'"
+alias pl2mp3="yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata -o '%(playlist_title)s/%(playlist_index)03d - %(title)s.%(ext)s'"
 alias pdf2jpg="pdftoppm -jpeg -r 300"
 alias search="find . -type d -name"
 alias gitlg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -53,6 +54,7 @@ alias genics="~/git/work-eTeach/tools/ics_gen.py"
 alias gla="~/.scripts/gla.sh"
 alias chfont="~/.scripts/chfont.sh"
 alias osu="osu-lazer && cd ~/git/osuscrob/ && poetry run osuscrob"
+alias nuxmv="/home/jre/Downloads/nuXmv-2.1.0-linux64/bin/nuXmv"
 
 # well...
 alias nwbg="anbg 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'" #see if you have internet
