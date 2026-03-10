@@ -724,7 +724,7 @@ awful.rules.rules = {
     { rule = { class = "discord" },
     properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
-    { rule = { class = "thunderbird" },
+    { rule = { class = "Thunderbird" },
       properties = { screen = 1, tag = awful.util.tagnames[6], maximized = false } },
 
     { rule = { class = "Code" },
