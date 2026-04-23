@@ -1,10 +1,16 @@
-/*
+/* 
+ * Nerv10 Plymouth script
+ * largely the same as Arch10, but
+ * - changes the Windows icon for the NERV logo 
+ * - has a custom backdrop when locked 
+ *
+ * Based on
  * Arch10 Plymouth script
  * Windows10-like Archlinux boot splash theme for Plymouth
  *
  * Copyright (c) 2018, Mauro A. Meloni <maumeloni@gmail.com>
  * https://maurom.com/
-  * 
+ * 
  * based on
  *     - Pure CSS Windows10 Loader by Fernando de Almeida Faria  
  *       https://codepen.io/feebaa/pen/PPrLQP
@@ -47,6 +53,8 @@ FADE_OUT_DOTS = 1;
 fps = 13;
 anim_duration = 16087;   // miliseconds
 anim_frames = anim_duration / 1000 * fps;   // duration in seconds * frames per second
+
+curr_state = 1; // 0 = pwd, 1 = logo, 2 = shutdown 
 
 // precomputed values
 percent_00 = 0;
@@ -93,7 +101,7 @@ for (i = 0; i < DOTS; i++){
     dot[i].sprite.SetZ(0);
 }
 
-// debian logo
+// nerv logo
 logo.image = Image("logo.png");
 logo.sprite = Sprite(logo.image);
 logo.sprite.SetX(Window.GetWidth()  / 2 - logo.image.GetWidth()  / 2);
@@ -155,6 +163,10 @@ for (f = 0; f < anim_frames; f++) {
 
 
 fun refresh () {
+    // not logo (pwd / shutoff)
+    if (curr_state != 1){
+        return 0;
+    }
     inc = progress;
 
     // logo fade-in
@@ -203,34 +215,36 @@ fun dialog_setup()
     local.box;
     local.lock;
     local.entry;
-    
-    box.image = Image("box.png");
-    lock.image = Image("lock.png");
-    entry.image = Image("entry.png");
-    
+
+    box.image = Image("lock-bg.png");
+    lock.image = Image("lock-new.png");
+    entry.image = Image("entry-new-small.png");
+
     box.sprite = Sprite(box.image);
     box.x = Window.GetWidth()  / 2 - box.image.GetWidth ()/2;
     box.y = Window.GetHeight() / 2 - box.image.GetHeight()/2;
     box.z = 10000;
     box.sprite.SetPosition(box.x, box.y, box.z);
-    
+
     lock.sprite = Sprite(lock.image);
-    lock.x = box.x + box.image.GetWidth()/2 - (lock.image.GetWidth() + entry.image.GetWidth()) / 2;
-    lock.y = box.y + box.image.GetHeight()/2 - lock.image.GetHeight()/2;
+    lock.x = box.x + box.image.GetWidth()/2 - (lock.image.GetWidth() * 1.5 + entry.image.GetWidth()) / 2;
+    lock.y = box.y + 15 * (box.image.GetHeight()/22) - lock.image.GetHeight()/2;
     lock.z = box.z + 1;
     lock.sprite.SetPosition(lock.x, lock.y, lock.z);
-    
+
     entry.sprite = Sprite(entry.image);
-    entry.x = lock.x + lock.image.GetWidth();
-    entry.y = box.y + box.image.GetHeight()/2 - entry.image.GetHeight()/2;
+    entry.x = lock.x + lock.image.GetWidth() * 1.5;
+    entry.y = box.y + 15 * (box.image.GetHeight()/22) - entry.image.GetHeight()/2;
     entry.z = box.z + 1;
     entry.sprite.SetPosition(entry.x, entry.y, entry.z);
-    
+
     global.dialog.box = box;
     global.dialog.lock = lock;
     global.dialog.entry = entry;
-    global.dialog.bullet_image = Image("bullet.png");
+    global.dialog.bullet_image = Image("bullet-new.png");
     dialog_opacity (1);
+    // hides the text background and is disabled if nothing is entered yet
+    dialog.entry.sprite.SetOpacity(0);
   }
     
 fun dialog_opacity(opacity)
@@ -253,6 +267,7 @@ fun display_normal_callback ()
 
 fun display_password_callback (prompt, bullets)
   {
+    curr_state = 0;
     global.status = "password";
     if (!global.dialog)
 	dialog_setup();
@@ -308,6 +323,9 @@ if (SHOW_PROGRESS) {
     Plymouth.SetBootProgressFunction(progress_callback);
 }
 
+// ----------------------------------------- Shutdown --------------------------------
+
+
 // ----------------------------------------- Quit --------------------------------
 
 fun quit_callback () {
@@ -322,6 +340,10 @@ message_sprite = Sprite();
 message_sprite.SetPosition(10, 10, 10000);
 
 fun message_callback (text) {
+    if (String.Contains(text, "shutting down"))
+    {
+        curr_state = 2;
+    }
     my_image = Image.Text(text, 1, 1, 1);
     message_sprite.SetImage(my_image);
 }

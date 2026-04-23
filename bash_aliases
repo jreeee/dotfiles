@@ -7,6 +7,7 @@ alias sudoedit='doas rnano'
 alias cdcg="doas doas -C /etc/doas.conf && echo 'OK' || echo 'ERR'"
 
 # shortend 
+alias nuxmv="~/Downloads/nuXmv-2.1.0-linux64/bin/nuXmv"
 alias ba="nano ~/.bash_aliases"
 alias za="nano ~/.zshrc"
 alias rf="rm -rf"
