@@ -54,7 +54,8 @@ fps = 13;
 anim_duration = 16087;   // miliseconds
 anim_frames = anim_duration / 1000 * fps;   // duration in seconds * frames per second
 
-curr_state = 1; // 0 = pwd, 1 = logo, 2 = shutdown 
+curr_state = 1; // 0 = pwd, 1 = logo, 2 = shutdown
+mode = Plymouth.GetMode();
 
 // precomputed values
 percent_00 = 0;
@@ -108,6 +109,16 @@ logo.sprite.SetX(Window.GetWidth()  / 2 - logo.image.GetWidth()  / 2);
 logo.sprite.SetY(Window.GetHeight() / 3 - logo.image.GetHeight() / 3);
 logo.sprite.SetOpacity(0.0);
 logo.sprite.SetZ(10);
+
+// shutdown titlecard
+poweroff.image = Image("poweroff.png");
+poweroff.sprite = Sprite(poweroff.image);
+pwo_scale_fac = 1.0;(Window.GetHeight() / poweroff.image.GetHeight()); // broken atm
+poweroff.sprite.SetScale(pwo_scale_fac, pwo_scale_fac);
+poweroff.sprite.SetX(Window.GetWidth()  / 2 - (poweroff.image.GetWidth() * pwo_scale_fac)  / 2);
+poweroff.sprite.SetY(Window.GetHeight() / 2 - (poweroff.image.GetHeight() * pwo_scale_fac) / 2);
+poweroff.sprite.SetOpacity(0.0);
+poweroff.sprite.SetZ(20000);
 
 dot_gap = Math.Int(fps - 1);
 progress = 0.0;
@@ -164,8 +175,16 @@ for (f = 0; f < anim_frames; f++) {
 
 fun refresh () {
     // not logo (pwd / shutoff)
-    if (curr_state != 1){
+    if (curr_state != 1) {
         return 0;
+    }
+    // set poweroff sprite visible
+    if (curr_state == 1) {
+        if (mode == "shutdown") {
+            poweroff.sprite.SetOpacity(1.0);
+            curr_state = 2;
+            return 0;
+        }
     }
     inc = progress;
 
@@ -207,8 +226,6 @@ Plymouth.SetRefreshFunction(refresh);
 
 
 // ----------------------------------------- Dialogue --------------------------------
-
-status = "normal";
 
 fun dialog_setup()
   {
@@ -260,15 +277,14 @@ fun dialog_opacity(opacity)
 
 fun display_normal_callback ()
   {
-    global.status = "normal";
     if (global.dialog)
       dialog_opacity (0);
+      curr_state = 1;
   }
 
 fun display_password_callback (prompt, bullets)
   {
     curr_state = 0;
-    global.status = "password";
     if (!global.dialog)
 	dialog_setup();
     else
@@ -329,7 +345,7 @@ if (SHOW_PROGRESS) {
 // ----------------------------------------- Quit --------------------------------
 
 fun quit_callback () {
-    logo.sprite.SetOpacity (1);
+    logo.sprite.SetOpacity (0);
 }
 
 Plymouth.SetQuitFunction(quit_callback);
@@ -340,10 +356,6 @@ message_sprite = Sprite();
 message_sprite.SetPosition(10, 10, 10000);
 
 fun message_callback (text) {
-    if (String.Contains(text, "shutting down"))
-    {
-        curr_state = 2;
-    }
     my_image = Image.Text(text, 1, 1, 1);
     message_sprite.SetImage(my_image);
 }
