@@ -234,7 +234,7 @@ fun dialog_setup()
     local.entry;
 
     // the sprite is made for 4k screens and 1360px high
-    lck_scale_fac = (Window.GetHeight() / (def_pwo_img.GetHeight() + 800))/2;
+    lck_scale_fac = (Window.GetHeight() / (def_pwo_img.GetHeight() + 800));
 
     def_box_img = Image("box.png");
     def_lck_img = Image("lock.png");
