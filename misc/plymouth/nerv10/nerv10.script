@@ -110,13 +110,13 @@ logo.sprite.SetY(Window.GetHeight() / 3 - logo.image.GetHeight() / 3);
 logo.sprite.SetOpacity(0.0);
 logo.sprite.SetZ(10);
 
-// shutdown titlecard
-poweroff.image = Image("poweroff.png");
+// shutdown titlecard, scaled to the screen size
+def_pwo_img = Image("poweroff.png");
+pwo_scale_fac = 0.9 * (Window.GetHeight() / def_pwo_img.GetHeight());
+poweroff.image = def_pwo_img.Scale(pwo_scale_fac * def_pwo_img.GetWidth(), pwo_scale_fac * def_pwo_img.GetHeight());
 poweroff.sprite = Sprite(poweroff.image);
-pwo_scale_fac = 1.0;(Window.GetHeight() / poweroff.image.GetHeight()); // broken atm
-poweroff.sprite.SetScale(pwo_scale_fac, pwo_scale_fac);
-poweroff.sprite.SetX(Window.GetWidth()  / 2 - (poweroff.image.GetWidth() * pwo_scale_fac)  / 2);
-poweroff.sprite.SetY(Window.GetHeight() / 2 - (poweroff.image.GetHeight() * pwo_scale_fac) / 2);
+poweroff.sprite.SetX(Window.GetWidth()  / 2 - (poweroff.image.GetWidth())  / 2);
+poweroff.sprite.SetY(Window.GetHeight() / 2 - (poweroff.image.GetHeight()) / 2);
 poweroff.sprite.SetOpacity(0.0);
 poweroff.sprite.SetZ(20000);
 
@@ -233,9 +233,17 @@ fun dialog_setup()
     local.lock;
     local.entry;
 
-    box.image = Image("lock-bg.png");
-    lock.image = Image("lock-new.png");
-    entry.image = Image("entry-new-small.png");
+    // the sprite is made for 4k screens and 1360px high
+    lck_scale_fac = (Window.GetHeight() / (def_pwo_img.GetHeight() + 800))/2;
+
+    def_box_img = Image("box.png");
+    def_lck_img = Image("lock.png");
+    def_etr_img = Image("entry.png");
+    def_bul_img = Image("bullet.png");
+
+    box.image = def_box_img.Scale(lck_scale_fac * def_box_img.GetWidth(), lck_scale_fac * def_box_img.GetHeight());
+    lock.image = def_lck_img.Scale(lck_scale_fac * def_lck_img.GetWidth(), lck_scale_fac * def_lck_img.GetHeight());
+    entry.image = def_etr_img.Scale(lck_scale_fac * def_etr_img.GetWidth(), lck_scale_fac * def_etr_img.GetHeight());
 
     box.sprite = Sprite(box.image);
     box.x = Window.GetWidth()  / 2 - box.image.GetWidth ()/2;
@@ -258,7 +266,7 @@ fun dialog_setup()
     global.dialog.box = box;
     global.dialog.lock = lock;
     global.dialog.entry = entry;
-    global.dialog.bullet_image = Image("bullet-new.png");
+    global.dialog.bullet_image = def_bul_img.Scale(lck_scale_fac * def_bul_img.GetWidth(), lck_scale_fac * def_bul_img.GetHeight());
     dialog_opacity (1);
     // hides the text background and is disabled if nothing is entered yet
     dialog.entry.sprite.SetOpacity(0);
